@@ -3,7 +3,13 @@ import React, { createContext, useContext, useState } from 'react';
 
 const FormationContext = createContext();
 
-export const useFormation = () => useContext(FormationContext);
+export const useFormation = () => {
+  const context = useContext(FormationContext);
+  if (!context) {
+    throw new Error('useFormation must be used within a FormationProvider');
+  }
+  return context;
+};
 
 export const FormationProvider = ({ children }) => {
   const [formation, setFormation] = useState({
@@ -22,6 +28,7 @@ export const FormationProvider = ({ children }) => {
   });
 
   const updateFormation = (position, player) => {
+    console.log('Updating Formation:', position, player);
     setFormation((prev) => ({ ...prev, [position]: player }));
   };
 

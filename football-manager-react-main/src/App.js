@@ -1,13 +1,13 @@
 // App.js
-import { Box, Container, Tab, Tabs } from "@mui/material";
+import { Box, Container, Tab, Tabs, Button } from "@mui/material";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Filters from "./components/Filters";
 import Formation from "./components/Formation";
 import PlayerCard from "./components/PlayerCard";
-import PlayerSearchOverlay from "./components/PlayerSearchOverlay";
 import PlayerTable from "./components/PlayerTable";
-import { FormationProvider, useFormation } from "./contexts/FormationContext";
+import PlayerSearchOverlay from "./components/PlayerSearchOverlay";
+import CurrentTeam from "./components/CurrentTeam";
+import { useFormation } from "./contexts/FormationContext";
 
 const queryClient = new QueryClient();
 
@@ -16,42 +16,65 @@ const App = () => {
   const [filterData, setFilterData] = useState({});
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [availablePositions, setAvailablePositions] = useState([]);
-  const [isSearchOpen, setSearchOpen] = useState(false);
-  const [overlayFilters, setOverlayFilters] = useState({});
-  const { updateFormation } = useFormation();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { formation, updateFormation } = useFormation();
 
-  const handlePlayerSelect = (player, positionsInFormation) => {
+  const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
+
+    const playerPositions = player.positions
+      .split(",")
+      .map((pos) => pos.trim());
+
+    let positionsInFormation = [];
+
+    playerPositions.forEach((pos) => {
+      switch (pos) {
+        case "CB":
+          if (!formation.LCB) positionsInFormation.push("LCB");
+          if (!formation.RCB) positionsInFormation.push("RCB");
+          break;
+        case "CM":
+          if (!formation.LCM) positionsInFormation.push("LCM");
+          if (!formation.RCM) positionsInFormation.push("RCM");
+          if (!formation.CM) positionsInFormation.push("CM");
+          break;
+        case "LB":
+        case "RB":
+        case "GK":
+        case "LW":
+        case "RW":
+        case "ST":
+          if (!formation[pos]) positionsInFormation.push(pos);
+          break;
+        default:
+          break;
+      }
+    });
+
     setAvailablePositions(positionsInFormation);
   };
 
   const handlePositionSelect = (position) => {
-    // Logic to update the formation with the selected player
     updateFormation(position, selectedPlayer);
     setSelectedPlayer(null); // Clear selected player after assignment
-    setAvailablePositions([]); // Clear available positions
+    setAvailablePositions([]);
   };
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
 
-  const handleFilterChange = (filters) => {
-    setFilterData(filters);
-  };
-
   const openSearchOverlay = () => {
-    setOverlayFilters(filterData); // Pass the current filterData to the overlay
-    setSearchOpen(true);
+    setIsSearchOpen(true);
   };
 
   const closeSearchOverlay = () => {
-    setSearchOpen(false);
+    setIsSearchOpen(false);
   };
 
   return (
     <QueryClientProvider client={queryClient}>
-      <FormationProvider>
         <Container maxWidth={false} disableGutters>
           <Box
             sx={{
@@ -88,52 +111,73 @@ const App = () => {
 
             {/* Main Content Area */}
             <Box sx={{ display: "flex", flex: 1 }}>
-              {/* Filters on the Left */}
-              <Box
-                sx={{
-                  width: "300px",
-                  backgroundColor: "#1e1e1e",
-                  padding: "20px",
-                  borderRight: "1px solid #333",
-                }}
-              >
-                <Filters
-                  onFilterChange={handleFilterChange}
-                  onSearch={openSearchOverlay}
-                />
-              </Box>
+              {activeTab === 0 && (
+                <>
+                  {/* Left Side: Button to Open Search Overlay */}
+                  <Box
+                    sx={{
+                      width: "300px",
+                      backgroundColor: "#1e1e1e",
+                      padding: "20px",
+                      borderRight: "1px solid #333",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={openSearchOverlay}
+                      fullWidth
+                    >
+                      Search Players
+                    </Button>
+                    {/* Display selected player card */}
+                    {selectedPlayer && (
+                      <Box sx={{ marginTop: "20px" }}>
+                        <PlayerCard player={selectedPlayer} />
+                      </Box>
+                    )}
+                  </Box>
 
-              {/* Tab Content */}
-              <Box
-                role="tabpanel"
-                hidden={activeTab !== 0}
-                sx={{ flex: 1, padding: "20px", display: "flex", gap: "20px" }} // ADD "display: flex, gap: 20px"
-              >
-                {selectedPlayer && <PlayerCard player={selectedPlayer} />}
-                <Formation
-                  selectedPlayer={selectedPlayer}
-                  availablePositions={availablePositions}
-                  onPositionSelect={handlePositionSelect}
-                />
-              </Box>
+                  {/* Pitch and Current Team */}
+                  <Box
+                    sx={{
+                      flex: 1,
+                      padding: "20px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                    }}
+                  >
+                    <Formation
+                      selectedPlayer={selectedPlayer}
+                      availablePositions={availablePositions}
+                      onPositionSelect={handlePositionSelect}
+                    />
+                    {/* Current Team Section */}
+                    <CurrentTeam />
+                  </Box>
+                </>
+              )}
 
-              <Box role="tabpanel" hidden={activeTab !== 1} sx={{ flex: 1 }}>
-                <Box sx={{ padding: "20px" }}>
-                  <PlayerTable filters={filterData} />
+              {activeTab === 1 && (
+                <Box sx={{ flex: 1 }}>
+                  <Box sx={{ padding: "20px" }}>
+                    <PlayerTable filters={filterData} />
+                  </Box>
                 </Box>
-              </Box>
+              )}
             </Box>
 
             {/* Player Search Overlay */}
             <PlayerSearchOverlay
               open={isSearchOpen}
               handleClose={closeSearchOverlay}
-              filters={overlayFilters}
-              onFilterChange={setOverlayFilters}
+              filters={filterData}
+              onFilterChange={setFilterData}
+              onPlayerSelect={handlePlayerSelect}
             />
           </Box>
         </Container>
-      </FormationProvider>
     </QueryClientProvider>
   );
 };

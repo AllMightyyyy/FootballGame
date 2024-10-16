@@ -1,15 +1,9 @@
+// Formation.js
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useFormation } from "../contexts/FormationContext";
 import PitchImage from "../pitch.png";
 import PlayerCard from "./PlayerCard";
-import PlayerSearchOverlay from "./PlayerSearchOverlay";
-
-/*
-  xPercent = (xPosition / imageWidth) * 100
-  yPercent = (yPosition / imageHeight) * 100
-
-*/
 
 const positions = {
   GK: { x: (22 / 626) * 100, y: (205 / 417) * 100 }, // x: 3.51%, y: 49.16%
@@ -25,29 +19,17 @@ const positions = {
   RW: { x: (496 / 626) * 100, y: ((714 * 0.49) / 417) * 100 }, // x: 87.2%, y: 66.8%
 };
 
-const Formation = ({
-  selectedPlayer,
-  availablePositions,
-  onPositionSelect,
-}) => {
-  const { formation } = useFormation();
-  const [selectedPosition, setSelectedPosition] = useState(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+const Formation = ({ selectedPlayer, availablePositions, onPositionSelect }) => {
+  const { formation, removePlayer } = useFormation();
 
   const handlePositionClick = (position) => {
-    if (availablePositions.includes(position)) {
+    if (selectedPlayer && availablePositions.includes(position)) {
       onPositionSelect(position);
+    } else if (formation[position]) {
+      removePlayer(position);
     }
   };
-
-  const closeSearchOverlay = () => {
-    setIsSearchOpen(false);
-    setSelectedPosition(null);
-  };
-
-  const logPositions = () => {
-    console.log("Current Positions:", positions);
-  };
+  
 
   return (
     <>
@@ -64,68 +46,55 @@ const Formation = ({
           margin: "0 auto",
         }}
       >
-        {Object.keys(positions).map((position) => (
-          <Box
-            key={position}
-            sx={{
-              position: "absolute",
-              left: `${positions[position].x}%`,
-              top: `${positions[position].y}%`,
-              transform: "translate(-50%, -50%)",
-              cursor: "pointer",
-              backgroundColor: availablePositions.includes(position)
-                ? "rgba(0, 255, 0, 0.4)"
-                : "transparent",
-              borderRadius: "50%",
-            }}
-            onClick={() => handlePositionClick(position)}
-          >
-            {formation[position] ? (
-              <PlayerCard player={formation[position]} size="small" />
-            ) : (
-              <Box
-                sx={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
-                  backgroundColor: "rgba(255, 255, 255, 0.8)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "#000",
-                  fontWeight: "bold",
-                }}
-              >
-                {position}
-              </Box>
-            )}
-          </Box>
-        ))}
+        {Object.keys(positions).map((position) => {
+          const isAvailable =
+            selectedPlayer && availablePositions.includes(position);
+          const playerInPosition = formation[position];
+
+          // Hide positions that the selected player cannot occupy
+          if (selectedPlayer && !availablePositions.includes(position) && !playerInPosition) {
+            return null; // Do not render this position
+          }
+
+          return (
+            <Box
+              key={position}
+              sx={{
+                position: "absolute",
+                left: `${positions[position].x}%`,
+                top: `${positions[position].y}%`,
+                transform: "translate(-50%, -50%)",
+                cursor: "pointer",
+                borderRadius: "50%",
+                backgroundColor: isAvailable
+                  ? "rgba(0, 255, 0, 0.4)"
+                  : "transparent",
+              }}
+              onClick={() => handlePositionClick(position)}
+            >
+              {playerInPosition ? (
+                <PlayerCard player={playerInPosition} size="small" />
+              ) : (
+                <Box
+                  sx={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "#000",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {position}
+                </Box>
+              )}
+            </Box>
+          );
+        })}
       </Box>
-
-      {/*
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={logPositions}
-          sx={{
-            position: 'absolute',
-            bottom: 10,
-            left: '50%',
-            transform: 'translateX(-50%)',
-          }}
-        >
-          Log Positions
-        </Button>
-        */}
-
-      {isSearchOpen && (
-        <PlayerSearchOverlay
-          open={isSearchOpen}
-          handleClose={closeSearchOverlay}
-          selectedPosition={selectedPosition}
-        />
-      )}
     </>
   );
 };

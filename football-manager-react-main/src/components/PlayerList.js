@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Dialog, List, ListItem, ListItemText } from "@mui/material";
-import PlayerCard from "./PlayerCard";
+// PlayerList.js
+import React from "react";
+import { List, ListItem, ListItemText } from "@mui/material";
 
-const PlayerList = ({ players, isLoading, isError }) => {
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
-
+const PlayerList = ({ players, isLoading, isError, onPlayerSelect }) => {
   if (isLoading) {
     return <div>Loading players...</div>;
   }
@@ -18,23 +16,21 @@ const PlayerList = ({ players, isLoading, isError }) => {
   }
 
   const handlePlayerClick = (player) => {
-    setSelectedPlayer(player);
+    onPlayerSelect(player); // Call onPlayerSelect when a player is clicked
   };
 
   return (
-    <div>
-      <List>
-        {players.map((player) => (
-          <ListItem button key={player.id} onClick={() => handlePlayerClick(player)}>
-            <ListItemText primary={player.shortName} secondary={player.positions} />
-          </ListItem>
-        ))}
-      </List>
-
-      <Dialog open={!!selectedPlayer} onClose={() => setSelectedPlayer(null)}>
-        {selectedPlayer && <PlayerCard player={selectedPlayer} />}
-      </Dialog>
-    </div>
+    <List>
+      {players.map((player) => (
+        <ListItem
+          button
+          key={player.id}
+          onClick={() => handlePlayerClick(player)}
+        >
+          <ListItemText primary={player.shortName} secondary={player.positions} />
+        </ListItem>
+      ))}
+    </List>
   );
 };
 
