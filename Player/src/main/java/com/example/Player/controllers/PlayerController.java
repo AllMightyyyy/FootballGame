@@ -9,9 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/players")
@@ -28,23 +27,48 @@ public class PlayerController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> searchPlayers(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String position,
+            @RequestParam(required = false) List<String> positions,
+            @RequestParam(required = false) List<String> leagues,
+            @RequestParam(required = false) List<String> clubs,
+            @RequestParam(required = false) List<String> nations,
             @RequestParam(defaultValue = "0") int minOverall,
             @RequestParam(defaultValue = "99") int maxOverall,
+            @RequestParam(defaultValue = "150") int minHeight,
+            @RequestParam(defaultValue = "220") int maxHeight,
+            @RequestParam(defaultValue = "40") int minWeight,
+            @RequestParam(defaultValue = "120") int maxWeight,
+            @RequestParam(defaultValue = "false") boolean excludePositions,
+            @RequestParam(defaultValue = "false") boolean excludeLeagues,
+            @RequestParam(defaultValue = "false") boolean excludeClubs,
+            @RequestParam(defaultValue = "false") boolean excludeNations,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "overall") String sortBy, // default sorting by overall
-            @RequestParam(defaultValue = "asc") String sortOrder // default sorting order
+            @RequestParam(defaultValue = "overall") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder
     ) {
-        if (minOverall > maxOverall) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Handle invalid input
-        }
-        if (page < 1 || size < 1) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Ensure pagination is valid
+        if (minOverall > maxOverall || minHeight > maxHeight || minWeight > maxWeight) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        List<Player> players = playerService.searchPlayers(name, position, minOverall, maxOverall, page, size, sortBy, sortOrder);
-        int totalItems = playerService.countPlayers(name, position, minOverall, maxOverall);
+        if (page < 1 || size < 1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        List<Player> players = playerService.searchPlayers(
+                name, positions, leagues, clubs, nations,
+                minOverall, maxOverall,
+                minHeight, maxHeight,
+                minWeight, maxWeight,
+                excludePositions, excludeLeagues, excludeClubs, excludeNations,
+                page, size, sortBy, sortOrder
+        );
+        int totalItems = playerService.countPlayers(
+                name, positions, leagues, clubs, nations,
+                minOverall, maxOverall,
+                minHeight, maxHeight,
+                minWeight, maxWeight,
+                excludePositions, excludeLeagues, excludeClubs, excludeNations
+        );
 
         Map<String, Object> response = new HashMap<>();
         response.put("players", players);
@@ -55,6 +79,40 @@ public class PlayerController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/positions")
+    public ResponseEntity<Set<String>> getAllPositions() {
+        Set<String> positions = playerService.getAllPlayers().stream()
+                .flatMap(player -> player.getPositionsList().stream())
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok(positions);
+    }
+
+    @GetMapping("/leagues")
+    public ResponseEntity<Set<String>> getAllLeagues() {
+        Set<String> leagues = playerService.getAllPlayers().stream()
+                .map(Player::getLeagueName)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok(leagues);
+    }
+
+    @GetMapping("/clubs")
+    public ResponseEntity<Set<String>> getAllClubs() {
+        Set<String> clubs = playerService.getAllPlayers().stream()
+                .map(Player::getClubName)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok(clubs);
+    }
+
+    @GetMapping("/nations")
+    public ResponseEntity<Set<String>> getAllNations() {
+        Set<String> nations = playerService.getAllPlayers().stream()
+                .map(Player::getNationalityName)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok(nations);
+    }
 
     // Get player details by ID
     @GetMapping("/{id}")

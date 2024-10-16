@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class PlayerService {
@@ -70,6 +72,16 @@ public class PlayerService {
                 player.setDefending(parseIntSafe(line[58], 0)); // defending
                 player.setPhysical(parseIntSafe(line[59], 0)); // physical
 
+                player.setHeightCm(parseIntSafe(line[11], 0)); // height_cm
+                player.setWeightKg(parseIntSafe(line[12], 0)); // weight_kg
+                player.setLeagueName(line[15]); // league_name
+                player.setClubName(line[14]);   // club_name
+                player.setNationalityName(line[23]); // nationality_name
+
+                player.setPositionsList(Arrays.stream(line[4].split(","))
+                        .map(String::trim)
+                        .collect(Collectors.toList()));
+
                 players.add(player);
             }
         } catch (Exception e) {
@@ -79,33 +91,163 @@ public class PlayerService {
     }
 
     // Basic search and filtering logic
-    public List<Player> searchPlayers(String name, String position, int minOverall, int maxOverall, int page, int size, String sortBy, String sortOrder) {
-        return players.stream()
-                .filter(player -> (name == null || player.getShortName().toLowerCase().contains(name.toLowerCase())))
-                .filter(player -> (position == null || player.getPositions().contains(position)))
-                .filter(player -> player.getOverall() >= minOverall && player.getOverall() <= maxOverall)
-                .sorted((player1, player2) -> {
-                    // Sort based on the sortBy and sortOrder params
-                    int compare = 0;
-                    if ("overall".equalsIgnoreCase(sortBy)) {
-                        compare = Integer.compare(player1.getOverall(), player2.getOverall());
-                    } else if ("potential".equalsIgnoreCase(sortBy)) {
-                        compare = Integer.compare(player1.getPotential(), player2.getPotential());
-                    } // Add more sorting criteria here if needed
-                    return "desc".equalsIgnoreCase(sortOrder) ? -compare : compare;
-                })
+    public List<Player> searchPlayers(
+            String name,
+            List<String> positions,
+            List<String> leagues,
+            List<String> clubs,
+            List<String> nations,
+            int minOverall,
+            int maxOverall,
+            int minHeight,
+            int maxHeight,
+            int minWeight,
+            int maxWeight,
+            boolean excludePositions,
+            boolean excludeLeagues,
+            boolean excludeClubs,
+            boolean excludeNations,
+            int page,
+            int size,
+            String sortBy,
+            String sortOrder
+    ) {
+        Stream<Player> stream = players.stream();
+
+        // Name filter
+        if (name != null && !name.isEmpty()) {
+            stream = stream.filter(player -> player.getShortName().toLowerCase().contains(name.toLowerCase()));
+        }
+
+        // Position filter
+        if (positions != null && !positions.isEmpty()) {
+            if (excludePositions) {
+                stream = stream.filter(player -> player.getPositionsList().stream().noneMatch(positions::contains));
+            } else {
+                stream = stream.filter(player -> player.getPositionsList().stream().anyMatch(positions::contains));
+            }
+        }
+
+        // League filter
+        if (leagues != null && !leagues.isEmpty()) {
+            if (excludeLeagues) {
+                stream = stream.filter(player -> !leagues.contains(player.getLeagueName()));
+            } else {
+                stream = stream.filter(player -> leagues.contains(player.getLeagueName()));
+            }
+        }
+
+        // Club filter
+        if (clubs != null && !clubs.isEmpty()) {
+            if (excludeClubs) {
+                stream = stream.filter(player -> !clubs.contains(player.getClubName()));
+            } else {
+                stream = stream.filter(player -> clubs.contains(player.getClubName()));
+            }
+        }
+
+        // Nation filter
+        if (nations != null && !nations.isEmpty()) {
+            if (excludeNations) {
+                stream = stream.filter(player -> !nations.contains(player.getNationalityName()));
+            } else {
+                stream = stream.filter(player -> nations.contains(player.getNationalityName()));
+            }
+        }
+
+        // Overall filter
+        stream = stream.filter(player -> player.getOverall() >= minOverall && player.getOverall() <= maxOverall);
+
+        // Height filter
+        stream = stream.filter(player -> player.getHeightCm() >= minHeight && player.getHeightCm() <= maxHeight);
+
+        // Weight filter
+        stream = stream.filter(player -> player.getWeightKg() >= minWeight && player.getWeightKg() <= maxWeight);
+
+        // Sorting
+        Comparator<Player> comparator = getComparator(sortBy, sortOrder);
+        stream = stream.sorted(comparator);
+
+        // Pagination
+        List<Player> filteredPlayers = stream
                 .skip((page - 1) * size)
                 .limit(size)
                 .collect(Collectors.toList());
+
+        return filteredPlayers;
     }
 
 
-    public int countPlayers(String name, String position, int minOverall, int maxOverall) {
-        return (int) players.stream()
-                .filter(player -> (name == null || player.getShortName().toLowerCase().contains(name.toLowerCase())))
-                .filter(player -> (position == null || player.getPositions().contains(position)))
-                .filter(player -> player.getOverall() >= minOverall && player.getOverall() <= maxOverall)
-                .count();
+    public int countPlayers(
+            String name,
+            List<String> positions,
+            List<String> leagues,
+            List<String> clubs,
+            List<String> nations,
+            int minOverall,
+            int maxOverall,
+            int minHeight,
+            int maxHeight,
+            int minWeight,
+            int maxWeight,
+            boolean excludePositions,
+            boolean excludeLeagues,
+            boolean excludeClubs,
+            boolean excludeNations
+    ) {
+        Stream<Player> stream = players.stream();
+
+        // Name filter
+        if (name != null && !name.isEmpty()) {
+            stream = stream.filter(player -> player.getShortName().toLowerCase().contains(name.toLowerCase()));
+        }
+
+        // Position filter
+        if (positions != null && !positions.isEmpty()) {
+            if (excludePositions) {
+                stream = stream.filter(player -> player.getPositionsList().stream().noneMatch(positions::contains));
+            } else {
+                stream = stream.filter(player -> player.getPositionsList().stream().anyMatch(positions::contains));
+            }
+        }
+
+        // League filter
+        if (leagues != null && !leagues.isEmpty()) {
+            if (excludeLeagues) {
+                stream = stream.filter(player -> !leagues.contains(player.getLeagueName()));
+            } else {
+                stream = stream.filter(player -> leagues.contains(player.getLeagueName()));
+            }
+        }
+
+        // Club filter
+        if (clubs != null && !clubs.isEmpty()) {
+            if (excludeClubs) {
+                stream = stream.filter(player -> !clubs.contains(player.getClubName()));
+            } else {
+                stream = stream.filter(player -> clubs.contains(player.getClubName()));
+            }
+        }
+
+        // Nation filter
+        if (nations != null && !nations.isEmpty()) {
+            if (excludeNations) {
+                stream = stream.filter(player -> !nations.contains(player.getNationalityName()));
+            } else {
+                stream = stream.filter(player -> nations.contains(player.getNationalityName()));
+            }
+        }
+
+        // Overall filter
+        stream = stream.filter(player -> player.getOverall() >= minOverall && player.getOverall() <= maxOverall);
+
+        // Height filter
+        stream = stream.filter(player -> player.getHeightCm() >= minHeight && player.getHeightCm() <= maxHeight);
+
+        // Weight filter
+        stream = stream.filter(player -> player.getWeightKg() >= minWeight && player.getWeightKg() <= maxWeight);
+
+        return (int) stream.count();
     }
 
 
@@ -126,5 +268,9 @@ public class PlayerService {
                 .filter(player -> player.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<Player> getAllPlayers() {
+        return players;
     }
 }

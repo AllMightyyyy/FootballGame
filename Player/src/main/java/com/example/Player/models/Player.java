@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 public class Player {
     private Long id;
@@ -17,6 +19,13 @@ public class Player {
     private String playerFaceUrl;
     private String clubLogoUrl;
     private String nationFlagUrl;
+    private int heightCm;
+    private int weightKg;
+    private String leagueName;
+    private String clubName;
+    private String nationalityName;
+
+    private List<String> positionsList;
 
     // New fields for player attributes
     private int pace;
@@ -41,6 +50,57 @@ public class Player {
         this.playerFaceUrl = playerFaceUrl;
         this.clubLogoUrl = clubLogoUrl;
         this.nationFlagUrl = nationFlagUrl;
+        this.pace = pace;
+        this.shooting = shooting;
+        this.passing = passing;
+        this.dribbling = dribbling;
+        this.defending = defending;
+        this.physical = physical;
+    }
+
+    public Player(double valueEur, Long id, String shortName, String longName, String positions, int overall, int potential, double wageEur, String playerFaceUrl, String clubLogoUrl, String nationFlagUrl, int heightCm, int weightKg, String leagueName, String clubName, String nationalityName, int pace, int shooting, int passing, int dribbling, int defending, int physical) {
+        this.valueEur = valueEur;
+        this.id = id;
+        this.shortName = shortName;
+        this.longName = longName;
+        this.positions = positions;
+        this.overall = overall;
+        this.potential = potential;
+        this.wageEur = wageEur;
+        this.playerFaceUrl = playerFaceUrl;
+        this.clubLogoUrl = clubLogoUrl;
+        this.nationFlagUrl = nationFlagUrl;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
+        this.leagueName = leagueName;
+        this.clubName = clubName;
+        this.nationalityName = nationalityName;
+        this.pace = pace;
+        this.shooting = shooting;
+        this.passing = passing;
+        this.dribbling = dribbling;
+        this.defending = defending;
+        this.physical = physical;
+    }
+
+    public Player(Long id, double valueEur, String shortName, String longName, String positions, int overall, int potential, double wageEur, String playerFaceUrl, String clubLogoUrl, String nationFlagUrl, int heightCm, int weightKg, String leagueName, String clubName, String nationalityName, List<String> positionsList, int pace, int shooting, int passing, int dribbling, int defending, int physical) {
+        this.id = id;
+        this.valueEur = valueEur;
+        this.shortName = shortName;
+        this.longName = longName;
+        this.positions = positions;
+        this.overall = overall;
+        this.potential = potential;
+        this.wageEur = wageEur;
+        this.playerFaceUrl = playerFaceUrl;
+        this.clubLogoUrl = clubLogoUrl;
+        this.nationFlagUrl = nationFlagUrl;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
+        this.leagueName = leagueName;
+        this.clubName = clubName;
+        this.nationalityName = nationalityName;
+        this.positionsList = positionsList;
         this.pace = pace;
         this.shooting = shooting;
         this.passing = passing;
@@ -184,5 +244,23 @@ public class Player {
     public void setNationFlagUrl(String nationFlagUrl) {
         this.nationFlagUrl = nationFlagUrl;
     }
+
+    public int getHeightCm() { return heightCm; }
+    public void setHeightCm(int heightCm) { this.heightCm = heightCm; }
+
+    public int getWeightKg() { return weightKg; }
+    public void setWeightKg(int weightKg) { this.weightKg = weightKg; }
+
+    public String getLeagueName() { return leagueName; }
+    public void setLeagueName(String leagueName) { this.leagueName = leagueName; }
+
+    public String getClubName() { return clubName; }
+    public void setClubName(String clubName) { this.clubName = clubName; }
+
+    public String getNationalityName() { return nationalityName; }
+    public void setNationalityName(String nationalityName) { this.nationalityName = nationalityName; }
+
+    public List<String> getPositionsList() { return positionsList; }
+    public void setPositionsList(List<String> positionsList) { this.positionsList = positionsList; }
 }
 
