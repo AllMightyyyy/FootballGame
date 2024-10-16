@@ -1,0 +1,89 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .fut-card {
+    position: relative;
+    width: 238px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+  
+  .card-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .card-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-sizing: border-box;
+  }
+  
+  .card-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+  
+  .card-overall {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .card-position {
+    font-size: 18px;
+    color: white;
+  }
+  
+  .card-nation img,
+  .card-team img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .card-face img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  .card-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .card-attributes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    color: white;
+  }
+  
+  .attribute {
+    width: 45%;
+    text-align: center;
+    font-size: 14px;
+  }
+  
