@@ -1,0 +1,85 @@
+/* LeagueTable.css */
+.league-table {
+  width: 90%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #555;
+}
+
+.position-indicator {
+  width: 5px;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.champions-league {
+  border-left: 5px solid #1e90ff; /* Blue indicator */
+}
+
+.europa-league {
+  border-left: 5px solid #ffa500; /* Orange indicator */
+}
+
+.relegation {
+  border-left: 5px solid #ff4500; /* Red indicator */
+}
+
+.form-won {
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.form-drawn {
+  background-color: #6c757d;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.form-lost {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.next-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.club-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.club-name {
+  display: flex;
+  align-items: center;
+}

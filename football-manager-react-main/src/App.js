@@ -1,4 +1,3 @@
-// App.js
 import { Box, Container, Tab, Tabs, Button } from "@mui/material";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -8,12 +7,28 @@ import PlayerTable from "./components/PlayerTable";
 import PlayerSearchOverlay from "./components/PlayerSearchOverlay";
 import CurrentTeam from "./components/CurrentTeam";
 import { useFormation } from "./contexts/FormationContext";
+import Game from "./components/Game";
+import LiveStandings from "./components/LiveStanding";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [filterData, setFilterData] = useState({});
+  const [filterData, setFilterData] = useState({
+    rating: [40, 120],
+    position: [],
+    league: [],
+    club: [],
+    nation: [],
+    height: [150, 215],
+    weight: [40, 120],
+    excludeSelected: {
+      position: false,
+      league: false,
+      club: false,
+      nation: false,
+    },
+  });
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [availablePositions, setAvailablePositions] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -21,11 +36,7 @@ const App = () => {
 
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
-
-    const playerPositions = player.positions
-      .split(",")
-      .map((pos) => pos.trim());
-
+    const playerPositions = player.positions.split(",").map((pos) => pos.trim());
     let positionsInFormation = [];
 
     playerPositions.forEach((pos) => {
@@ -56,8 +67,9 @@ const App = () => {
   };
 
   const handlePositionSelect = (position) => {
+    if (!selectedPlayer) return;
     updateFormation(position, selectedPlayer);
-    setSelectedPlayer(null); // Clear selected player after assignment
+    setSelectedPlayer(null);
     setAvailablePositions([]);
   };
 
@@ -75,109 +87,125 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-        <Container maxWidth={false} disableGutters>
-          <Box
+      <Container maxWidth={false} disableGutters>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "#121212",
+            color: "#fff",
+            minHeight: "100vh",
+          }}
+        >
+          <h1 style={{ textAlign: "center", margin: "20px 0", color: "#487748" }}>
+            Football Manager
+          </h1>
+
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            aria-label="App Tabs"
+            centered
+            TabIndicatorProps={{
+              style: {
+                backgroundColor: "green",
+              },
+            }}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              backgroundColor: "#121212",
-              color: "#fff",
-              minHeight: "100vh",
+              backgroundColor: "#1e1e1e",
+              borderBottom: "1px solid #333",
+              "& .MuiTab-root": {
+                color: "#fff",
+              },
+              "& .Mui-selected": {
+                color: "green",
+              },
+              "& .MuiTabs-indicator": {
+                backgroundColor: "green",
+                height: 3,
+              },
             }}
           >
-            <h1 style={{ textAlign: "center", margin: "20px 0" }}>
-              Football Manager
-            </h1>
+            <Tab label="Squad Builder" />
+            <Tab label="Player List" />
+            <Tab label="Play Game" />
+            <Tab label="Live Football Standings" /> {/* New tab for Live Standings */}
+          </Tabs>
 
-            <Tabs
-              value={activeTab}
-              onChange={handleTabChange}
-              aria-label="App Tabs"
-              centered
-              sx={{
-                backgroundColor: "#1e1e1e",
-                borderBottom: "1px solid #333",
-                "& .MuiTab-root": {
-                  color: "#fff",
-                },
-                "& .Mui-selected": {
-                  color: "#1976d2",
-                },
-              }}
-            >
-              <Tab label="Squad Builder" />
-              <Tab label="Player List" />
-            </Tabs>
-
-            {/* Main Content Area */}
-            <Box sx={{ display: "flex", flex: 1 }}>
-              {activeTab === 0 && (
-                <>
-                  {/* Left Side: Button to Open Search Overlay */}
-                  <Box
-                    sx={{
-                      width: "300px",
-                      backgroundColor: "#1e1e1e",
-                      padding: "20px",
-                      borderRight: "1px solid #333",
-                    }}
+          <Box sx={{ display: "flex", flex: 1 }}>
+            {activeTab === 0 && (
+              <>
+                <Box
+                  sx={{
+                    width: "300px",
+                    backgroundColor: "#1e1e1e",
+                    padding: "20px",
+                    borderRight: "1px solid #333",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "#487748" }}
+                    onClick={openSearchOverlay}
+                    fullWidth
                   >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={openSearchOverlay}
-                      fullWidth
-                    >
-                      Search Players
-                    </Button>
-                    {/* Display selected player card */}
-                    {selectedPlayer && (
-                      <Box sx={{ marginTop: "20px" }}>
-                        <PlayerCard player={selectedPlayer} />
-                      </Box>
-                    )}
-                  </Box>
-
-                  {/* Pitch and Current Team */}
-                  <Box
-                    sx={{
-                      flex: 1,
-                      padding: "20px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "20px",
-                    }}
-                  >
-                    <Formation
-                      selectedPlayer={selectedPlayer}
-                      availablePositions={availablePositions}
-                      onPositionSelect={handlePositionSelect}
-                    />
-                    {/* Current Team Section */}
-                    <CurrentTeam />
-                  </Box>
-                </>
-              )}
-
-              {activeTab === 1 && (
-                <Box sx={{ flex: 1 }}>
-                  <Box sx={{ padding: "20px" }}>
-                    <PlayerTable filters={filterData} />
-                  </Box>
+                    Search Players
+                  </Button>
+                  {selectedPlayer && (
+                    <Box sx={{ marginTop: "20px" }}>
+                      <PlayerCard player={selectedPlayer} />
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
+                <Box
+                  sx={{
+                    flex: 1,
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
+                >
+                  <Formation
+                    selectedPlayer={selectedPlayer}
+                    availablePositions={availablePositions}
+                    onPositionSelect={handlePositionSelect}
+                  />
+                  <CurrentTeam />
+                </Box>
+              </>
+            )}
 
-            {/* Player Search Overlay */}
-            <PlayerSearchOverlay
-              open={isSearchOpen}
-              handleClose={closeSearchOverlay}
-              filters={filterData}
-              onFilterChange={setFilterData}
-              onPlayerSelect={handlePlayerSelect}
-            />
+            {activeTab === 1 && (
+              <Box sx={{ flex: 1 }}>
+                <Box sx={{ padding: "20px" }}>
+                  <PlayerTable filters={filterData} />
+                </Box>
+              </Box>
+            )}
+
+            {activeTab === 2 && (
+              <Box sx={{ flex: 1, padding: "20px" }}>
+                <Game />
+              </Box>
+            )}
+
+            {activeTab === 3 && (
+              <Box sx={{ flex: 1, padding: "20px" }}>
+                <LiveStandings /> 
+              </Box>
+            )}
           </Box>
-        </Container>
+
+          <PlayerSearchOverlay
+            open={isSearchOpen}
+            handleClose={closeSearchOverlay}
+            filters={filterData}
+            onFilterChange={setFilterData}
+            onPlayerSelect={handlePlayerSelect}
+          />
+        </Box>
+      </Container>
     </QueryClientProvider>
   );
 };

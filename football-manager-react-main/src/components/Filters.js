@@ -1,4 +1,3 @@
-// Filters.js
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
@@ -16,7 +15,6 @@ import {
 import { styled } from "@mui/system";
 import React, { useState } from "react";
 
-// Define a styled TextField component with shared styles
 const TextField = styled(MuiTextField)({
   backgroundColor: "#2e2e2e",
   borderRadius: "4px",
@@ -43,24 +41,7 @@ const TextField = styled(MuiTextField)({
   },
 });
 
-// Main Filters component
-const Filters = ({ onFilterChange, onSearch }) => {
-  const [filters, setFilters] = useState({
-    rating: [40, 120],
-    position: [],
-    league: [],
-    club: [],
-    nation: [],
-    height: [150, 215],
-    weight: [40, 120],
-    excludeSelected: {
-      position: false,
-      league: false,
-      club: false,
-      nation: false,
-    },
-  });
-
+const Filters = ({ filters, onFilterChange, onSearch }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
@@ -71,18 +52,14 @@ const Filters = ({ onFilterChange, onSearch }) => {
     const updatedValues = [...filters[filterName]];
     updatedValues[index] = value;
     const updatedFilters = { ...filters, [filterName]: updatedValues };
-    setFilters(updatedFilters);
     onFilterChange(updatedFilters);
   };
 
   const handleCheckboxChange = (filterName, value) => {
-    const updatedFilters = {
-      ...filters,
-      [filterName]: filters[filterName].includes(value)
-        ? filters[filterName].filter((v) => v !== value)
-        : [...filters[filterName], value],
-    };
-    setFilters(updatedFilters);
+    const updatedFilterValues = filters[filterName].includes(value)
+      ? filters[filterName].filter((v) => v !== value)
+      : [...filters[filterName], value];
+    const updatedFilters = { ...filters, [filterName]: updatedFilterValues };
     onFilterChange(updatedFilters);
   };
 
@@ -94,39 +71,31 @@ const Filters = ({ onFilterChange, onSearch }) => {
         [category]: value,
       },
     };
-    setFilters(updatedFilters);
     onFilterChange(updatedFilters);
   };
 
   const handleSelectAllChange = (group, checked) => {
-    const updatedFilters = { ...filters };
     const positionsToToggle = groupedPositions[group];
 
-    if (checked) {
-      // Add all if not already present
-      updatedFilters.position = [
-        ...new Set([...filters.position, ...positionsToToggle]),
-      ];
-    } else {
-      // Remove all
-      updatedFilters.position = filters.position.filter(
-        (pos) => !positionsToToggle.includes(pos)
-      );
-    }
+    const updatedFilters = {
+      ...filters,
+      position: checked
+        ? [...new Set([...filters.position, ...positionsToToggle])]
+        : filters.position.filter((pos) => !positionsToToggle.includes(pos)),
+    };
 
-    setFilters(updatedFilters);
     onFilterChange(updatedFilters);
   };
 
   const groupedPositions = {
-    Defense: ["GK", "CB", "LB", "RB", "RWB", "LWB"],
-    Midfield: ["CM", "CDM", "CAM", "LM", "RM"],
-    Attack: ["ST", "CF", "LW", "RW", "LF", "RF"],
+    Defense: ["GK", "CB", "LB", "RB"],
+    Midfield: ["CM", "LCM", "RCM"],
+    Attack: ["ST", "LW", "RW"],
   };
 
   const handleSearchChange = (filterName, event) => {
-    setFilters({ ...filters, [filterName]: event.target.value });
-    onFilterChange({ ...filters, [filterName]: event.target.value });
+    const updatedFilters = { ...filters, [filterName]: event.target.value };
+    onFilterChange(updatedFilters);
   };
 
   return (
@@ -209,7 +178,7 @@ const Filters = ({ onFilterChange, onSearch }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={filters.excludeSelected.position}
+                checked={filters.excludeSelected?.position || false}
                 onChange={(e) =>
                   handleSwitchChange("position", e.target.checked)
                 }
@@ -221,20 +190,20 @@ const Filters = ({ onFilterChange, onSearch }) => {
           <Divider sx={{ my: 1 }} />
           {Object.keys(groupedPositions).map((category) => (
             <Box key={category} sx={{ marginBottom: "10px" }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={(e) =>
-                      handleSelectAllChange(category, e.target.checked)
-                    }
-                    sx={{ color: "#487748" }}
-                  />
-                }
-                label={`Select All ${category}`}
-              />
-              <Typography variant="subtitle1" sx={{ color: "#73be73", mt: 1 }}>
-                {category}
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ color: "#f5f5f5" }}
+                >
+                  {category}
+                </Typography>
+                <Checkbox
+                  onChange={(e) =>
+                    handleSelectAllChange(category, e.target.checked)
+                  }
+                  sx={{ color: "#487748" }}
+                />
+              </Box>
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {groupedPositions[category].map((position) => (
                   <FormControlLabel
@@ -281,7 +250,7 @@ const Filters = ({ onFilterChange, onSearch }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={filters.excludeSelected.league}
+                checked={filters.excludeSelected?.league || false}
                 onChange={(e) => handleSwitchChange("league", e.target.checked)}
                 sx={{ color: "#487748" }}
               />

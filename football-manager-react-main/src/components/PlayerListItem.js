@@ -1,17 +1,14 @@
-// PlayerListItem.js
 import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 
-// Function to determine attribute color
 const getAttributeColor = (value) => {
   if (value < 50) return "red";
   if (value < 66) return "orange";
-  if (value < 80) return "#9acd32"; // yellow-green
+  if (value < 80) return "#9acd32"; 
   if (value < 90) return "limegreen";
   return "darkgreen";
 };
 
-// PlayerListItem Component
 const PlayerListItem = ({ player, onClick }) => {
   return (
     <Box

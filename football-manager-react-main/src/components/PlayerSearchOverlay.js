@@ -1,4 +1,3 @@
-// PlayerSearchOverlay.js
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
@@ -9,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { searchPlayers } from "../api";
@@ -26,14 +25,16 @@ const PlayerSearchOverlay = ({
   const { register, handleSubmit } = useForm();
   const [searchTerm, setSearchTerm] = useState("");
 
+  const mergedFilters = { ...filters, name: searchTerm };
+
   const {
     data: playersData,
     refetch,
     isLoading,
     isError,
   } = useQuery(
-    ["players", searchTerm, filters],
-    () => searchPlayers({ name: searchTerm, ...filters }),
+    ["players", mergedFilters],
+    () => searchPlayers(mergedFilters),
     { enabled: false }
   );
 
@@ -42,9 +43,18 @@ const PlayerSearchOverlay = ({
   };
 
   const handlePlayerClick = (player) => {
-    onPlayerSelect(player); // Pass selected player up to App.js
-    handleClose(); // Close the overlay
+    onPlayerSelect(player);
+    handleClose();
   };
+
+  const handleFilterChange = (updatedFilters) => {
+    onFilterChange(updatedFilters);
+    refetch();
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [filters, searchTerm]);
 
   return (
     <Dialog fullScreen open={open} onClose={handleClose}>
@@ -59,13 +69,17 @@ const PlayerSearchOverlay = ({
         {/* Filters Section */}
         <Box
           sx={{
-            width: "300px",
+            width: "450px",
             padding: "20px",
             backgroundColor: "#2e2e2e",
             borderRight: "1px solid #444",
           }}
         >
-          <Filters onFilterChange={onFilterChange} />
+          <Filters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onSearch={onSubmit} 
+          />
         </Box>
 
         {/* Search and Player List Section */}

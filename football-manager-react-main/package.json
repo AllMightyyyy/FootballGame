@@ -19,6 +19,7 @@
     "react-scripts": "5.0.1",
     "react-soccer-lineup": "^0.4.3",
     "react-window": "^1.8.10",
+    "styled-components": "^6.1.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

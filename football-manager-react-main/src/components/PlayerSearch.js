@@ -1,4 +1,3 @@
-// PlayerSearch.js
 import { Box, Button, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -49,7 +48,7 @@ const PlayerSearch = ({ onPlayerSelect }) => {
         players={players}
         isLoading={isLoading}
         isError={isError}
-        onPlayerSelect={onPlayerSelect} // Pass onPlayerSelect to PlayerList
+        onPlayerSelect={onPlayerSelect} 
       />
     </Box>
   );

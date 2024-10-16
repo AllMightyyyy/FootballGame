@@ -1,27 +1,17 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-} from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Paper, Box, TablePagination } from "@mui/material";
 import { useQuery } from "react-query";
 import { searchPlayers } from "../api";
+import PlayerListItem from "./PlayerListItem";
 
-const PlayerTable = ({ filters }) => {
+const PlayerTable = ({ filters, onPlayerSelect }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("overall");
 
-
   useEffect(() => {
-    setPage(0); 
+    setPage(0);
   }, [filters]);
 
   const {
@@ -36,18 +26,12 @@ const PlayerTable = ({ filters }) => {
         size: rowsPerPage,
         sortBy: orderBy,
         sortDirection: order,
-        ...filters, 
+        ...filters,
       }),
     {
-      keepPreviousData: true, 
+      keepPreviousData: true,
     }
   );
-
-  const handleSortRequest = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -68,71 +52,21 @@ const PlayerTable = ({ filters }) => {
         overflow: "hidden",
         backgroundColor: "#1b1b1b",
         color: "#fff",
+        padding: "16px",
       }}
     >
-      <TableContainer>
-        <Table aria-label="player table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Picture</TableCell>
-              <TableCell>
-                <TableSortLabel
-                  active={orderBy === "shortName"}
-                  direction={order}
-                  onClick={() => handleSortRequest("shortName")}
-                >
-                  Name
-                </TableSortLabel>
-              </TableCell>
-              <TableCell>
-                <TableSortLabel
-                  active={orderBy === "age"}
-                  direction={order}
-                  onClick={() => handleSortRequest("age")}
-                >
-                  Age
-                </TableSortLabel>
-              </TableCell>
-              <TableCell>
-                <TableSortLabel
-                  active={orderBy === "overall"}
-                  direction={order}
-                  onClick={() => handleSortRequest("overall")}
-                >
-                  Overall
-                </TableSortLabel>
-              </TableCell>
-              <TableCell>Team</TableCell>
-              <TableCell>Position</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {playersData?.data?.players.map((player) => (
-              <TableRow key={player.id}>
-                <TableCell>
-                  <img
-                    src={player.playerFaceUrl}
-                    alt={player.shortName}
-                    style={{ width: "50px", borderRadius: "50%" }}
-                  />
-                </TableCell>
-                <TableCell>{player.shortName}</TableCell>
-                <TableCell>{player.age}</TableCell>
-                <TableCell>{player.overall}</TableCell>
-                <TableCell>
-                  {player.clubLogoUrl && (
-                    <img src={player.clubLogoUrl} alt="Club Logo" />
-                  )}
-                </TableCell>
-                <TableCell>{player.positions}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Box>
+        {playersData?.data?.players.map((player) => (
+          <PlayerListItem
+            key={player.id}
+            player={player}
+            onClick={onPlayerSelect}
+          />
+        ))}
+      </Box>
       <TablePagination
         component="div"
-        count={playersData?.data?.totalItems || 0} 
+        count={playersData?.data?.totalItems || 0}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

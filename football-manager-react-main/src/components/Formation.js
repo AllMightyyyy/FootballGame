@@ -1,4 +1,3 @@
-// Formation.js
 import { Box } from "@mui/material";
 import React from "react";
 import { useFormation } from "../contexts/FormationContext";
@@ -11,24 +10,37 @@ const positions = {
   LCB: { x: (118 / 626) * 100, y: ((449 * 0.305) / 417) * 100 }, // x: 23.6%, y: 42.05%
   RCB: { x: (118 / 626) * 100, y: ((604 * 0.45) / 417) * 100 }, // x: 23.6%, y: 56.57%
   RB: { x: (197 / 626) * 100, y: ((716 * 0.49) / 417) * 100 }, // x: 31.0%, y: 67.04%
-  LCM: { x: (405 / 626) * 100, y: ((399 * 0.3905) / 417) * 100 }, // x: 66.3%, y: 37.35%
+  LCM: { x: (405 / 626) * 100, y: ((350 * 0.3905) / 417) * 100 }, // x: 66.3%, y: 37.35%
   CM: { x: (265 / 626) * 100, y: ((530 * 0.3905) / 417) * 100 }, // x: 47.1%, y: 49.6%
-  RCM: { x: (405 / 626) * 100, y: ((655 * 0.3905) / 417) * 100 }, // x: 66.3%, y: 61.29%
+  RCM: { x: (405 / 626) * 100, y: ((720 * 0.3905) / 417) * 100 }, // x: 66.3%, y: 61.29%
   LW: { x: (496 / 626) * 100, y: ((340 * 0.2) / 417) * 100 }, // x: 87.2%, y: 31.85%
   ST: { x: (551 / 626) * 100, y: ((528 * 0.3905) / 417) * 100 }, // x: 97.6%, y: 49.3%
   RW: { x: (496 / 626) * 100, y: ((714 * 0.49) / 417) * 100 }, // x: 87.2%, y: 66.8%
 };
 
-const Formation = ({ selectedPlayer, availablePositions, onPositionSelect }) => {
-  const { formation, removePlayer } = useFormation();
+const Formation = ({ selectedPlayer, availablePositions, onPositionSelect, onPositionFilterUpdate }) => {
+  const { formation, updateFormation, removePlayer } = useFormation();
+
+  console.log('Selected Player in Formation:', selectedPlayer);
+
+  React.useEffect(() => {
+    console.log('Current Formation State in Formation.js (useEffect):', formation);
+  }, [formation]);
 
   const handlePositionClick = (position) => {
+    console.log('Clicked Position:', position);
+  
     if (selectedPlayer && availablePositions.includes(position)) {
+      console.log('Assigning player to position:', selectedPlayer, position);
       onPositionSelect(position);
     } else if (formation[position]) {
       removePlayer(position);
+    } else if (!formation[position] && onPositionFilterUpdate) {
+      onPositionFilterUpdate(position);
     }
   };
+
+  console.log('Current Formation State in Formation.js:', formation);
   
 
   return (
@@ -51,9 +63,8 @@ const Formation = ({ selectedPlayer, availablePositions, onPositionSelect }) => 
             selectedPlayer && availablePositions.includes(position);
           const playerInPosition = formation[position];
 
-          // Hide positions that the selected player cannot occupy
           if (selectedPlayer && !availablePositions.includes(position) && !playerInPosition) {
-            return null; // Do not render this position
+            return null; 
           }
 
           return (

@@ -1,4 +1,3 @@
-// FormationContext.js
 import React, { createContext, useContext, useState } from 'react';
 
 const FormationContext = createContext();
@@ -26,11 +25,16 @@ export const FormationProvider = ({ children }) => {
     RW: null,
     ST: null,
   });
+  const [renderTrigger, setRenderTrigger] = useState(false);
 
   const updateFormation = (position, player) => {
     console.log('Updating Formation:', position, player);
-    setFormation((prev) => ({ ...prev, [position]: player }));
-  };
+    setFormation((prev) => {
+      const newFormation = { ...prev, [position]: player };
+      console.log('New Formation State:', newFormation); 
+      return newFormation;
+    });
+  };  
 
   const removePlayer = (position) => {
     setFormation((prev) => ({ ...prev, [position]: null }));

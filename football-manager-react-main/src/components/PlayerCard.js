@@ -1,4 +1,3 @@
-// PlayerCard.js
 import React from 'react';
 import { Box } from '@mui/material';
 import uclBackground from '../ucl_live.png';
@@ -9,7 +8,7 @@ const PlayerCard = ({ player, size = 'normal' }) => {
 
   const smallCardWidth = 100; 
 
-  const scale = size === 'small' ? smallCardWidth / baseWidth : 1;
+  const scale = size === 'small' ? smallCardWidth / baseWidth : 0.8;
 
   const scaleValue = (value) => value * scale;
 
@@ -30,11 +29,11 @@ const PlayerCard = ({ player, size = 'normal' }) => {
       <div
         style={{
           position: 'absolute',
-          left: `${scaleValue(150)}px`,
-          top: `${scaleValue(150)}px`,
+          left: `${scaleValue(190)}px`,
+          top: `${scaleValue(170)}px`,
           transform: 'translate(-50%, -50%)',
-          width: `${scaleValue(150)}px`,
-          height: `${scaleValue(150)}px`,
+          width: `${scaleValue(110)}px`,
+          height: `${scaleValue(170)}px`,
         }}
       >
         <img

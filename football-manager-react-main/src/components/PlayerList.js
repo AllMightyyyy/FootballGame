@@ -1,4 +1,3 @@
-// PlayerList.js
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 
@@ -16,7 +15,7 @@ const PlayerList = ({ players, isLoading, isError, onPlayerSelect }) => {
   }
 
   const handlePlayerClick = (player) => {
-    onPlayerSelect(player); // Call onPlayerSelect when a player is clicked
+    onPlayerSelect(player); 
   };
 
   return (
