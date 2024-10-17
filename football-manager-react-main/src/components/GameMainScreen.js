@@ -1,239 +1,247 @@
-// GameMainScreen.js
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import React from "react";
-import GameMainBackground from "../GameMainScreen-bg.jpg";
-import SignupIcons from "../signupicons.png";
+// src/components/GameMainScreen.js
 
-const iconStyles = {
-  width: "80px",
-  height: "80px",
-  backgroundImage: `url(${SignupIcons})`,
-  backgroundSize: "100% auto",
-};
+import React, { useState, useContext } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { AuthContext } from "../contexts/AuthContext";
+import ConfirmationScreen from "./ConfirmationScreen";
+import api, { searchPlayers, getFormation, addPlayerToFormation, removePlayerFromFormation } from '../api';
 
-const iconPositions = [
-  { backgroundPosition: "0 0" }, // First icon (shirt)
-  { backgroundPosition: "0 -80px" }, // Second icon (lineup)
-  { backgroundPosition: "0 -160px" }, // Third icon (tactics)
-  { backgroundPosition: "0 -240px" }, // Fourth icon (handshake)
-  { backgroundPosition: "0 -320px" }, // Fifth icon (stadium)
-  { backgroundPosition: "0 -400px" }, // Sixth icon (play against friends)
-];
-
-const features = [
-  {
-    title: "Choose your favourite club",
-    description:
-      "You want to compete for the championship with a top club or like to play against relegation? Everything is possible. Your favourite club needs you!",
-  },
-  {
-    title: "Determine your Line-up",
-    description:
-      "Classic wingers or two strikers? It’s your call. You decide the formation, you decide who plays. Every single match!",
-  },
-  {
-    title: "Decide your Tactics",
-    description:
-      "Are you a fan of the passing game? Or do you prefer the counter-attack? As a tactical mastermind, you can perfect your team in all details!",
-  },
-  {
-    title: "Strengthen your Squad",
-    description:
-      "Search for the best talents, negotiate with other clubs, and sell your dispensable players. Create the ideal team with the right transfer policy!",
-  },
-  {
-    title: "Daily match",
-    description:
-      "Manage your club against the competition daily. Train your players regularly and play friendlies to test your tactics!",
-  },
-  {
-    title: "Play against friends",
-    description:
-      "Challenge friends, join their leagues, and compete as if your life depends on it. May the best manager win!",
-  },
-];
 
 const GameMainScreen = () => {
+  const { register: registerUser } = useContext(AuthContext);
+  const [step, setStep] = useState(1);
+  const [managerName, setManagerName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [usernameAvailable, setUsernameAvailable] = useState(false);
+  const [suggestedUsername, setSuggestedUsername] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const checkUsername = async () => {
+    if (managerName.length < 3) {
+      setError("Manager name must be at least 3 characters.");
+      return;
+    }
+    try {
+      const response = await api.get("/auth/check-username", {
+        params: { username: managerName },
+      });
+      const { available, suggestedUsername } = response.data;
+      setUsernameAvailable(available);
+      if (!available) {
+        setSuggestedUsername(suggestedUsername);
+      } else {
+        setSuggestedUsername("");
+      }
+      setError("");
+    } catch (err) {
+      console.error("Error checking username:", err);
+      setError("Error checking username.");
+    }
+  };
+
+  const handleUseSuggested = () => {
+    if (suggestedUsername) {
+      setManagerName(suggestedUsername);
+      setUsernameAvailable(true);
+      setSuggestedUsername("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!usernameAvailable) {
+      setError("Username is not available. Please choose another one.");
+      return;
+    }
+
+    if (!managerName || !email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    const registrationData = { username: managerName, email, password };
+
+    const result = await registerUser(registrationData);
+    setIsSubmitting(false);
+
+    if (result.success) {
+      // Show confirmation screen or redirect
+      setStep(3);
+    } else {
+      setError(result.message);
+    }
+  };
+
   return (
     <Box
       sx={{
-        backgroundImage: `url(${GameMainBackground})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         flexDirection: "column",
-        color: "#fff",
-        textAlign: "center",
-        position: "relative",
-        overflow: "hidden",
+        alignItems: "center",
+        gap: "20px",
+        backgroundColor: "#2e2e2e",
+        padding: "30px",
+        borderRadius: "8px",
       }}
     >
-      {/* Glass effect overlay */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(10px)",
-          zIndex: -1,
-        }}
-      />
-
-      {/* Welcome Section */}
-      <Box
-        sx={{
-          backgroundColor: "rgba(30, 30, 30, 0.8)",
-          padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.37)",
-          maxWidth: "400px",
-          width: "100%",
-          marginBottom: "24px",
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            color: "#f5f5f5",
-            marginBottom: "16px",
-            fontSize: { xs: "24px", md: "36px" },
-          }}
-        >
-          Sign up and become the best football manager!
-        </Typography>
+      {step === 1 && (
         <Box
           sx={{
             backgroundColor: "#1e1e1e",
             borderRadius: "8px",
             padding: "20px",
+            width: "100%",
+            maxWidth: "400px",
           }}
         >
-          <Typography
-            variant="h5"
-            sx={{ color: "#f5f5f5", marginBottom: "8px" }}
-          >
-            Choose Manager Name
+          <Typography variant="h5" sx={{ color: "#fff", marginBottom: "16px" }}>
+            Enter Manager Name
           </Typography>
           <TextField
-            placeholder="Enter manager name"
+            value={managerName}
+            onChange={(e) => setManagerName(e.target.value)}
+            label="Manager Name"
             fullWidth
             sx={{
               backgroundColor: "#2e2e2e",
               borderRadius: "4px",
+              marginBottom: "16px",
               input: { color: "#fff" },
               "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#555",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#888",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#487748",
-                },
+                "& fieldset": { borderColor: "#444" },
+                "&:hover fieldset": { borderColor: "#888" },
+                "&.Mui-focused fieldset": { borderColor: "#fff" },
               },
-              "& .MuiInputLabel-root": {
-                color: "#aaa",
-              },
-              marginBottom: "16px",
+              "& .MuiInputLabel-root": { color: "#aaa" },
             }}
           />
           <Button
             variant="contained"
-            sx={{
-              backgroundColor: "#487748",
-              color: "#121212",
-              width: "100%",
-              padding: "10px",
-              fontWeight: "bold",
-            }}
+            onClick={checkUsername}
+            sx={{ backgroundColor: "#487748", color: "#fff", width: "100%", marginBottom: "16px" }}
+            disabled={!managerName}
           >
-            Create Account
+            Check Availability
           </Button>
-        </Box>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#aaa",
-            marginTop: "16px",
-          }}
-        >
-          Already have an account?{" "}
-          <Button sx={{ color: "#f5f5f5", fontWeight: "bold" }}>Log in</Button>
-        </Typography>
-      </Box>
-
-      {/* About the Game Section */}
-      <Box
-        sx={{ padding: "40px", backgroundColor: "#1e1e1e", marginTop: "50px" }}
-      >
-        <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            sx={{
-              color: "#f5f5f5",
-              textAlign: "center",
-              marginBottom: "32px",
-            }}
-          >
-            What's Our Football Manager?
-          </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-              gap: "24px",
-              textAlign: "center",
-            }}
-          >
-            {features.map((feature, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  padding: "20px",
-                  borderRadius: "8px",
-                  backgroundColor: "#2e2e2e",
-                  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                <Box
-                  sx={{
-                    ...iconStyles,
-                    ...iconPositions[index],
-                    marginBottom: "16px",
-                  }}
-                />
-                <Typography
-                  variant="h6"
-                  sx={{ color: "#f5f5f5", marginBottom: "8px" }}
-                >
-                  {feature.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: "#aaa" }}>
-                  {feature.description}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-          <Box sx={{ textAlign: "center", marginTop: "40px" }}>
+          {usernameAvailable && (
             <Button
               variant="contained"
-              sx={{ backgroundColor: "#487748", color: "#121212" }}
+              onClick={() => setStep(2)}
+              sx={{ backgroundColor: "#487748", color: "#fff", width: "100%", marginBottom: "16px" }}
             >
-              Sign up now
+              Proceed to Sign Up
             </Button>
-          </Box>
-        </Container>
-      </Box>
+          )}
+          {!usernameAvailable && suggestedUsername && (
+            <Box sx={{ marginBottom: "16px" }}>
+              <Typography variant="body2" color="error">
+                Username is taken. Suggested: {suggestedUsername}
+              </Typography>
+              <Button onClick={handleUseSuggested} size="small" sx={{ marginTop: "8px" }}>
+                Use Suggested Username
+              </Button>
+            </Box>
+          )}
+          {error && (
+            <Typography variant="body2" color="error" sx={{ marginBottom: "16px" }}>
+              {error}
+            </Typography>
+          )}
+        </Box>
+      )}
+
+      {step === 2 && (
+        <Box
+          sx={{
+            backgroundColor: "#1e1e1e",
+            borderRadius: "8px",
+            padding: "20px",
+            width: "100%",
+            maxWidth: "400px",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <Typography variant="h5" sx={{ color: "#fff", marginBottom: "16px" }}>
+              Sign Up
+            </Typography>
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              required
+              sx={{
+                backgroundColor: "#2e2e2e",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                input: { color: "#fff" },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": { borderColor: "#444" },
+                  "&:hover fieldset": { borderColor: "#888" },
+                  "&.Mui-focused fieldset": { borderColor: "#fff" },
+                },
+                "& .MuiInputLabel-root": { color: "#aaa" },
+              }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+              required
+              sx={{
+                backgroundColor: "#2e2e2e",
+                borderRadius: "4px",
+                marginBottom: "16px",
+                input: { color: "#fff" },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": { borderColor: "#444" },
+                  "&:hover fieldset": { borderColor: "#888" },
+                  "&.Mui-focused fieldset": { borderColor: "#fff" },
+                },
+                "& .MuiInputLabel-root": { color: "#aaa" },
+              }}
+            />
+            {error && (
+              <Typography variant="body2" color="error" sx={{ marginBottom: "16px" }}>
+                {error}
+              </Typography>
+            )}
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                backgroundColor: "#487748",
+                color: "#121212",
+                width: "100%",
+                padding: "10px",
+                fontWeight: "bold",
+              }}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating Account..." : "Create Account"}
+            </Button>
+          </form>
+        </Box>
+      )}
+
+      {step === 3 && (
+        <ConfirmationScreen
+          managerName={managerName}
+          selectedTeam={null} // Adjust based on your flow
+          onConfirm={() => {
+            // Handle confirmation, e.g., navigate to Squad Builder
+          }}
+          onPrevious={() => setStep(2)}
+        />
+      )}
     </Box>
   );
 };

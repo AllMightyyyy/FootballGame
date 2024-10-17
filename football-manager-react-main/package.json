@@ -2,6 +2,7 @@
   "name": "football-manager",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -17,6 +18,7 @@
     "react-draggable": "^4.4.6",
     "react-hook-form": "^7.53.0",
     "react-query": "^3.39.3",
+    "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
     "react-soccer-lineup": "^0.4.3",
     "react-window": "^1.8.10",

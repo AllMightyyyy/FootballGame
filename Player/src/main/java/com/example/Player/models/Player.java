@@ -1,14 +1,15 @@
 package com.example.Player.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import jakarta.persistence.*;
 import java.util.List;
 
-
+@Entity
+@Table(name = "players")
 public class Player {
-    private Long id;
+
+    @Id
+    private Long id; // sofifa_id
+
     private String shortName;
     private String longName;
     private String positions;
@@ -25,9 +26,12 @@ public class Player {
     private String clubName;
     private String nationalityName;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "player_positions", joinColumns = @JoinColumn(name = "player_id"))
+    @Column(name = "position")
     private List<String> positionsList;
 
-    // New fields for player attributes
+    // Player attributes
     private int pace;
     private int shooting;
     private int passing;

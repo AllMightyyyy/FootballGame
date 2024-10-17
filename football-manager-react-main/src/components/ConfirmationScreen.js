@@ -1,4 +1,4 @@
-// ConfirmationScreen.js
+// src/components/ConfirmationScreen.js
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 

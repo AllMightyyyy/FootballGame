@@ -1,3 +1,5 @@
+// src/components/PlayerTable.js
+
 import React, { useEffect, useState } from "react";
 import { Paper, Box, TablePagination } from "@mui/material";
 import { useQuery } from "react-query";
@@ -14,19 +16,36 @@ const PlayerTable = ({ filters, onPlayerSelect }) => {
     setPage(0);
   }, [filters]);
 
+  const normalizedFilters = {
+    rating: [0, 100],
+    height: [150, 215],
+    weight: [40, 120],
+    position: [],
+    league: [],
+    club: [],
+    nation: [],
+    excludeSelected: {
+      position: false,
+      league: false,
+      club: false,
+      nation: false,
+    },
+    ...filters,
+  };
+
   const {
     data: playersData,
     isLoading,
     isError,
   } = useQuery(
-    ["players", page, rowsPerPage, orderBy, order, filters],
+    ["players", page, rowsPerPage, orderBy, order, normalizedFilters],
     () =>
       searchPlayers({
         page: page + 1,
         size: rowsPerPage,
         sortBy: orderBy,
-        sortDirection: order,
-        ...filters,
+        sortOrder: order,
+        ...normalizedFilters,
       }),
     {
       keepPreviousData: true,
@@ -56,7 +75,7 @@ const PlayerTable = ({ filters, onPlayerSelect }) => {
       }}
     >
       <Box>
-        {playersData?.data?.players.map((player) => (
+        {playersData?.players.map((player) => (
           <PlayerListItem
             key={player.id}
             player={player}
@@ -66,7 +85,7 @@ const PlayerTable = ({ filters, onPlayerSelect }) => {
       </Box>
       <TablePagination
         component="div"
-        count={playersData?.data?.totalItems || 0}
+        count={playersData?.totalItems || 0} 
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

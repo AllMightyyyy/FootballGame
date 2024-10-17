@@ -1,3 +1,4 @@
+// src/components/Formation.js
 import { Box } from "@mui/material";
 import React from "react";
 import { useFormation } from "../contexts/FormationContext";

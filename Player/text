@@ -1,0 +1,5 @@
+CREATE USER 'zakaria'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON football_manager.* TO 'zakaria'@'localhost';
+
+db football_manager
+

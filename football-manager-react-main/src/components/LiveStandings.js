@@ -1,10 +1,13 @@
+// src/components/LiveStandings.js
 import {
   Alert,
   Box,
   CircularProgress,
   Container,
-  MenuItem,
+  FormControl,
+  InputLabel,
   Select,
+  MenuItem,
   Tab,
   Tabs,
   Typography,
@@ -30,21 +33,26 @@ const LiveStandings = () => {
       setLoading(true);
       setError(null);
       try {
+        // Correct API endpoint for fetching football standings and matches
         const response = await axios.get(
           `http://localhost:8081/api/football/standings/${selectedLeague}`
         );
 
-        const matchesData = response.data;
-        setMatches(matchesData);
+        const matchesData = response.data; // Assuming response.data is the matches array
+        setMatches(matchesData); // Set matches directly
 
         const standingsData = calculateStandings(matchesData);
         setStandings(standingsData);
+
+        console.log("Fetched Matches:", matchesData);
+        console.log("Calculated Standings:", standingsData);
 
         const matchdaysData = extractMatchdays(matchesData);
         setMatchdays(matchdaysData);
         setSelectedMatchday(matchdaysData[0] || "");
       } catch (err) {
-        setError("Error fetching matches. Please try again.");
+        console.error(err);
+        setError("Error fetching data. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -134,28 +142,60 @@ const LiveStandings = () => {
     setSelectedTab(newValue);
   };
 
+  const handleLeagueChange = (event) => {
+    setSelectedLeague(event.target.value);
+  };
+
   return (
-    <Container maxWidth="lg" sx={{ backgroundColor: "#f8f9fa", padding: 3 }}>
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
-        sx={{ color: "#37003c", fontWeight: "bold" }}
-      >
-        {teamLogos[selectedLeague].leagueName}
-      </Typography>
-      <Box display="flex" justifyContent="center" my={2}>
-        <Select
-          value={selectedLeague}
-          onChange={(e) => setSelectedLeague(e.target.value)}
-          sx={{ width: 200, marginBottom: 2 }}
-        >
-          <MenuItem value="en.1">Premier League</MenuItem>
-          <MenuItem value="es.1">La Liga</MenuItem>
-          <MenuItem value="de.1">Bundesliga</MenuItem>
-          <MenuItem value="it.1">Serie A</MenuItem>
-        </Select>
+    <Container maxWidth="xl" sx={{ backgroundColor: "#f8f9fa", padding: 3 }}>
+      {/* Header with League Selector */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        {/* League Title with Logo */}
+        <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          component="img"
+          src={teamLogos[selectedLeague].leagueLogo}
+          alt={`${teamLogos[selectedLeague].leagueName} Logo`}
+          sx={{
+            width: 140, 
+            height: 140, 
+            objectFit: 'contain',  
+            backgroundColor: 'white', 
+          }}
+        />
+          <Typography
+            variant="h4"
+            sx={{ color: "#37003c", fontWeight: "bold" }}
+          >
+            {teamLogos[selectedLeague].leagueName}
+          </Typography>
+        </Box>
+
+        {/* Enhanced League Selector */}
+        <FormControl variant="outlined" size="small" sx={{ minWidth: 120 }}>
+          <InputLabel id="league-select-label">League</InputLabel>
+          <Select
+            labelId="league-select-label"
+            value={selectedLeague}
+            onChange={handleLeagueChange}
+            label="League"
+            sx={{
+              backgroundColor: '#ffffff',
+              borderRadius: 1,
+              '& .MuiSelect-select': {
+                padding: '6px 8px',
+              },
+            }}
+          >
+            <MenuItem value="en.1">Premier League</MenuItem>
+            <MenuItem value="es.1">La Liga</MenuItem>
+            <MenuItem value="de.1">Bundesliga</MenuItem>
+            <MenuItem value="it.1">Serie A</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
+
+      {/* Tabs for Standings and Matchday */}
       <Tabs
         value={selectedTab}
         onChange={handleTabChange}
@@ -166,8 +206,22 @@ const LiveStandings = () => {
         <Tab label="Standings" />
         <Tab label="Matchday" />
       </Tabs>
-      {loading && <CircularProgress />}
-      {error && <Alert severity="error">{error}</Alert>}
+
+      {/* Loading Indicator */}
+      {loading && (
+        <Box display="flex" justifyContent="center" my={4}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <Box my={4}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      )}
+
+      {/* Content Based on Selected Tab */}
       {!loading && !error && (
         <>
           {selectedTab === 0 && (
@@ -179,18 +233,31 @@ const LiveStandings = () => {
           )}
           {selectedTab === 1 && (
             <>
+              {/* Matchday Selector */}
               <Box display="flex" justifyContent="center" my={2}>
-                <Select
-                  value={selectedMatchday}
-                  onChange={(e) => setSelectedMatchday(e.target.value)}
-                  sx={{ width: 200, marginBottom: 2 }}
-                >
-                  {matchdays.map((round, idx) => (
-                    <MenuItem key={idx} value={round}>
-                      {round}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <FormControl variant="outlined" size="small" sx={{ minWidth: 160 }}>
+                  <InputLabel id="matchday-select-label">Matchday</InputLabel>
+                  <Select
+                    labelId="matchday-select-label"
+                    value={selectedMatchday}
+                    onChange={(e) => setSelectedMatchday(e.target.value)}
+                    label="Matchday"
+                    sx={{
+                      backgroundColor: '#ffffff',
+                      borderRadius: 2,
+                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+                      '& .MuiSelect-select': {
+                        padding: '8px 10px',
+                      },
+                    }}
+                  >
+                    {matchdays.map((round, idx) => (
+                      <MenuItem key={idx} value={round}>
+                        {round}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
               <FixturesList
                 matches={matches}

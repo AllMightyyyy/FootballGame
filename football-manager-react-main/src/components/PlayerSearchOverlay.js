@@ -1,3 +1,5 @@
+// src/components/PlayerSearchOverlay.js
+
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
@@ -25,7 +27,24 @@ const PlayerSearchOverlay = ({
   const { register, handleSubmit } = useForm();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const mergedFilters = { ...filters, name: searchTerm };
+  const mergedFilters = {
+    rating: [0, 100], 
+    height: [150, 215],
+    weight: [40, 120],
+    position: [],
+    league: [],
+    club: [],
+    nation: [],
+    excludeSelected: {
+      position: false,
+      league: false,
+      club: false,
+      nation: false,
+    },
+    name: searchTerm,
+    ...filters, 
+  };
+  
 
   const {
     data: playersData,
@@ -53,8 +72,10 @@ const PlayerSearchOverlay = ({
   };
 
   useEffect(() => {
-    refetch();
-  }, [filters, searchTerm]);
+    if (open) {
+      refetch();
+    }
+  }, [filters, searchTerm, open, refetch]);
 
   return (
     <Dialog fullScreen open={open} onClose={handleClose}>
@@ -78,7 +99,7 @@ const PlayerSearchOverlay = ({
           <Filters
             filters={filters}
             onFilterChange={handleFilterChange}
-            onSearch={onSubmit} 
+            onSearch={handleSubmit(onSubmit)}
           />
         </Box>
 
@@ -162,9 +183,9 @@ const PlayerSearchOverlay = ({
           >
             {isLoading && <div>Loading players...</div>}
             {isError && <div>Error loading players</div>}
-            {playersData && playersData.data.players.length > 0 ? (
+            {playersData && playersData.players.length > 0 ? (
               <List>
-                {playersData.data.players.map((player) => (
+                {playersData.players.map((player) => (
                   <PlayerListItem
                     key={player.id}
                     player={player}

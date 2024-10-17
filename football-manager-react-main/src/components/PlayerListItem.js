@@ -1,3 +1,5 @@
+// src/components/PlayerListItem.js
+
 import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 
@@ -21,6 +23,11 @@ const PlayerListItem = ({ player, onClick }) => {
         borderRadius: "8px",
         marginBottom: "10px",
         backgroundColor: "#2e2e2e",
+        cursor: "pointer", // Indicate clickable
+        transition: "background-color 0.3s",
+        "&:hover": {
+          backgroundColor: "#3e3e3e",
+        },
       }}
     >
       {/* Player Image */}

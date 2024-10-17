@@ -1,3 +1,4 @@
+// src/components/Game.js
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import GameMainScreen from "./GameMainScreen"; 

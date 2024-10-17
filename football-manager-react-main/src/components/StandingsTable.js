@@ -1,4 +1,4 @@
-// StandingsTable.js
+// src/components/StandingsTable.js
 import {
   Avatar,
   Box,
@@ -57,82 +57,103 @@ const StandingsTable = ({ standings, teamLogos, matches }) => {
   };
 
   return (
-    <Paper sx={{ marginTop: 3 }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Position</TableCell>
-            <TableCell>Club</TableCell>
-            <TableCell>Played</TableCell>
-            <TableCell>Won</TableCell>
-            <TableCell>Drawn</TableCell>
-            <TableCell>Lost</TableCell>
-            <TableCell>GF</TableCell>
-            <TableCell>GA</TableCell>
-            <TableCell>GD</TableCell>
-            <TableCell>Points</TableCell>
-            <TableCell>Form</TableCell>
-            <TableCell>Next</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {standings.map((team, idx) => (
-            <TableRow
-              key={team.name}
-              sx={{ borderLeft: `4px solid ${getPositionColor(idx + 1)}` }}
-            >
-              <TableCell>{idx + 1}</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center">
-                  <Avatar
-                    src={teamLogos[team.name]}
-                    alt={team.name}
-                    sx={{ width: 24, height: 24, marginRight: 1 }}
-                  />
-                  <Typography component="span">{team.name}</Typography>
-                </Box>
-              </TableCell>
-              <TableCell>{team.played}</TableCell>
-              <TableCell>{team.win}</TableCell>
-              <TableCell>{team.draw}</TableCell>
-              <TableCell>{team.lose}</TableCell>
-              <TableCell>{team.goalsFor}</TableCell>
-              <TableCell>{team.goalsAgainst}</TableCell>
-              <TableCell>{team.goalDifference}</TableCell>
-              <TableCell>{team.points}</TableCell>
-              <TableCell>
-                <Box display="flex">
-                  {getForm(team.name).map((result, i) => (
-                    <Chip
-                      key={i}
-                      label={result}
-                      sx={{
-                        backgroundColor:
-                          result === "W"
-                            ? "green"
-                            : result === "L"
-                            ? "red"
-                            : "gray",
-                        color: "#fff",
-                        marginRight: 0.5,
-                      }}
-                      size="small"
-                    />
-                  ))}
-                </Box>
-              </TableCell>
-              <TableCell>
+    <Paper sx={{ marginTop: 2, padding: 3, backgroundColor: "#ffffff", borderRadius: 3 }}>
+  <Box sx={{ overflowX: "auto" }}>  {/* Add this Box for responsive table */}
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Position</TableCell>
+          <TableCell>Club</TableCell>
+          <TableCell>Played</TableCell>
+          <TableCell>Won</TableCell>
+          <TableCell>Drawn</TableCell>
+          <TableCell>Lost</TableCell>
+          <TableCell>GF</TableCell>
+          <TableCell>GA</TableCell>
+          <TableCell>GD</TableCell>
+          <TableCell>Points</TableCell>
+          <TableCell>Form</TableCell>
+          <TableCell>Next</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {standings.map((team, idx) => (
+          <TableRow
+            key={team.name}
+            sx={{
+              borderLeft: `4px solid ${getPositionColor(idx + 1)}`,
+              transition: 'background-color 0.3s ease',
+              '&:hover': {
+                backgroundColor: '#f5f5f5',
+              },
+            }}
+          >
+            <TableCell>{idx + 1}</TableCell>
+            <TableCell>
+              <Box display="flex" alignItems="center">
                 <Avatar
-                  src={teamLogos[getNextOpponent(team.name)]}
-                  alt={getNextOpponent(team.name)}
+                  src={teamLogos[team.name]} // Ensure teamLogos has correct paths
+                  alt={team.name}
                   sx={{ width: 24, height: 24, marginRight: 1 }}
                 />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
+                <Typography component="span" sx={{ fontWeight: 'bold' }}>
+                  {team.name}
+                </Typography>
+              </Box>
+            </TableCell>
+            <TableCell>{team.played}</TableCell>
+            <TableCell>{team.win}</TableCell>
+            <TableCell>{team.draw}</TableCell>
+            <TableCell>{team.lose}</TableCell>
+            <TableCell>{team.goalsFor}</TableCell>
+            <TableCell>{team.goalsAgainst}</TableCell>
+            <TableCell>{team.goalDifference}</TableCell>
+            <TableCell>{team.points}</TableCell>
+            <TableCell>
+              <Box display="flex">
+                {getForm(team.name).map((result, i) => (
+                  <Chip
+                    key={i}
+                    label={result}
+                    sx={{
+                      backgroundColor:
+                        result === "W"
+                          ? "#4caf50"
+                          : result === "L"
+                          ? "#e53935"
+                          : "#757575",
+                      color: "#fff",
+                      marginRight: 0.5,
+                      fontWeight: 'bold',
+                    }}
+                    size="small"
+                  />
+                ))}
+              </Box>
+            </TableCell>
+            <TableCell>
+              {getNextOpponent(team.name) !== "N/A" ? (
+                <Box display="flex" alignItems="center">
+                  <Avatar
+                    src={teamLogos[getNextOpponent(team.name)]}
+                    alt={getNextOpponent(team.name)}
+                    sx={{ width: 24, height: 24, marginRight: 1 }}
+                  />
+                  <Typography component="span">
+                    {getNextOpponent(team.name)}
+                  </Typography>
+                </Box>
+              ) : (
+                "N/A"
+              )}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Box>
+</Paper>
+
   );
 };
 

@@ -1,10 +1,15 @@
+// src/main/java/com/example/Player/controllers/PlayerController.java
 package com.example.Player.controllers;
 
+import com.example.Player.exceptions.ResourceNotFoundException;
 import com.example.Player.models.Player;
 import com.example.Player.services.FormationService;
 import com.example.Player.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +28,6 @@ public class PlayerController {
     private FormationService formationService;
 
     // Get players with optional filtering and pagination
-    // Modify the controller
     @GetMapping
     public ResponseEntity<Map<String, Object>> searchPlayers(
             @RequestParam(required = false) String name,
@@ -54,27 +58,25 @@ public class PlayerController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        List<Player> players = playerService.searchPlayers(
+        // Use PageRequest to handle pagination and sorting
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.Direction.fromString(sortOrder), sortBy);
+
+        // Search players using specifications
+        Page<Player> playersPage = playerService.searchPlayers(
                 name, positions, leagues, clubs, nations,
                 minOverall, maxOverall,
                 minHeight, maxHeight,
                 minWeight, maxWeight,
                 excludePositions, excludeLeagues, excludeClubs, excludeNations,
-                page, size, sortBy, sortOrder
-        );
-        int totalItems = playerService.countPlayers(
-                name, positions, leagues, clubs, nations,
-                minOverall, maxOverall,
-                minHeight, maxHeight,
-                minWeight, maxWeight,
-                excludePositions, excludeLeagues, excludeClubs, excludeNations
+                pageRequest
         );
 
+        // Create a response with the players and pagination details
         Map<String, Object> response = new HashMap<>();
-        response.put("players", players);
-        response.put("currentPage", page);
-        response.put("totalItems", totalItems);
-        response.put("totalPages", (int) Math.ceil((double) totalItems / size));
+        response.put("players", playersPage.getContent()); // List of players
+        response.put("currentPage", playersPage.getNumber() + 1); // Page number is 0-based
+        response.put("totalItems", playersPage.getTotalElements());
+        response.put("totalPages", playersPage.getTotalPages());
 
         return ResponseEntity.ok(response);
     }
@@ -118,24 +120,26 @@ public class PlayerController {
     @GetMapping("/{id}")
     @Cacheable("players")
     public ResponseEntity<Player> getPlayerById(@PathVariable Long id) {
-        Player player = playerService.getPlayerById(id);
-        if (player == null) {
+        try {
+            Player player = playerService.getPlayerById(id);
+            return ResponseEntity.ok(player);
+        } catch (ResourceNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.ok(player);
     }
 
     // Add a player to the formation
     @PostMapping("/formation")
     public ResponseEntity<String> addPlayerToFormation(@RequestParam String position, @RequestParam Long playerId) {
-        Player player = playerService.getPlayerById(playerId);
-        if (player == null) {
+        try {
+            Player player = playerService.getPlayerById(playerId);
+            if (!formationService.addPlayerToPosition(position, player)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid position or player can't play in this position");
+            }
+            return ResponseEntity.ok("Player added successfully");
+        } catch (ResourceNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player not found");
         }
-        if (!formationService.addPlayerToPosition(position, player)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid position or player can't play in this position");
-        }
-        return ResponseEntity.ok("Player added successfully");
     }
 
     // Remove a player from the formation
