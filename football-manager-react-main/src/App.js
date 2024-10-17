@@ -1,14 +1,14 @@
-import { Box, Container, Tab, Tabs, Button } from "@mui/material";
+import { Box, Button, Container, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Formation from "./components/Formation";
-import PlayerCard from "./components/PlayerCard";
-import PlayerTable from "./components/PlayerTable";
-import PlayerSearchOverlay from "./components/PlayerSearchOverlay";
 import CurrentTeam from "./components/CurrentTeam";
-import { useFormation } from "./contexts/FormationContext";
+import Formation from "./components/Formation";
 import Game from "./components/Game";
-import LiveStandings from "./components/LiveStanding";
+import LiveStandings from "./components/LiveStandings";
+import PlayerCard from "./components/PlayerCard";
+import PlayerSearchOverlay from "./components/PlayerSearchOverlay";
+import PlayerTable from "./components/PlayerTable";
+import { useFormation } from "./contexts/FormationContext";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +36,9 @@ const App = () => {
 
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
-    const playerPositions = player.positions.split(",").map((pos) => pos.trim());
+    const playerPositions = player.positions
+      .split(",")
+      .map((pos) => pos.trim());
     let positionsInFormation = [];
 
     playerPositions.forEach((pos) => {
@@ -97,7 +99,9 @@ const App = () => {
             minHeight: "100vh",
           }}
         >
-          <h1 style={{ textAlign: "center", margin: "20px 0", color: "#487748" }}>
+          <h1
+            style={{ textAlign: "center", margin: "20px 0", color: "#487748" }}
+          >
             Football Manager
           </h1>
 
@@ -129,7 +133,8 @@ const App = () => {
             <Tab label="Squad Builder" />
             <Tab label="Player List" />
             <Tab label="Play Game" />
-            <Tab label="Live Football Standings" /> {/* New tab for Live Standings */}
+            <Tab label="Live Football Standings" />{" "}
+            {/* New tab for Live Standings */}
           </Tabs>
 
           <Box sx={{ display: "flex", flex: 1 }}>
@@ -192,7 +197,7 @@ const App = () => {
 
             {activeTab === 3 && (
               <Box sx={{ flex: 1, padding: "20px" }}>
-                <LiveStandings /> 
+                <LiveStandings />
               </Box>
             )}
           </Box>
