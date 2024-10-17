@@ -13,30 +13,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FixturesList from "./FixturesList";
 import StandingsTable from "./StandingsTable";
-
-// Mapping team names to their corresponding logo images
-const teamLogos = {
-  "Arsenal FC": "assets/img/img_icon1.png",
-  "Aston Villa FC": "assets/img/img_icon2.png",
-  "Brighton & Hove Albion FC": "assets/img/img_icon3.png",
-  "Burnley FC": "assets/img/img_icon4.png",
-  "Chelsea FC": "assets/img/img_icon5.png",
-  "Crystal Palace FC": "assets/img/img_icon6.png",
-  "Everton FC": "assets/img/img_icon7.png",
-  "Fulham FC": "assets/img/img_icon8.png",
-  "Leicester City FC": "assets/img/img_icon10.png",
-  "Liverpool FC": "assets/img/img_icon11.png",
-  "Manchester City FC": "assets/img/img_icon12.png",
-  "Manchester United FC": "assets/img/img_icon13.png",
-  "Newcastle United FC": "assets/img/img_icon14.png",
-  "Southampton FC": "assets/img/img_icon16.png",
-  "Tottenham Hotspur FC": "assets/img/img_icon17.png",
-  "West Ham United FC": "assets/img/img_icon19.png",
-  "Wolverhampton Wanderers FC": "assets/img/img_icon20.png",
-  "AFC Bournemouth": "assets/img/img_icon21.png",
-  "Ipswich Town FC": "assets/img/img_icon22.png",
-  "Nottingham Forest FC": "assets/img/img_icon23.png",
-};
+import teamLogos from "./utils/teamLogos";
 
 const LiveStandings = () => {
   const [standings, setStandings] = useState([]);
@@ -65,7 +42,6 @@ const LiveStandings = () => {
 
         const matchdaysData = extractMatchdays(matchesData);
         setMatchdays(matchdaysData);
-        // Set the first matchday as the selected one if it's not set
         setSelectedMatchday(matchdaysData[0] || "");
       } catch (err) {
         setError("Error fetching matches. Please try again.");
@@ -166,7 +142,7 @@ const LiveStandings = () => {
         gutterBottom
         sx={{ color: "#37003c", fontWeight: "bold" }}
       >
-        {selectedLeague === "en.1" && "Premier League"}
+        {teamLogos[selectedLeague].leagueName}
       </Typography>
       <Box display="flex" justifyContent="center" my={2}>
         <Select
@@ -178,8 +154,6 @@ const LiveStandings = () => {
           <MenuItem value="es.1">La Liga</MenuItem>
           <MenuItem value="de.1">Bundesliga</MenuItem>
           <MenuItem value="it.1">Serie A</MenuItem>
-          <MenuItem value="fr.1">Ligue 1</MenuItem>
-          <MenuItem value="uefa.cl">Champions League</MenuItem>
         </Select>
       </Box>
       <Tabs
@@ -188,12 +162,6 @@ const LiveStandings = () => {
         indicatorColor="primary"
         textColor="primary"
         centered
-        sx={{
-          backgroundColor: "#1e1e1e",
-          "& .MuiTab-root": {
-            color: "#fff",
-          },
-        }}
       >
         <Tab label="Standings" />
         <Tab label="Matchday" />
@@ -203,7 +171,11 @@ const LiveStandings = () => {
       {!loading && !error && (
         <>
           {selectedTab === 0 && (
-            <StandingsTable standings={standings} teamLogos={teamLogos} />
+            <StandingsTable
+              standings={standings}
+              teamLogos={teamLogos[selectedLeague].logos}
+              matches={matches}
+            />
           )}
           {selectedTab === 1 && (
             <>
@@ -223,7 +195,7 @@ const LiveStandings = () => {
               <FixturesList
                 matches={matches}
                 selectedMatchday={selectedMatchday}
-                teamLogos={teamLogos}
+                teamLogos={teamLogos[selectedLeague].logos}
               />
             </>
           )}

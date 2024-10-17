@@ -1,6 +1,7 @@
 import { Box, Button, Container, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import portraitLogo from "./assets/logos/Football_Manager_2024_Logo.png";
 import CurrentTeam from "./components/CurrentTeam";
 import Formation from "./components/Formation";
 import Game from "./components/Game";
@@ -99,11 +100,25 @@ const App = () => {
             minHeight: "100vh",
           }}
         >
-          <h1
-            style={{ textAlign: "center", margin: "20px 0", color: "#487748" }}
+          {/* Child container for the logo */}
+          <Box
+            sx={{
+              backgroundColor: "#f5f5f5", // Set the background color for the logo container
+              padding: "20px 0", // Optional: add padding to create some space around the logo
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            Football Manager
-          </h1>
+            <img
+              src={portraitLogo}
+              alt="Portrait Logo"
+              style={{
+                width: "350px",
+                height: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </Box>
 
           <Tabs
             value={activeTab}
@@ -133,8 +148,7 @@ const App = () => {
             <Tab label="Squad Builder" />
             <Tab label="Player List" />
             <Tab label="Play Game" />
-            <Tab label="Live Football Standings" />{" "}
-            {/* New tab for Live Standings */}
+            <Tab label="Live Football Standings" />
           </Tabs>
 
           <Box sx={{ display: "flex", flex: 1 }}>
