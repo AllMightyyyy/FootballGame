@@ -8,36 +8,35 @@ import { useNavigate } from 'react-router-dom';
 const LoginScreen = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  
-  // Set default credentials if in development mode
-  const defaultCredentials = {
-    username: process.env.NODE_ENV === 'development' ? 'devuser' : '',
-    password: process.env.NODE_ENV === 'development' ? 'devpassword' : '',
-  };
 
-  const [credentials, setCredentials] = useState(defaultCredentials);
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: '',
+  });
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setCredentials({ 
-      ...credentials, 
-      [e.target.name]: e.target.value 
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    try {
-      const result = await login(credentials);
-      if (result.success) {
-        // Redirect to main page or desired route
-        navigate('/');
+
+    const result = await login(credentials);
+    if (result.success) {
+      if (result.hasTeam) {
+        console.log('Login successful, navigating to the home page.');
+        navigate('/'); // Navigate to the home page
       } else {
-        setError(result.message);
+        console.log('Login successful, navigating to onboarding.');
+        navigate('/onboarding'); // Navigate to the onboarding flow
       }
-    } catch (err) {
-      setError('Login failed. Please try again.');
+    } else {
+      setError(result.message);
     }
   };
 

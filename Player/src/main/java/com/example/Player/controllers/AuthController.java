@@ -1,14 +1,16 @@
 // src/main/java/com/example/Player/controllers/AuthController.java
-
 package com.example.Player.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.Player.models.Team;
+import com.example.Player.services.TeamService;
 import com.example.Player.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.Player.models.User;
@@ -24,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private TeamService teamService;
 
     // DTOs for requests and responses
     static class RegisterRequest {
@@ -88,6 +93,33 @@ public class AuthController {
         if (!available) {
             String suggestedUsername = userService.suggestUsername(username);
             response.put("suggestedUsername", suggestedUsername);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    // New endpoint to get current user and team info
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body(Map.of("message", "Unauthorized"));
+        }
+        User user = (User) authentication.getPrincipal();
+        Optional<Team> teamOpt = teamService.getUserTeam(user);
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", Map.of(
+                "id", user.getId(),
+                "username", user.getUsername(),
+                "email", user.getEmail()
+        ));
+        if (teamOpt.isPresent()) {
+            Team team = teamOpt.get();
+            response.put("team", Map.of(
+                    "id", team.getId(),
+                    "name", team.getName(),
+                    "league", team.getLeague()
+            ));
+        } else {
+            response.put("team", null);
         }
         return ResponseEntity.ok(response);
     }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
 import LoginScreen from "./LoginScreen";
-import GameMainScreen from "./GameMainScreen"; // Handles Sign-Up
+import GameMainScreen from "./GameMainScreen"; 
 
 const AuthTab = () => {
   const [selectedTab, setSelectedTab] = useState(0);

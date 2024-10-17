@@ -163,12 +163,7 @@ const LiveStandings = () => {
             backgroundColor: 'white', 
           }}
         />
-          <Typography
-            variant="h4"
-            sx={{ color: "#37003c", fontWeight: "bold" }}
-          >
-            {teamLogos[selectedLeague].leagueName}
-          </Typography>
+          
         </Box>
 
         {/* Enhanced League Selector */}

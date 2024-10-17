@@ -3,22 +3,20 @@
 import axios from 'axios';
 import qs from 'qs';
 
-// Create a centralized Axios instance
 const api = axios.create({
   baseURL: 'http://localhost:8081/api', // Base URL for API
   paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
 });
 
-// Add a request interceptor to include the token
 api.interceptors.request.use(
   (config) => {
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
 
-    console.log('Intercepted request. Token:', token); // Debugging log
+    console.log('Intercepted request. Token:', token); 
 
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; // Attach token
+      config.headers['Authorization'] = `Bearer ${token}`; 
     }
 
     return config;
@@ -54,7 +52,7 @@ export const searchPlayers = async (filters) => {
 
   try {
     const response = await api.get("/players", { params });
-    return response.data; // Assuming response.data contains the players array
+    return response.data; 
   } catch (error) {
     console.error('Error fetching players:', error);
     throw error;

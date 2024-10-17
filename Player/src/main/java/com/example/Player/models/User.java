@@ -31,6 +31,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password; // Hashed password
 
+    @OneToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     // Implementing UserDetails methods
 
     @Override
@@ -92,5 +96,13 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

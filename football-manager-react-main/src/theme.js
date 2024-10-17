@@ -15,7 +15,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    // Define typography settings if needed
+   
   },
 });
 

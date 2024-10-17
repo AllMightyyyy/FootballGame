@@ -2,13 +2,14 @@
 
 import React, { useState, useContext } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from '../contexts/AuthContext';
+import api from "../api";
 import ConfirmationScreen from "./ConfirmationScreen";
-import api, { searchPlayers, getFormation, addPlayerToFormation, removePlayerFromFormation } from '../api';
-
+import { useNavigate } from 'react-router-dom'; 
 
 const GameMainScreen = () => {
-  const { register: registerUser } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [managerName, setManagerName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,12 +67,12 @@ const GameMainScreen = () => {
     setIsSubmitting(true);
     const registrationData = { username: managerName, email, password };
 
-    const result = await registerUser(registrationData);
+    const result = await register(registrationData);
     setIsSubmitting(false);
 
     if (result.success) {
-      // Show confirmation screen or redirect
-      setStep(3);
+      console.log('Registration successful, navigating to onboarding.');
+      navigate('/onboarding');
     } else {
       setError(result.message);
     }
@@ -84,7 +85,6 @@ const GameMainScreen = () => {
         flexDirection: "column",
         alignItems: "center",
         gap: "20px",
-        backgroundColor: "#2e2e2e",
         padding: "30px",
         borderRadius: "8px",
       }}
@@ -235,9 +235,10 @@ const GameMainScreen = () => {
       {step === 3 && (
         <ConfirmationScreen
           managerName={managerName}
-          selectedTeam={null} // Adjust based on your flow
+          selectedTeam={null} // Will be set after team selection
           onConfirm={() => {
             // Handle confirmation, e.g., navigate to Squad Builder
+            navigate('/');
           }}
           onPrevious={() => setStep(2)}
         />

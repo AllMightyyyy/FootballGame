@@ -1,24 +1,54 @@
 // src/components/Game.js
-import React, { useState } from "react";
+
+import React, { useState, useEffect, useContext } from "react";
 import { Box } from "@mui/material";
-import GameMainScreen from "./GameMainScreen"; 
 import ManagerSetup from "./ManagerSetup";
 import TeamSelection from "./TeamSelection";
 import ConfirmationScreen from "./ConfirmationScreen";
-import Formation from "./Formation";
-import CurrentTeam from "./CurrentTeam";
+import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import api from "../api";
 
 const Game = () => {
-  const [onboardingStep, setOnboardingStep] = useState(0);
+  const { auth, updateTeam } = useContext(AuthContext);
+  const [onboardingStep, setOnboardingStep] = useState(1); 
   const [managerName, setManagerName] = useState("");
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [selectedLeague, setSelectedLeague] = useState("en.1"); 
+  const navigate = useNavigate();
+
+  const assignTeam = async () => {
+    try {
+      const response = await api.post('/teams/assign', {
+        league: selectedLeague, 
+        teamName: selectedTeam,
+      });
+      alert(response.data.message);
+      const teamResponse = await api.get('/teams/my');
+      if (teamResponse.data.team) {
+        updateTeam(teamResponse.data.team);
+        handleNextStep();
+      }
+    } catch (error) {
+      console.error("Error assigning team:", error);
+      alert(error.response?.data?.message || "Failed to assign team.");
+    }
+  };
+
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate('/login');
+    } else if (auth.team) {
+      navigate('/');
+    }
+  }, [auth, navigate]);
 
   const handleNextStep = () => {
-    setOnboardingStep(onboardingStep + 1);
+    setOnboardingStep(prev => prev + 1);
   };
 
   const handlePreviousStep = () => {
-    setOnboardingStep(onboardingStep - 1);
+    setOnboardingStep(prev => prev - 1);
   };
 
   const handleManagerNameChange = (name) => {
@@ -31,7 +61,7 @@ const Game = () => {
 
   const handleStartGame = () => {
     console.log("Starting game with manager:", managerName, "and team:", selectedTeam);
-    setOnboardingStep(3);
+    navigate('/');
   };
 
   return (
@@ -43,9 +73,9 @@ const Game = () => {
         justifyContent: "center",
         minHeight: "100vh",
         backgroundColor: "#1e1e1e",
+        padding: 3,
       }}
     >
-      {onboardingStep === 0 && <GameMainScreen />} {/* Display GameMainScreen when step is 0 */}
       {onboardingStep === 1 && (
         <ManagerSetup
           managerName={managerName}
@@ -57,8 +87,13 @@ const Game = () => {
         <TeamSelection
           selectedTeam={selectedTeam}
           onTeamSelect={handleTeamSelection}
-          onNext={handleNextStep}
+          onNext={() => {
+            // Assign team to user
+            assignTeam();
+          }}
           onPrevious={handlePreviousStep}
+          selectedLeague={selectedLeague} 
+          setSelectedLeague={setSelectedLeague} 
         />
       )}
       {onboardingStep === 3 && (
@@ -67,13 +102,8 @@ const Game = () => {
           selectedTeam={selectedTeam}
           onConfirm={handleStartGame}
           onPrevious={handlePreviousStep}
+          selectedLeague={selectedLeague} 
         />
-      )}
-      {onboardingStep === 4 && (
-        <>
-          <Formation />
-          <CurrentTeam />
-        </>
       )}
     </Box>
   );

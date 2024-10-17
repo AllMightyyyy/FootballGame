@@ -34,9 +34,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection (for stateless APIs)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Public endpoints
-                        .requestMatchers("/api/football/**").permitAll()
-                        .requestMatchers("/api/players/**").authenticated() // Secured endpoints
+                        .requestMatchers("/api/auth/**", "/api/football/**", "/api/teams/leagues", "/api/teams/{league}").permitAll()
                         .anyRequest().permitAll() // Allow other requests
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter
@@ -56,3 +54,5 @@ public class SecurityConfig {
     }
 
 }
+
+

@@ -4,7 +4,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
-  // Filter matches based on selected matchday
   const filteredMatches = selectedMatchday
     ? matches.filter((match) => match.round === selectedMatchday)
     : [];
@@ -42,7 +41,6 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
       ) : (
         <Grid container spacing={3} justifyContent="center">
           {filteredMatches.map((match, idx) => {
-            // Check if the score is available
             const hasScore = match.score && match.score.ft;
             const displayScore = hasScore
               ? `${match.score.ft[0]} - ${match.score.ft[1]}`
@@ -168,7 +166,6 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
   );
 };
 
-// Define PropTypes for better type checking
 FixturesList.propTypes = {
   matches: PropTypes.array.isRequired,
   selectedMatchday: PropTypes.string.isRequired,
