@@ -6,16 +6,16 @@ import {
   Container,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Select,
   Tab,
   Tabs,
-  Typography,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FixturesList from "./FixturesList";
 import StandingsTable from "./StandingsTable";
+import { leagueNameMap } from "./utils/leagueMapping";
 import teamLogos from "./utils/teamLogos";
 
 const LiveStandings = () => {
@@ -28,14 +28,16 @@ const LiveStandings = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const standardLeagueName = leagueNameMap[selectedLeague];
+
   useEffect(() => {
     const getMatches = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Correct API endpoint for fetching football standings and matches
+        const standardLeagueName = leagueNameMap[selectedLeague]; // Translate league code
         const response = await axios.get(
-          `http://localhost:8081/api/football/standings/${selectedLeague}`
+          `http://localhost:8081/api/football/standings/${standardLeagueName}`
         );
 
         const matchesData = response.data; // Assuming response.data is the matches array
@@ -149,21 +151,25 @@ const LiveStandings = () => {
   return (
     <Container maxWidth="xl" sx={{ backgroundColor: "#f8f9fa", padding: 3 }}>
       {/* Header with League Selector */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+      >
         {/* League Title with Logo */}
         <Box display="flex" alignItems="center" gap={1}>
-        <Box
-          component="img"
-          src={teamLogos[selectedLeague].leagueLogo}
-          alt={`${teamLogos[selectedLeague].leagueName} Logo`}
-          sx={{
-            width: 140, 
-            height: 140, 
-            objectFit: 'contain',  
-            backgroundColor: 'white', 
-          }}
-        />
-          
+          <Box
+            component="img"
+            src={teamLogos[selectedLeague].leagueLogo}
+            alt={`${teamLogos[selectedLeague].leagueName} Logo`}
+            sx={{
+              width: 140,
+              height: 140,
+              objectFit: "contain",
+              backgroundColor: "white",
+            }}
+          />
         </Box>
 
         {/* Enhanced League Selector */}
@@ -175,10 +181,10 @@ const LiveStandings = () => {
             onChange={handleLeagueChange}
             label="League"
             sx={{
-              backgroundColor: '#ffffff',
+              backgroundColor: "#ffffff",
               borderRadius: 1,
-              '& .MuiSelect-select': {
-                padding: '6px 8px',
+              "& .MuiSelect-select": {
+                padding: "6px 8px",
               },
             }}
           >
@@ -230,7 +236,11 @@ const LiveStandings = () => {
             <>
               {/* Matchday Selector */}
               <Box display="flex" justifyContent="center" my={2}>
-                <FormControl variant="outlined" size="small" sx={{ minWidth: 160 }}>
+                <FormControl
+                  variant="outlined"
+                  size="small"
+                  sx={{ minWidth: 160 }}
+                >
                   <InputLabel id="matchday-select-label">Matchday</InputLabel>
                   <Select
                     labelId="matchday-select-label"
@@ -238,11 +248,11 @@ const LiveStandings = () => {
                     onChange={(e) => setSelectedMatchday(e.target.value)}
                     label="Matchday"
                     sx={{
-                      backgroundColor: '#ffffff',
+                      backgroundColor: "#ffffff",
                       borderRadius: 2,
                       boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
-                      '& .MuiSelect-select': {
-                        padding: '8px 10px',
+                      "& .MuiSelect-select": {
+                        padding: "8px 10px",
                       },
                     }}
                   >

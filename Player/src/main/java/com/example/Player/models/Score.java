@@ -1,5 +1,10 @@
+// src/main/java/com/example/Player/models/Score.java
+
 package com.example.Player.models;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Score {
     private int[] ht; // Half-time score
     private int[] ft; // Full-time score
@@ -27,4 +32,5 @@ public class Score {
     public void setFt(int[] ft) {
         this.ft = ft;
     }
+
 }

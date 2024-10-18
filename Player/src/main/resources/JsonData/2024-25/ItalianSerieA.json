@@ -8,14 +8,8 @@
       "team1": "Genoa CFC",
       "team2": "FC Internazionale Milano",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [1, 1],
+        "ft": [2, 2]
       }
     },
     {
@@ -25,14 +19,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "ACF Fiorentina",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -42,10 +30,7 @@
       "team1": "Empoli FC",
       "team2": "AC Monza",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -55,14 +40,8 @@
       "team1": "AC Milan",
       "team2": "Torino FC",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [0, 1],
+        "ft": [2, 2]
       }
     },
     {
@@ -72,14 +51,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Udinese Calcio",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [0, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -89,14 +62,8 @@
       "team1": "Hellas Verona FC",
       "team2": "SSC Napoli",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          3,
-          0
-        ]
+        "ht": [0, 0],
+        "ft": [3, 0]
       }
     },
     {
@@ -106,10 +73,7 @@
       "team1": "Cagliari Calcio",
       "team2": "AS Roma",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -119,14 +83,8 @@
       "team1": "SS Lazio",
       "team2": "Venezia FC",
       "score": {
-        "ht": [
-          2,
-          1
-        ],
-        "ft": [
-          3,
-          1
-        ]
+        "ht": [2, 1],
+        "ft": [3, 1]
       }
     },
     {
@@ -136,14 +94,8 @@
       "team1": "US Lecce",
       "team2": "Atalanta BC",
       "score": {
-        "ht": [
-          0,
-          2
-        ],
-        "ft": [
-          0,
-          4
-        ]
+        "ht": [0, 2],
+        "ft": [0, 4]
       }
     },
     {
@@ -153,14 +105,8 @@
       "team1": "Juventus FC",
       "team2": "Como 1907",
       "score": {
-        "ht": [
-          2,
-          0
-        ],
-        "ft": [
-          3,
-          0
-        ]
+        "ht": [2, 0],
+        "ft": [3, 0]
       }
     },
     {
@@ -170,14 +116,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "AC Milan",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [2, 1]
       }
     },
     {
@@ -187,14 +127,8 @@
       "team1": "Udinese Calcio",
       "team2": "SS Lazio",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [2, 1]
       }
     },
     {
@@ -204,14 +138,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "US Lecce",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          0
-        ]
+        "ht": [1, 0],
+        "ft": [2, 0]
       }
     },
     {
@@ -221,14 +149,8 @@
       "team1": "AC Monza",
       "team2": "Genoa CFC",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          0,
-          1
-        ]
+        "ht": [0, 1],
+        "ft": [0, 1]
       }
     },
     {
@@ -238,10 +160,7 @@
       "team1": "ACF Fiorentina",
       "team2": "Venezia FC",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -251,14 +170,8 @@
       "team1": "Torino FC",
       "team2": "Atalanta BC",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -268,14 +181,8 @@
       "team1": "SSC Napoli",
       "team2": "Bologna FC 1909",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          3,
-          0
-        ]
+        "ht": [1, 0],
+        "ft": [3, 0]
       }
     },
     {
@@ -285,14 +192,8 @@
       "team1": "AS Roma",
       "team2": "Empoli FC",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          1,
-          2
-        ]
+        "ht": [0, 1],
+        "ft": [1, 2]
       }
     },
     {
@@ -302,14 +203,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Como 1907",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -319,14 +214,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Juventus FC",
       "score": {
-        "ht": [
-          0,
-          2
-        ],
-        "ft": [
-          0,
-          3
-        ]
+        "ht": [0, 2],
+        "ft": [0, 3]
       }
     },
     {
@@ -336,14 +225,8 @@
       "team1": "Venezia FC",
       "team2": "Torino FC",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          0,
-          1
-        ]
+        "ht": [0, 0],
+        "ft": [0, 1]
       }
     },
     {
@@ -353,14 +236,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Atalanta BC",
       "score": {
-        "ht": [
-          2,
-          0
-        ],
-        "ft": [
-          4,
-          0
-        ]
+        "ht": [2, 0],
+        "ft": [4, 0]
       }
     },
     {
@@ -370,14 +247,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Empoli FC",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [1, 1],
+        "ft": [1, 1]
       }
     },
     {
@@ -387,14 +258,8 @@
       "team1": "US Lecce",
       "team2": "Cagliari Calcio",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          1,
-          0
-        ]
+        "ht": [1, 0],
+        "ft": [1, 0]
       }
     },
     {
@@ -404,14 +269,8 @@
       "team1": "SS Lazio",
       "team2": "AC Milan",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [0, 1],
+        "ft": [2, 2]
       }
     },
     {
@@ -421,14 +280,8 @@
       "team1": "SSC Napoli",
       "team2": "Parma Calcio 1913",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [0, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -438,14 +291,8 @@
       "team1": "ACF Fiorentina",
       "team2": "AC Monza",
       "score": {
-        "ht": [
-          1,
-          2
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [1, 2],
+        "ft": [2, 2]
       }
     },
     {
@@ -455,14 +302,8 @@
       "team1": "Genoa CFC",
       "team2": "Hellas Verona FC",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          0,
-          2
-        ]
+        "ht": [0, 0],
+        "ft": [0, 2]
       }
     },
     {
@@ -472,10 +313,7 @@
       "team1": "Juventus FC",
       "team2": "AS Roma",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -485,14 +323,8 @@
       "team1": "Udinese Calcio",
       "team2": "Como 1907",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          1,
-          0
-        ]
+        "ht": [1, 0],
+        "ft": [1, 0]
       }
     },
     {
@@ -502,14 +334,8 @@
       "team1": "Como 1907",
       "team2": "Bologna FC 1909",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [1, 0],
+        "ft": [2, 2]
       }
     },
     {
@@ -519,10 +345,7 @@
       "team1": "Empoli FC",
       "team2": "Juventus FC",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -532,14 +355,8 @@
       "team1": "AC Milan",
       "team2": "Venezia FC",
       "score": {
-        "ht": [
-          4,
-          0
-        ],
-        "ft": [
-          4,
-          0
-        ]
+        "ht": [4, 0],
+        "ft": [4, 0]
       }
     },
     {
@@ -549,14 +366,8 @@
       "team1": "Genoa CFC",
       "team2": "AS Roma",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [0, 1],
+        "ft": [1, 1]
       }
     },
     {
@@ -566,14 +377,8 @@
       "team1": "Atalanta BC",
       "team2": "ACF Fiorentina",
       "score": {
-        "ht": [
-          3,
-          2
-        ],
-        "ft": [
-          3,
-          2
-        ]
+        "ht": [3, 2],
+        "ft": [3, 2]
       }
     },
     {
@@ -583,10 +388,7 @@
       "team1": "Torino FC",
       "team2": "US Lecce",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -596,14 +398,8 @@
       "team1": "Cagliari Calcio",
       "team2": "SSC Napoli",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          0,
-          4
-        ]
+        "ht": [0, 1],
+        "ft": [0, 4]
       }
     },
     {
@@ -613,14 +409,8 @@
       "team1": "AC Monza",
       "team2": "FC Internazionale Milano",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [0, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -630,14 +420,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Udinese Calcio",
       "score": {
-        "ht": [
-          2,
-          0
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [2, 0],
+        "ft": [2, 3]
       }
     },
     {
@@ -647,14 +431,8 @@
       "team1": "SS Lazio",
       "team2": "Hellas Verona FC",
       "score": {
-        "ht": [
-          2,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [2, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -664,14 +442,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Empoli FC",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          0,
-          2
-        ]
+        "ht": [0, 1],
+        "ft": [0, 2]
       }
     },
     {
@@ -681,14 +453,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Torino FC",
       "score": {
-        "ht": [
-          1,
-          2
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [1, 2],
+        "ft": [2, 3]
       }
     },
     {
@@ -698,14 +464,8 @@
       "team1": "Venezia FC",
       "team2": "Genoa CFC",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          2,
-          0
-        ]
+        "ht": [0, 0],
+        "ft": [2, 0]
       }
     },
     {
@@ -715,10 +475,7 @@
       "team1": "Juventus FC",
       "team2": "SSC Napoli",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -728,14 +485,8 @@
       "team1": "US Lecce",
       "team2": "Parma Calcio 1913",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          2
-        ]
+        "ht": [1, 0],
+        "ft": [2, 2]
       }
     },
     {
@@ -745,14 +496,8 @@
       "team1": "ACF Fiorentina",
       "team2": "SS Lazio",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [0, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -762,14 +507,8 @@
       "team1": "AC Monza",
       "team2": "Bologna FC 1909",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          1,
-          2
-        ]
+        "ht": [1, 1],
+        "ft": [1, 2]
       }
     },
     {
@@ -779,14 +518,8 @@
       "team1": "AS Roma",
       "team2": "Udinese Calcio",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          3,
-          0
-        ]
+        "ht": [1, 0],
+        "ft": [3, 0]
       }
     },
     {
@@ -796,14 +529,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "AC Milan",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          1,
-          2
-        ]
+        "ht": [1, 1],
+        "ft": [1, 2]
       }
     },
     {
@@ -813,14 +540,8 @@
       "team1": "Atalanta BC",
       "team2": "Como 1907",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [1, 0],
+        "ft": [2, 3]
       }
     },
     {
@@ -830,14 +551,8 @@
       "team1": "AC Milan",
       "team2": "US Lecce",
       "score": {
-        "ht": [
-          3,
-          0
-        ],
-        "ft": [
-          3,
-          0
-        ]
+        "ht": [3, 0],
+        "ft": [3, 0]
       }
     },
     {
@@ -847,14 +562,8 @@
       "team1": "Udinese Calcio",
       "team2": "FC Internazionale Milano",
       "score": {
-        "ht": [
-          1,
-          2
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [1, 2],
+        "ft": [2, 3]
       }
     },
     {
@@ -864,14 +573,8 @@
       "team1": "Genoa CFC",
       "team2": "Juventus FC",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          0,
-          3
-        ]
+        "ht": [0, 0],
+        "ft": [0, 3]
       }
     },
     {
@@ -881,14 +584,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Atalanta BC",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [0, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -898,14 +595,8 @@
       "team1": "Torino FC",
       "team2": "SS Lazio",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [0, 1],
+        "ft": [2, 3]
       }
     },
     {
@@ -915,14 +606,8 @@
       "team1": "Como 1907",
       "team2": "Hellas Verona FC",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          3,
-          2
-        ]
+        "ht": [1, 0],
+        "ft": [3, 2]
       }
     },
     {
@@ -932,14 +617,8 @@
       "team1": "AS Roma",
       "team2": "Venezia FC",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [0, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -949,10 +628,7 @@
       "team1": "Empoli FC",
       "team2": "ACF Fiorentina",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -962,14 +638,8 @@
       "team1": "SSC Napoli",
       "team2": "AC Monza",
       "score": {
-        "ht": [
-          2,
-          0
-        ],
-        "ft": [
-          2,
-          0
-        ]
+        "ht": [2, 0],
+        "ft": [2, 0]
       }
     },
     {
@@ -979,14 +649,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Cagliari Calcio",
       "score": {
-        "ht": [
-          0,
-          1
-        ],
-        "ft": [
-          2,
-          3
-        ]
+        "ht": [0, 1],
+        "ft": [2, 3]
       }
     },
     {
@@ -996,14 +660,8 @@
       "team1": "SSC Napoli",
       "team2": "Como 1907",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          3,
-          1
-        ]
+        "ht": [1, 1],
+        "ft": [3, 1]
       }
     },
     {
@@ -1013,14 +671,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Venezia FC",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -1030,14 +682,8 @@
       "team1": "Udinese Calcio",
       "team2": "US Lecce",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          1,
-          0
-        ]
+        "ht": [0, 0],
+        "ft": [1, 0]
       }
     },
     {
@@ -1047,14 +693,8 @@
       "team1": "Atalanta BC",
       "team2": "Genoa CFC",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          5,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [5, 1]
       }
     },
     {
@@ -1064,14 +704,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Torino FC",
       "score": {
-        "ht": [
-          2,
-          1
-        ],
-        "ft": [
-          3,
-          2
-        ]
+        "ht": [2, 1],
+        "ft": [3, 2]
       }
     },
     {
@@ -1081,14 +715,8 @@
       "team1": "Juventus FC",
       "team2": "Cagliari Calcio",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -1098,10 +726,7 @@
       "team1": "Bologna FC 1909",
       "team2": "Parma Calcio 1913",
       "score": {
-        "ft": [
-          0,
-          0
-        ]
+        "ft": [0, 0]
       }
     },
     {
@@ -1111,14 +736,8 @@
       "team1": "SS Lazio",
       "team2": "Empoli FC",
       "score": {
-        "ht": [
-          1,
-          1
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 1],
+        "ft": [2, 1]
       }
     },
     {
@@ -1128,14 +747,8 @@
       "team1": "AC Monza",
       "team2": "AS Roma",
       "score": {
-        "ht": [
-          0,
-          0
-        ],
-        "ft": [
-          1,
-          1
-        ]
+        "ht": [0, 0],
+        "ft": [1, 1]
       }
     },
     {
@@ -1145,14 +758,8 @@
       "team1": "ACF Fiorentina",
       "team2": "AC Milan",
       "score": {
-        "ht": [
-          1,
-          0
-        ],
-        "ft": [
-          2,
-          1
-        ]
+        "ht": [1, 0],
+        "ft": [2, 1]
       }
     },
     {
@@ -1162,6 +769,8 @@
       "team1": "Como 1907",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1171,6 +780,8 @@
       "team1": "Genoa CFC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1180,6 +791,8 @@
       "team1": "AC Milan",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1189,6 +802,8 @@
       "team1": "Juventus FC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1198,6 +813,8 @@
       "team1": "Empoli FC",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1207,6 +824,8 @@
       "team1": "US Lecce",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1216,6 +835,8 @@
       "team1": "Venezia FC",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1225,6 +846,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1234,6 +857,8 @@
       "team1": "AS Roma",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1243,6 +868,8 @@
       "team1": "Hellas Verona FC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1252,6 +879,8 @@
       "team1": "Udinese Calcio",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1261,6 +890,8 @@
       "team1": "Torino FC",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1270,6 +901,8 @@
       "team1": "SSC Napoli",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1279,6 +912,8 @@
       "team1": "Bologna FC 1909",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1288,6 +923,8 @@
       "team1": "Atalanta BC",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1297,6 +934,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1306,6 +945,8 @@
       "team1": "SS Lazio",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1315,6 +956,8 @@
       "team1": "AC Monza",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1324,6 +967,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1333,6 +978,8 @@
       "team1": "ACF Fiorentina",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1342,6 +989,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1351,6 +1000,8 @@
       "team1": "US Lecce",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1360,6 +1011,8 @@
       "team1": "AC Milan",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1369,6 +1022,8 @@
       "team1": "Empoli FC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1378,6 +1033,8 @@
       "team1": "Venezia FC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1387,6 +1044,8 @@
       "team1": "Atalanta BC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1396,6 +1055,8 @@
       "team1": "Juventus FC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1405,6 +1066,8 @@
       "team1": "Genoa CFC",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1414,6 +1077,8 @@
       "team1": "Como 1907",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1423,6 +1088,8 @@
       "team1": "AS Roma",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1432,6 +1099,8 @@
       "team1": "Bologna FC 1909",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1441,6 +1110,8 @@
       "team1": "Udinese Calcio",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1450,6 +1121,8 @@
       "team1": "AC Monza",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1459,6 +1132,8 @@
       "team1": "SSC Napoli",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1468,6 +1143,8 @@
       "team1": "Torino FC",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1477,6 +1154,8 @@
       "team1": "Hellas Verona FC",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1486,6 +1165,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1495,6 +1176,8 @@
       "team1": "Empoli FC",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1504,6 +1187,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1513,6 +1198,8 @@
       "team1": "SS Lazio",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1522,6 +1209,8 @@
       "team1": "Genoa CFC",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1531,6 +1220,8 @@
       "team1": "Venezia FC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1540,6 +1231,8 @@
       "team1": "US Lecce",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1549,6 +1242,8 @@
       "team1": "Cagliari Calcio",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1558,6 +1253,8 @@
       "team1": "Juventus FC",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1567,6 +1264,8 @@
       "team1": "Atalanta BC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1576,6 +1275,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1585,6 +1286,8 @@
       "team1": "AS Roma",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1594,6 +1297,8 @@
       "team1": "AC Monza",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1603,6 +1308,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1612,6 +1319,8 @@
       "team1": "Hellas Verona FC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1621,6 +1330,8 @@
       "team1": "AC Milan",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1630,6 +1341,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1639,6 +1352,8 @@
       "team1": "Genoa CFC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1648,6 +1363,8 @@
       "team1": "Como 1907",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1657,6 +1374,8 @@
       "team1": "Torino FC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1666,6 +1385,8 @@
       "team1": "SSC Napoli",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1675,6 +1396,8 @@
       "team1": "SS Lazio",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1684,6 +1407,8 @@
       "team1": "Empoli FC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1693,6 +1418,8 @@
       "team1": "Venezia FC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1701,6 +1428,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1709,6 +1438,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1717,6 +1448,8 @@
       "team1": "Como 1907",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1725,6 +1458,8 @@
       "team1": "ACF Fiorentina",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1733,6 +1468,8 @@
       "team1": "US Lecce",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1741,6 +1478,8 @@
       "team1": "AC Milan",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1749,6 +1488,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1757,6 +1498,8 @@
       "team1": "AS Roma",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1765,6 +1508,8 @@
       "team1": "Torino FC",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1773,6 +1518,8 @@
       "team1": "Udinese Calcio",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1781,6 +1528,8 @@
       "team1": "Atalanta BC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1789,6 +1538,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1797,6 +1548,8 @@
       "team1": "Genoa CFC",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1805,6 +1558,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1813,6 +1568,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1821,6 +1578,8 @@
       "team1": "Juventus FC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1829,6 +1588,8 @@
       "team1": "AC Monza",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1837,6 +1598,8 @@
       "team1": "SSC Napoli",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1845,6 +1608,8 @@
       "team1": "AS Roma",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1853,6 +1618,8 @@
       "team1": "Venezia FC",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1861,6 +1628,8 @@
       "team1": "Bologna FC 1909",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1869,6 +1638,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1877,6 +1648,8 @@
       "team1": "Como 1907",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1885,6 +1658,8 @@
       "team1": "Empoli FC",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1893,6 +1668,8 @@
       "team1": "Juventus FC",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1901,6 +1678,8 @@
       "team1": "SS Lazio",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1909,6 +1688,8 @@
       "team1": "US Lecce",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1917,6 +1698,8 @@
       "team1": "AC Milan",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1925,6 +1708,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1933,6 +1718,8 @@
       "team1": "Udinese Calcio",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1941,6 +1728,8 @@
       "team1": "Atalanta BC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1949,6 +1738,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1957,6 +1748,8 @@
       "team1": "Genoa CFC",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1965,6 +1758,8 @@
       "team1": "Hellas Verona FC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1973,6 +1768,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1981,6 +1778,8 @@
       "team1": "US Lecce",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1989,6 +1788,8 @@
       "team1": "AC Monza",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -1997,6 +1798,8 @@
       "team1": "AS Roma",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2005,6 +1808,8 @@
       "team1": "Torino FC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2013,6 +1818,8 @@
       "team1": "Venezia FC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2021,6 +1828,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2029,6 +1838,8 @@
       "team1": "Cagliari Calcio",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2037,6 +1848,8 @@
       "team1": "Como 1907",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2045,6 +1858,8 @@
       "team1": "Empoli FC",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2053,6 +1868,8 @@
       "team1": "Juventus FC",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2061,6 +1878,8 @@
       "team1": "SS Lazio",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2069,6 +1888,8 @@
       "team1": "AC Milan",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2077,6 +1898,8 @@
       "team1": "SSC Napoli",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2085,6 +1908,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2093,6 +1918,8 @@
       "team1": "Udinese Calcio",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2101,6 +1928,8 @@
       "team1": "Atalanta BC",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2109,6 +1938,8 @@
       "team1": "Como 1907",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2117,6 +1948,8 @@
       "team1": "ACF Fiorentina",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2125,6 +1958,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2133,6 +1968,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2141,6 +1978,8 @@
       "team1": "US Lecce",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2149,6 +1988,8 @@
       "team1": "AC Monza",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2157,6 +1998,8 @@
       "team1": "AS Roma",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2165,6 +2008,8 @@
       "team1": "Torino FC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2173,6 +2018,8 @@
       "team1": "Venezia FC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2181,6 +2028,8 @@
       "team1": "Bologna FC 1909",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2189,6 +2038,8 @@
       "team1": "Empoli FC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2197,6 +2048,8 @@
       "team1": "Genoa CFC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2205,6 +2058,8 @@
       "team1": "SS Lazio",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2213,6 +2068,8 @@
       "team1": "AC Milan",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2221,6 +2078,8 @@
       "team1": "AC Monza",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2229,6 +2088,8 @@
       "team1": "SSC Napoli",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2237,6 +2098,8 @@
       "team1": "Torino FC",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2245,6 +2108,8 @@
       "team1": "Udinese Calcio",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2253,6 +2118,8 @@
       "team1": "Venezia FC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2261,6 +2128,8 @@
       "team1": "Atalanta BC",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2269,6 +2138,8 @@
       "team1": "Bologna FC 1909",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2277,6 +2148,8 @@
       "team1": "Cagliari Calcio",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2285,6 +2158,8 @@
       "team1": "Como 1907",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2293,6 +2168,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2301,6 +2178,8 @@
       "team1": "Hellas Verona FC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2309,6 +2188,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2317,6 +2198,8 @@
       "team1": "Juventus FC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2325,6 +2208,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2333,6 +2218,8 @@
       "team1": "AS Roma",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2341,6 +2228,8 @@
       "team1": "Como 1907",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2349,6 +2238,8 @@
       "team1": "Empoli FC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2357,6 +2248,8 @@
       "team1": "Genoa CFC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2365,6 +2258,8 @@
       "team1": "SS Lazio",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2373,6 +2268,8 @@
       "team1": "US Lecce",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2381,6 +2278,8 @@
       "team1": "AC Milan",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2389,6 +2288,8 @@
       "team1": "SSC Napoli",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2397,6 +2298,8 @@
       "team1": "Torino FC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2405,6 +2308,8 @@
       "team1": "Udinese Calcio",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2413,6 +2318,8 @@
       "team1": "Venezia FC",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2421,6 +2328,8 @@
       "team1": "Atalanta BC",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2429,6 +2338,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2437,6 +2348,8 @@
       "team1": "Cagliari Calcio",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2445,6 +2358,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2453,6 +2368,8 @@
       "team1": "Juventus FC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2461,6 +2378,8 @@
       "team1": "AC Milan",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2469,6 +2388,8 @@
       "team1": "AC Monza",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2477,6 +2398,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2485,6 +2408,8 @@
       "team1": "AS Roma",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2493,6 +2418,8 @@
       "team1": "Udinese Calcio",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2501,6 +2428,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2509,6 +2438,8 @@
       "team1": "Como 1907",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2517,6 +2448,8 @@
       "team1": "Empoli FC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2525,6 +2458,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2533,6 +2468,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2541,6 +2478,8 @@
       "team1": "SS Lazio",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2549,6 +2488,8 @@
       "team1": "US Lecce",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2557,6 +2498,8 @@
       "team1": "SSC Napoli",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2565,6 +2508,8 @@
       "team1": "Torino FC",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2573,6 +2518,8 @@
       "team1": "Venezia FC",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2581,6 +2528,8 @@
       "team1": "Atalanta BC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2589,6 +2538,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2597,6 +2548,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2605,6 +2558,8 @@
       "team1": "Genoa CFC",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2613,6 +2568,8 @@
       "team1": "Juventus FC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2621,6 +2578,8 @@
       "team1": "SS Lazio",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2629,6 +2588,8 @@
       "team1": "AC Milan",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2637,6 +2598,8 @@
       "team1": "AC Monza",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2645,6 +2608,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2653,6 +2618,8 @@
       "team1": "Udinese Calcio",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2661,6 +2628,8 @@
       "team1": "Hellas Verona FC",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2669,6 +2638,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2677,6 +2648,8 @@
       "team1": "US Lecce",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2685,6 +2658,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2693,6 +2668,8 @@
       "team1": "AS Roma",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2701,6 +2678,8 @@
       "team1": "Torino FC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2709,6 +2688,8 @@
       "team1": "Venezia FC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2717,6 +2698,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2725,6 +2708,8 @@
       "team1": "Como 1907",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2733,6 +2718,8 @@
       "team1": "Empoli FC",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2741,6 +2728,8 @@
       "team1": "Atalanta BC",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2749,6 +2738,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2757,6 +2748,8 @@
       "team1": "ACF Fiorentina",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2765,6 +2758,8 @@
       "team1": "Genoa CFC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2773,6 +2768,8 @@
       "team1": "Juventus FC",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2781,6 +2778,8 @@
       "team1": "AC Milan",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2789,6 +2788,8 @@
       "team1": "AC Monza",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2797,6 +2798,8 @@
       "team1": "SSC Napoli",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2805,6 +2808,8 @@
       "team1": "AS Roma",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2813,6 +2818,8 @@
       "team1": "Udinese Calcio",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2821,6 +2828,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2829,6 +2838,8 @@
       "team1": "Como 1907",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2837,6 +2848,8 @@
       "team1": "Empoli FC",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2845,6 +2858,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2853,6 +2868,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2861,6 +2878,8 @@
       "team1": "Juventus FC",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2869,6 +2888,8 @@
       "team1": "SS Lazio",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2877,6 +2898,8 @@
       "team1": "US Lecce",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2885,6 +2908,8 @@
       "team1": "SSC Napoli",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2893,6 +2918,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2901,6 +2928,8 @@
       "team1": "Atalanta BC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2909,6 +2938,8 @@
       "team1": "Bologna FC 1909",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2917,6 +2948,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2925,6 +2958,8 @@
       "team1": "Genoa CFC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2933,6 +2968,8 @@
       "team1": "AC Milan",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2941,6 +2978,8 @@
       "team1": "AC Monza",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2949,6 +2988,8 @@
       "team1": "AS Roma",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2957,6 +2998,8 @@
       "team1": "Torino FC",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2965,6 +3008,8 @@
       "team1": "Udinese Calcio",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2973,6 +3018,8 @@
       "team1": "Venezia FC",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2981,6 +3028,8 @@
       "team1": "Cagliari Calcio",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2989,6 +3038,8 @@
       "team1": "Como 1907",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -2997,6 +3048,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3005,6 +3058,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3013,6 +3068,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3021,6 +3078,8 @@
       "team1": "Juventus FC",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3029,6 +3088,8 @@
       "team1": "SS Lazio",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3037,6 +3098,8 @@
       "team1": "US Lecce",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3045,6 +3108,8 @@
       "team1": "SSC Napoli",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3053,6 +3118,8 @@
       "team1": "Venezia FC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3061,6 +3128,8 @@
       "team1": "Atalanta BC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3069,6 +3138,8 @@
       "team1": "Bologna FC 1909",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3077,6 +3148,8 @@
       "team1": "Empoli FC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3085,6 +3158,8 @@
       "team1": "Genoa CFC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3093,6 +3168,8 @@
       "team1": "US Lecce",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3101,6 +3178,8 @@
       "team1": "AC Milan",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3109,6 +3188,8 @@
       "team1": "AC Monza",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3117,6 +3198,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3125,6 +3208,8 @@
       "team1": "AS Roma",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3133,6 +3218,8 @@
       "team1": "Torino FC",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3141,6 +3228,8 @@
       "team1": "Atalanta BC",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3149,6 +3238,8 @@
       "team1": "Como 1907",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3157,6 +3248,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3165,6 +3258,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3173,6 +3268,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3181,6 +3278,8 @@
       "team1": "Juventus FC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3189,6 +3288,8 @@
       "team1": "SS Lazio",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3197,6 +3298,8 @@
       "team1": "SSC Napoli",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3205,6 +3308,8 @@
       "team1": "Udinese Calcio",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3213,6 +3318,8 @@
       "team1": "Venezia FC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3221,6 +3328,8 @@
       "team1": "Bologna FC 1909",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3229,6 +3338,8 @@
       "team1": "Cagliari Calcio",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3237,6 +3348,8 @@
       "team1": "Empoli FC",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3245,6 +3358,8 @@
       "team1": "Genoa CFC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3253,6 +3368,8 @@
       "team1": "US Lecce",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3261,6 +3378,8 @@
       "team1": "AC Milan",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3269,6 +3388,8 @@
       "team1": "AC Monza",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3277,6 +3398,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3285,6 +3408,8 @@
       "team1": "AS Roma",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3293,6 +3418,8 @@
       "team1": "Torino FC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3301,6 +3428,8 @@
       "team1": "Atalanta BC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3309,6 +3438,8 @@
       "team1": "Como 1907",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3317,6 +3448,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3325,6 +3458,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3333,6 +3468,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3341,6 +3478,8 @@
       "team1": "Juventus FC",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3349,6 +3488,8 @@
       "team1": "SS Lazio",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3357,6 +3498,8 @@
       "team1": "SSC Napoli",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3365,6 +3508,8 @@
       "team1": "Udinese Calcio",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3373,6 +3518,8 @@
       "team1": "Venezia FC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3381,6 +3528,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3389,6 +3538,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3397,6 +3548,8 @@
       "team1": "Empoli FC",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3405,6 +3558,8 @@
       "team1": "Genoa CFC",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3413,6 +3568,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3421,6 +3578,8 @@
       "team1": "US Lecce",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3429,6 +3588,8 @@
       "team1": "AC Monza",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3437,6 +3598,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3445,6 +3608,8 @@
       "team1": "AS Roma",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3453,6 +3618,8 @@
       "team1": "Torino FC",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3461,6 +3628,8 @@
       "team1": "Atalanta BC",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3469,6 +3638,8 @@
       "team1": "Como 1907",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3477,6 +3648,8 @@
       "team1": "Empoli FC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3485,6 +3658,8 @@
       "team1": "Hellas Verona FC",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3493,6 +3668,8 @@
       "team1": "SS Lazio",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3501,6 +3678,8 @@
       "team1": "AC Milan",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3509,6 +3688,8 @@
       "team1": "SSC Napoli",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3517,6 +3698,8 @@
       "team1": "Torino FC",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3525,6 +3708,8 @@
       "team1": "Udinese Calcio",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3533,6 +3718,8 @@
       "team1": "Venezia FC",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3541,6 +3728,8 @@
       "team1": "Cagliari Calcio",
       "team2": "Venezia FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3549,6 +3738,8 @@
       "team1": "ACF Fiorentina",
       "team2": "Bologna FC 1909",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3557,6 +3748,8 @@
       "team1": "Genoa CFC",
       "team2": "Atalanta BC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3565,6 +3758,8 @@
       "team1": "Hellas Verona FC",
       "team2": "Como 1907",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3573,6 +3768,8 @@
       "team1": "FC Internazionale Milano",
       "team2": "SS Lazio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3581,6 +3778,8 @@
       "team1": "Juventus FC",
       "team2": "Udinese Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3589,6 +3788,8 @@
       "team1": "US Lecce",
       "team2": "Torino FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3597,6 +3798,8 @@
       "team1": "AC Monza",
       "team2": "Empoli FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3605,6 +3808,8 @@
       "team1": "Parma Calcio 1913",
       "team2": "SSC Napoli",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3613,6 +3818,8 @@
       "team1": "AS Roma",
       "team2": "AC Milan",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3621,6 +3828,8 @@
       "team1": "Atalanta BC",
       "team2": "Parma Calcio 1913",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3629,6 +3838,8 @@
       "team1": "Bologna FC 1909",
       "team2": "Genoa CFC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3637,6 +3848,8 @@
       "team1": "Como 1907",
       "team2": "FC Internazionale Milano",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3645,6 +3858,8 @@
       "team1": "Empoli FC",
       "team2": "Hellas Verona FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3653,6 +3868,8 @@
       "team1": "SS Lazio",
       "team2": "US Lecce",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3661,6 +3878,8 @@
       "team1": "AC Milan",
       "team2": "AC Monza",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3669,6 +3888,8 @@
       "team1": "SSC Napoli",
       "team2": "Cagliari Calcio",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3677,6 +3898,8 @@
       "team1": "Torino FC",
       "team2": "AS Roma",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3685,6 +3908,8 @@
       "team1": "Udinese Calcio",
       "team2": "ACF Fiorentina",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     },
     {
@@ -3693,6 +3918,8 @@
       "team1": "Venezia FC",
       "team2": "Juventus FC",
       "score": {
+        "ht": [0, 0],
+        "ft": [0, 0]
       }
     }
   ]

@@ -1,53 +1,51 @@
-// src/main/java/com/example/Player/utils/TeamDataLoader.java
-package com.example.Player.utils;
+package com.example.Player.services;
 
-import com.example.Player.services.TeamService;
-import com.example.Player.services.FootballDataService;
 import com.example.Player.models.League;
-import com.example.Player.models.Match;
+import com.example.Player.models.Team;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-@Component
-public class TeamDataLoader implements CommandLineRunner {
-
-    @Autowired
-    private FootballDataService footballDataService;
+@Service
+public class TeamDataLoader {
 
     @Autowired
     private TeamService teamService;
 
-    @Override
-    public void run(String... args) throws Exception {
-        // Define the 6 leagues
-        List<String> leagues = List.of("en.1", "es.1", "de.1", "it.1", "fr.1", "uefa.cl");
+    @Autowired
+    private ObjectMapper objectMapper;
 
-        // For each league, get team names from matches and create teams
-        for (String leagueAbbr : leagues) {
-            try {
-                League league = footballDataService.getLeagueData(leagueAbbr);
-                Set<String> teamNames = new HashSet<>();
-                for (Match match : league.getMatches()) {
-                    teamNames.add(match.getTeam1());
-                    teamNames.add(match.getTeam2());
-                }
+    @Autowired
+    private LeagueService leagueService;
 
-                // Create teams in the database
-                for (String teamName : teamNames) {
-                    teamService.createTeam(teamName, league.getName());
-                }
+    public void loadTeams(String fileName, String leagueName) throws IOException {
+        // Construct the path to the JSON file within resources
+        String resourcePath = "JsonData/2024-25/" + fileName;
+        System.out.println("Attempting to load file: " + resourcePath);
 
-                System.out.println("Teams for league " + league.getName() + " loaded.");
+        // Load the resource from the classpath
+        Resource resource = new ClassPathResource(resourcePath);
+        if (!resource.exists()) {
+            throw new IOException("Resource not found: " + resourcePath);
+        }
 
-            } catch (IOException e) {
-                System.out.println("Failed to load league data for " + leagueAbbr + ": " + e.getMessage());
-            }
+        // Get InputStream to read the file
+        InputStream inputStream = resource.getInputStream();
+
+        // Assume the JSON is an array of team names
+        String[] teamNames = objectMapper.readValue(inputStream, String[].class);
+
+        // Fetch or create the League
+        League league = leagueService.getLeagueByName(leagueName)
+                .orElseGet(() -> leagueService.saveLeague(new League(leagueName)));
+
+        for (String teamName : teamNames) {
+            teamService.createTeamIfNotExists(teamName, league);
         }
     }
 }

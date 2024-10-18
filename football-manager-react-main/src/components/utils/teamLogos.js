@@ -1,6 +1,7 @@
 const teamLogos = {
   "en.1": {
-    leagueName: "Premier League",
+    leagueName: "English Premier League",
+    displayName: "Premier League",
     leagueLogo: require("../../assets/img/premierleague/premierLeague.png"),
     logos: {
       "AFC Bournemouth": require("../../assets/img/premierleague/AFC Bournemouth.png"),
@@ -26,7 +27,8 @@ const teamLogos = {
     },
   },
   "es.1": {
-    leagueName: "La Liga",
+    leagueName: "Spain Primera Division",
+    displayName: "La Liga",
     leagueLogo: require("../../assets/img/laliga/LaLiga.png"),
     logos: {
       "Athletic Club": require("../../assets/img/laliga/Athletic Bilbao.png"),
@@ -52,7 +54,8 @@ const teamLogos = {
     },
   },
   "de.1": {
-    leagueName: "Bundesliga",
+    leagueName: "German 1. Bundesliga",
+    displayName: "Bundesliga",
     leagueLogo: require("../../assets/img/bundesliga/Bundesliga.png"),
     logos: {
       "1. FC Heidenheim 1846": require("../../assets/img/bundesliga/1.FC Heidenheim 1846.png"),
@@ -76,7 +79,8 @@ const teamLogos = {
     },
   },
   "it.1": {
-    leagueName: "Serie A",
+    leagueName: "Italian Serie A",
+    displayName: "Serie A",
     leagueLogo: require("../../assets/img/seriea/SerieA.png"),
     logos: {
       "AC Milan": require("../../assets/img/seriea/AC Milan.png"),

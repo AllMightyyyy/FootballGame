@@ -10,6 +10,10 @@ public class Player {
     @Id
     private Long id; // sofifa_id
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "league_id")
+    private League league;
+
     private String shortName;
     private String longName;
     private String positions;
@@ -22,7 +26,6 @@ public class Player {
     private String nationFlagUrl;
     private int heightCm;
     private int weightKg;
-    private String leagueName;
     private String clubName;
     private String nationalityName;
 
@@ -76,7 +79,6 @@ public class Player {
         this.nationFlagUrl = nationFlagUrl;
         this.heightCm = heightCm;
         this.weightKg = weightKg;
-        this.leagueName = leagueName;
         this.clubName = clubName;
         this.nationalityName = nationalityName;
         this.pace = pace;
@@ -101,7 +103,32 @@ public class Player {
         this.nationFlagUrl = nationFlagUrl;
         this.heightCm = heightCm;
         this.weightKg = weightKg;
-        this.leagueName = leagueName;
+        this.clubName = clubName;
+        this.nationalityName = nationalityName;
+        this.positionsList = positionsList;
+        this.pace = pace;
+        this.shooting = shooting;
+        this.passing = passing;
+        this.dribbling = dribbling;
+        this.defending = defending;
+        this.physical = physical;
+    }
+
+    public Player(double valueEur, Long id, League league, String shortName, String longName, String positions, int overall, int potential, double wageEur, String playerFaceUrl, String clubLogoUrl, String nationFlagUrl, int heightCm, int weightKg, String clubName, String nationalityName, List<String> positionsList, int pace, int shooting, int passing, int dribbling, int defending, int physical) {
+        this.valueEur = valueEur;
+        this.id = id;
+        this.league = league;
+        this.shortName = shortName;
+        this.longName = longName;
+        this.positions = positions;
+        this.overall = overall;
+        this.potential = potential;
+        this.wageEur = wageEur;
+        this.playerFaceUrl = playerFaceUrl;
+        this.clubLogoUrl = clubLogoUrl;
+        this.nationFlagUrl = nationFlagUrl;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
         this.clubName = clubName;
         this.nationalityName = nationalityName;
         this.positionsList = positionsList;
@@ -255,8 +282,7 @@ public class Player {
     public int getWeightKg() { return weightKg; }
     public void setWeightKg(int weightKg) { this.weightKg = weightKg; }
 
-    public String getLeagueName() { return leagueName; }
-    public void setLeagueName(String leagueName) { this.leagueName = leagueName; }
+
 
     public String getClubName() { return clubName; }
     public void setClubName(String clubName) { this.clubName = clubName; }
@@ -266,5 +292,13 @@ public class Player {
 
     public List<String> getPositionsList() { return positionsList; }
     public void setPositionsList(List<String> positionsList) { this.positionsList = positionsList; }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
 }
 

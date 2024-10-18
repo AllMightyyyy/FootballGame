@@ -1,163 +1,166 @@
 // src/components/TeamSelection.js
 
-import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  Card,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
   Typography,
-  Grid,
-  Avatar,
-  Paper,
-  CircularProgress,
-  Alert,
 } from "@mui/material";
-import PropTypes from "prop-types";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../api";
-import teamLogos from "./utils/teamLogos"; // Ensure correct path
+import { AuthContext } from "../contexts/AuthContext";
+import teamLogos from "./utils/teamLogos"; // Ensure this path is correct
 
 const TeamSelection = ({
-  selectedTeam,
-  onTeamSelect,
-  onNext,
-  onPrevious,
   selectedLeague,
   setSelectedLeague,
+  onNext,
+  onPrevious,
+  selectedTeam,
+  setSelectedTeam,
 }) => {
+  const { auth } = useContext(AuthContext);
+  const [leagues, setLeagues] = useState([]);
   const [teams, setTeams] = useState([]);
-  const [loadingTeams, setLoadingTeams] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTeams = async () => {
-      setLoadingTeams(true);
-      setError(null);
+    // Fetch leagues
+    const fetchLeagues = async () => {
       try {
-        const response = await api.get(`/teams/${selectedLeague}`);
-        setTeams(response.data); // Assuming response.data is an array of teams
+        const response = await api.get("/teams/leagues");
+        setLeagues(response.data);
       } catch (err) {
-        console.error("Error fetching teams:", err);
-        setError("Failed to fetch teams. Please try again.");
-      } finally {
-        setLoadingTeams(false);
+        setError("Failed to fetch leagues.");
+        console.error(err);
       }
     };
 
-    fetchTeams();
+    fetchLeagues();
+  }, []);
+
+  useEffect(() => {
+    if (selectedLeague) {
+      // Fetch teams for the selected league
+      const fetchTeams = async () => {
+        setLoading(true);
+        try {
+          const response = await api.get(`/teams/${selectedLeague}`);
+          setTeams(response.data);
+        } catch (err) {
+          setError("Failed to fetch teams.");
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchTeams();
+    }
   }, [selectedLeague]);
 
   const handleLeagueChange = (event) => {
     setSelectedLeague(event.target.value);
-    onTeamSelect(null); // Reset selected team when league changes
+    setSelectedTeam(null); // Reset selected team when league changes
   };
 
-  const handleTeamSelection = (teamName) => {
-    onTeamSelect(teamName);
+  const handleTeamSelect = (teamName) => {
+    setSelectedTeam(teamName);
+  };
+
+  const handleConfirmSelection = () => {
+    onNext(); // Proceed to the next step (e.g., confirmation)
   };
 
   return (
-    <Paper
+    <Box
       sx={{
-        padding: 4,
-        backgroundColor: "#2e2e2e",
-        borderRadius: 3,
+        backgroundColor: "#1e1e1e",
+        padding: "20px",
+        borderRadius: "8px",
+        maxWidth: "800px",
         width: "100%",
-        maxWidth: "600px",
+        color: "#fff",
       }}
     >
-      <Typography variant="h5" sx={{ color: "#fff", marginBottom: 3 }}>
+      <Typography variant="h5" gutterBottom>
         Select Your Team
       </Typography>
 
       {/* League Selector */}
-      <FormControl fullWidth sx={{ marginBottom: 3 }}>
+      <FormControl fullWidth sx={{ marginBottom: "20px" }}>
         <InputLabel id="league-select-label" sx={{ color: "#fff" }}>
-          Select League
+          League
         </InputLabel>
         <Select
           labelId="league-select-label"
-          value={selectedLeague}
+          value={selectedLeague || ""}
+          label="League"
           onChange={handleLeagueChange}
-          label="Select League"
           sx={{
-            color: "#fff",
-            ".MuiOutlinedInput-notchedOutline": {
-              borderColor: "#555",
-            },
+            backgroundColor: "#2e2e2e",
+            "& .MuiSelect-select": { color: "#fff" },
+            "& .MuiInputLabel-root": { color: "#fff" },
+            "& .MuiOutlinedInput-notchedOutline": { borderColor: "#555" },
+            "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#888" },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#487748",
-            },
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#888",
-            },
-            ".MuiSvgIcon-root ": {
-              fill: "white !important",
+              borderColor: "#fff",
             },
           }}
         >
-          {Object.entries(teamLogos).map(([leagueCode, leagueData]) => (
-            <MenuItem key={leagueCode} value={leagueCode}>
-              <Box display="flex" alignItems="center" gap={1}>
-                <Avatar
-                  src={leagueData.leagueLogo}
-                  alt={leagueData.leagueName}
-                  sx={{ width: 30, height: 30 }}
-                />
-                {leagueData.leagueName}
-              </Box>
+          {leagues.map((league) => (
+            <MenuItem key={league} value={league}>
+              {league}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
 
-      {/* Display Loading Indicator */}
-      {loadingTeams && (
-        <Box display="flex" justifyContent="center" my={2}>
-          <CircularProgress />
-        </Box>
-      )}
-
-      {/* Display Error Message */}
-      {error && (
-        <Alert severity="error" sx={{ marginBottom: 2 }}>
-          {error}
-        </Alert>
-      )}
-
       {/* Teams Grid */}
-      {!loadingTeams && !error && (
+      {loading ? (
+        <Typography>Loading teams...</Typography>
+      ) : error ? (
+        <Typography color="error">{error}</Typography>
+      ) : (
         <Grid container spacing={2}>
           {teams.map((team) => (
-            <Grid item xs={6} sm={4} key={team.id}>
-              <Button
-                variant={selectedTeam === team.name ? "contained" : "outlined"}
-                fullWidth
-                onClick={() => handleTeamSelection(team.name)}
+            <Grid item xs={6} sm={4} md={3} key={team.id}>
+              <Card
+                onClick={() => handleTeamSelect(team.name)}
                 sx={{
+                  cursor: "pointer",
                   backgroundColor:
-                    selectedTeam === team.name ? "#487748" : "#1e1e1e",
-                  borderColor: "#555",
-                  color: "#fff",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  padding: 2,
+                    selectedTeam === team.name ? "#487748" : "#2e2e2e",
+                  padding: "10px",
+                  textAlign: "center",
+                  borderRadius: "8px",
+                  transition: "background-color 0.3s",
                   "&:hover": {
-                    backgroundColor:
-                      selectedTeam === team.name ? "#3e6e3c" : "#2e2e2e",
+                    backgroundColor: "#487748",
                   },
                 }}
               >
-                <Avatar
-                  src={teamLogos[selectedLeague]?.logos[team.name]}
+                <img
+                  src={
+                    teamLogos[selectedLeague]?.logos[team.name] ||
+                    "/defaultTeamLogo.png"
+                  }
                   alt={team.name}
-                  sx={{ width: 120, height: 120, marginBottom: 1 }}
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    objectFit: "contain",
+                    marginBottom: "10px",
+                  }}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = require("../../src/assets/img/defaultLeague.jpg"); // Provide a default image
+                    e.target.src = "/defaultTeamLogo.png";
                   }}
                 />
                 <Typography variant="body1">{team.name}</Typography>
@@ -166,55 +169,38 @@ const TeamSelection = ({
                     Occupied
                   </Typography>
                 )}
-              </Button>
+              </Card>
             </Grid>
           ))}
         </Grid>
       )}
 
       {/* Navigation Buttons */}
-      <Box display="flex" justifyContent="space-between" mt={4}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
         <Button
           variant="outlined"
           onClick={onPrevious}
-          sx={{
-            color: "#fff",
-            borderColor: "#487748",
-            "&:hover": {
-              borderColor: "#487748",
-              backgroundColor: "#48774820",
-            },
-          }}
+          sx={{ color: "#fff", borderColor: "#487748" }}
         >
           Back
         </Button>
         <Button
           variant="contained"
-          onClick={onNext}
+          onClick={handleConfirmSelection}
           disabled={!selectedTeam}
-          sx={{
-            backgroundColor: "#487748",
-            color: "#fff",
-            "&:hover": {
-              backgroundColor: "#3e6e3c",
-            },
-          }}
+          sx={{ backgroundColor: "#487748", color: "#fff" }}
         >
-          Next
+          Confirm Team
         </Button>
       </Box>
-    </Paper>
+    </Box>
   );
-};
-
-// Define PropTypes for better type checking
-TeamSelection.propTypes = {
-  selectedTeam: PropTypes.string,
-  onTeamSelect: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  onPrevious: PropTypes.func.isRequired,
-  selectedLeague: PropTypes.string.isRequired,
-  setSelectedLeague: PropTypes.func.isRequired,
 };
 
 export default TeamSelection;

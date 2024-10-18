@@ -19,12 +19,19 @@ public class Team {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String league;
+    // Many-to-One relationship with League
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "league_id")
+    private League league;
 
     // One-to-one relationship with User
     @OneToOne(mappedBy = "team")
     private User user;
+
+    public Team(String name, League league) {
+        this.name = name;
+        this.league = league;
+    }
 
     public Long getId() {
         return id;
@@ -42,11 +49,11 @@ public class Team {
         this.name = name;
     }
 
-    public String getLeague() {
+    public League getLeague() {
         return league;
     }
 
-    public void setLeague(String league) {
+    public void setLeague(League league) {
         this.league = league;
     }
 

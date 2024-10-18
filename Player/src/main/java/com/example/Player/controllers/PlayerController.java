@@ -1,4 +1,5 @@
 // src/main/java/com/example/Player/controllers/PlayerController.java
+
 package com.example.Player.controllers;
 
 import com.example.Player.exceptions.ResourceNotFoundException;
@@ -92,7 +93,7 @@ public class PlayerController {
     @GetMapping("/leagues")
     public ResponseEntity<Set<String>> getAllLeagues() {
         Set<String> leagues = playerService.getAllPlayers().stream()
-                .map(Player::getLeagueName)
+                .map(player -> player.getLeague().getName())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
         return ResponseEntity.ok(leagues);

@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useState } from "react";
+import { leagueNameMap } from "./utils/leagueMapping";
 
 const TextField = styled(MuiTextField)({
   backgroundColor: "#2e2e2e",
@@ -98,6 +99,11 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
     const updatedFilters = { ...filters, [filterName]: event.target.value };
     onFilterChange(updatedFilters);
   };
+
+  const leagueOptions = Object.entries(leagueNameMap).map(([code, name]) => ({
+    code,
+    name,
+  }));
 
   return (
     <Box
@@ -192,10 +198,7 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
           {Object.keys(groupedPositions).map((category) => (
             <Box key={category} sx={{ marginBottom: "10px" }}>
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ color: "#f5f5f5" }}
-                >
+                <Typography variant="subtitle1" sx={{ color: "#f5f5f5" }}>
                   {category}
                 </Typography>
                 <Checkbox
@@ -259,17 +262,17 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
             label="Exclude selected"
           />
           <Divider sx={{ my: 1 }} />
-          {["Premier League", "La Liga", "Bundesliga"].map((league) => (
+          {leagueOptions.map((league) => (
             <FormControlLabel
-              key={league}
+              key={league.code}
               control={
                 <Checkbox
-                  checked={filters.league.includes(league)}
-                  onChange={() => handleCheckboxChange("league", league)}
+                  checked={filters.league.includes(league.code)}
+                  onChange={() => handleCheckboxChange("league", league.code)}
                   sx={{ color: "#487748" }}
                 />
               }
-              label={league}
+              label={league.name}
             />
           ))}
         </AccordionDetails>

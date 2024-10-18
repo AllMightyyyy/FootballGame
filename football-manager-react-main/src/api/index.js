@@ -1,22 +1,23 @@
 // src/api/index.js
 
-import axios from 'axios';
-import qs from 'qs';
+import axios from "axios";
+import qs from "qs";
+import { leagueNameMap } from "../components/utils/leagueMapping"; // Import the mapping
 
 const api = axios.create({
-  baseURL: 'http://localhost:8081/api', // Base URL for API
-  paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
+  baseURL: "http://localhost:8081/api", // Base URL for API
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
 api.interceptors.request.use(
   (config) => {
     // Retrieve the token from localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-    console.log('Intercepted request. Token:', token); 
+    console.log("Intercepted request. Token:", token);
 
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; 
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
 
     return config;
@@ -28,10 +29,15 @@ api.interceptors.request.use(
 
 // 1. Search Players Function
 export const searchPlayers = async (filters) => {
+  // Map frontend league codes to backend standard names
+  const mappedLeagues = filters.league.map(
+    (leagueCode) => leagueNameMap[leagueCode] || leagueCode
+  );
+
   const params = {
     name: filters.name || "", // Player name filter
     positions: filters.position, // Array of positions
-    leagues: filters.league, // Array of leagues
+    leagues: mappedLeagues, // Array of mapped leagues
     clubs: filters.club, // Array of clubs
     nations: filters.nation, // Array of nations
     minOverall: filters.rating[0] || 0, // Minimum rating
@@ -52,9 +58,9 @@ export const searchPlayers = async (filters) => {
 
   try {
     const response = await api.get("/players", { params });
-    return response.data; 
+    return response.data;
   } catch (error) {
-    console.error('Error fetching players:', error);
+    console.error("Error fetching players:", error);
     throw error;
   }
 };
@@ -73,7 +79,10 @@ export const getPlayerById = async (id) => {
 // 3. Add Player to Formation
 export const addPlayerToFormation = async (position, playerId) => {
   try {
-    const response = await api.post("/players/formation", { position, playerId });
+    const response = await api.post("/players/formation", {
+      position,
+      playerId,
+    });
     return response.data;
   } catch (error) {
     console.error(`Error adding player to formation:`, error);
@@ -84,7 +93,9 @@ export const addPlayerToFormation = async (position, playerId) => {
 // 4. Remove Player from Formation
 export const removePlayerFromFormation = async (position) => {
   try {
-    const response = await api.delete("/players/formation", { params: { position } });
+    const response = await api.delete("/players/formation", {
+      params: { position },
+    });
     return response.data;
   } catch (error) {
     console.error(`Error removing player from formation:`, error);

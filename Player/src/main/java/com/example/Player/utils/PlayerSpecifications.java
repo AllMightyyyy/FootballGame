@@ -1,7 +1,10 @@
+// src/main/java/com/example/Player/utils/PlayerSpecifications.java
+
 package com.example.Player.utils;
 
 import com.example.Player.models.Player;
-import jakarta.persistence.criteria.*;
+import com.example.Player.models.League;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -52,7 +55,7 @@ public class PlayerSpecifications {
 
         return (root, query, builder) -> {
             // Correctly join the positionsList collection
-            Join<Player, String> positionsJoin = root.join("positionsList", JoinType.LEFT);
+            Join<Player, String> positionsJoin = root.join("positionsList");
 
             if (exclude) {
                 return builder.not(positionsJoin.in(positions));
@@ -62,7 +65,6 @@ public class PlayerSpecifications {
         };
     }
 
-
     // League filter (for inclusions or exclusions)
     public static Specification<Player> leagueIn(List<String> leagues, boolean exclude) {
         if (leagues == null || leagues.isEmpty()) {
@@ -70,10 +72,12 @@ public class PlayerSpecifications {
         }
 
         return (root, query, builder) -> {
+            Join<Player, League> leagueJoin = root.join("league");
+
             if (exclude) {
-                return builder.not(root.get("leagueName").in(leagues));
+                return builder.not(leagueJoin.get("name").in(leagues));
             } else {
-                return root.get("leagueName").in(leagues);
+                return leagueJoin.get("name").in(leagues);
             }
         };
     }

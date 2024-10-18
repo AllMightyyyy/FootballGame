@@ -1,6 +1,9 @@
+// src/main/java/com/example/Player/services/PlayerService.java
+
 package com.example.Player.services;
 
 import com.example.Player.exceptions.ResourceNotFoundException;
+import com.example.Player.models.League;
 import com.example.Player.models.Player;
 import com.example.Player.repository.PlayerRepository;
 import com.example.Player.utils.PlayerSpecifications;
@@ -20,6 +23,9 @@ public class PlayerService {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private LeagueService leagueService;
 
     private static final String CSV_FILE_PATH = "players_22.csv";
     private List<Player> players = new ArrayList<>();
@@ -52,10 +58,31 @@ public class PlayerService {
                     player.setPhysical(Integer.parseInt(line[59]));
                     player.setHeightCm(Integer.parseInt(line[11]));
                     player.setWeightKg(Integer.parseInt(line[12]));
-                    player.setLeagueName(line[15]);
-                    player.setClubName(line[14]);
-                    player.setNationalityName(line[23]);
+                    String leagueName = line[15].trim();
+                    String clubName = line[14];
+                    String nationalityName = line[23];
+
+                    // Associate Player with League
+                    Optional<League> leagueOpt = leagueService.getLeagueByName(leagueName);
+                    if (leagueOpt.isPresent()) {
+                        player.setLeague(leagueOpt.get());
+                    } else {
+                        // Optionally, handle the case where the league doesn't exist
+                        // For example, skip this player or assign a default league
+                        System.err.println("League not found for player: " + player.getLongName() + ", League: " + leagueName);
+                        continue; // Skip saving this player
+                    }
+
+                    player.setClubName(clubName);
+                    player.setNationalityName(nationalityName);
                     player.setPositionsList(Arrays.stream(line[4].split(",")).map(String::trim).collect(Collectors.toList()));
+
+                    player.setPace(Integer.parseInt(line[54]));
+                    player.setShooting(Integer.parseInt(line[55]));
+                    player.setPassing(Integer.parseInt(line[56]));
+                    player.setDribbling(Integer.parseInt(line[57]));
+                    player.setDefending(Integer.parseInt(line[58]));
+                    player.setPhysical(Integer.parseInt(line[59]));
 
                     playerRepository.save(player);
                 }

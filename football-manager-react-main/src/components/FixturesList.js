@@ -1,7 +1,8 @@
 // src/components/FixturesList.js
+
 import { Box, Card, Grid, Paper, Typography } from "@mui/material";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
   const filteredMatches = selectedMatchday
@@ -9,22 +10,29 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
     : [];
 
   return (
-    <Paper sx={{ padding: 4, marginTop: 3, backgroundColor: "#f9f9f9", borderRadius: 3 }}>
+    <Paper
+      sx={{
+        padding: 4,
+        marginTop: 3,
+        backgroundColor: "#f9f9f9",
+        borderRadius: 3,
+      }}
+    >
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: 4,
-          flexWrap: 'wrap',
+          flexWrap: "wrap",
         }}
       >
         <Typography
           variant="h4"
           sx={{
-            fontWeight: 'bold',
-            color: '#37003c',
-            textAlign: 'center',
+            fontWeight: "bold",
+            color: "#37003c",
+            textAlign: "center",
             flexGrow: 1,
             marginBottom: { xs: 2, sm: 0 },
           }}
@@ -58,8 +66,8 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                     boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
                     textAlign: "center",
                     transition: "transform 0.3s ease",
-                    '&:hover': {
-                      transform: 'scale(1.05)',
+                    "&:hover": {
+                      transform: "scale(1.05)",
                     },
                   }}
                 >
@@ -73,7 +81,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team1]}
+                      src={teamLogos[match.team1]} // Ensure this path is correct
                       alt={match.team1}
                       sx={{
                         width: 70,
@@ -86,7 +94,11 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                     />
                     <Typography
                       variant="body1"
-                      sx={{ fontWeight: "bold", fontSize: "1rem", color: "#333" }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                        color: "#333",
+                      }}
                     >
                       {match.team1}
                     </Typography>
@@ -121,7 +133,11 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                     {!hasScore && (
                       <Typography
                         variant="caption"
-                        sx={{ color: "#444", fontStyle: "italic", marginTop: 0.5 }}
+                        sx={{
+                          color: "#444",
+                          fontStyle: "italic",
+                          marginTop: 0.5,
+                        }}
                       >
                         Kick-off: {match.time}
                       </Typography>
@@ -138,7 +154,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team2]}
+                      src={teamLogos[match.team2]} // Ensure this path is correct
                       alt={match.team2}
                       sx={{
                         width: 70,
@@ -151,7 +167,11 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                     />
                     <Typography
                       variant="body1"
-                      sx={{ fontWeight: "bold", fontSize: "1rem", color: "#333" }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                        color: "#333",
+                      }}
                     >
                       {match.team2}
                     </Typography>

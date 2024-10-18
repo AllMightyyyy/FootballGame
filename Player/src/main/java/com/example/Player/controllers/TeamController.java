@@ -1,12 +1,17 @@
 // src/main/java/com/example/Player/controllers/TeamController.java
+
 package com.example.Player.controllers;
 
+import com.example.Player.models.League;
 import com.example.Player.models.Team;
 import com.example.Player.models.User;
 import com.example.Player.services.TeamService;
 import com.example.Player.services.UserService;
+import com.example.Player.repository.LeagueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +30,20 @@ public class TeamController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LeagueRepository leagueRepository;
+
     // Get all leagues
     @GetMapping("/leagues")
     public ResponseEntity<List<String>> getLeagues() {
-        List<String> leagues = List.of("English Premier League", "Spanish La Liga", "German Bundesliga", "Italian Serie A", "French Ligue 1", "UEFA Champions League");
+        List<String> leagues = List.of(
+                "English Premier League",
+                "Spain Primera Division",
+                "German 1. Bundesliga",
+                "Italian Serie A",
+                "French Ligue 1"
+                // Remove "Spanish La Liga", "German Bundesliga", etc.
+        );
         return ResponseEntity.ok(leagues);
     }
 
@@ -36,6 +51,9 @@ public class TeamController {
     @GetMapping("/{league}")
     public ResponseEntity<List<TeamResponse>> getTeamsByLeague(@PathVariable String league) {
         List<Team> teams = teamService.getTeamsByLeague(league);
+        if (teams.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
         List<TeamResponse> response = teams.stream()
                 .map(team -> new TeamResponse(team.getId(), team.getName(), team.getUser() != null))
                 .toList();
@@ -44,6 +62,7 @@ public class TeamController {
 
     // Assign a team to the authenticated user
     @PostMapping("/assign")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> assignTeamToUser(@RequestBody AssignTeamRequest request, Authentication authentication) {
         String username = authentication.getName();
         Optional<User> userOpt = userService.findByUsername(username);
@@ -66,6 +85,7 @@ public class TeamController {
 
     // Get the authenticated user's team
     @GetMapping("/my")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getUserTeam(Authentication authentication) {
         String username = authentication.getName();
         Optional<User> userOpt = userService.findByUsername(username);
@@ -79,7 +99,7 @@ public class TeamController {
             return ResponseEntity.ok(Map.of(
                     "id", team.getId(),
                     "name", team.getName(),
-                    "league", team.getLeague()
+                    "league", team.getLeague().getName()
             ));
         } else {
             return ResponseEntity.ok(Map.of(

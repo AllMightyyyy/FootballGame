@@ -1,30 +1,32 @@
 // src/components/Game.js
 
-import React, { useState, useEffect, useContext } from "react";
 import { Box } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
+import { AuthContext } from "../contexts/AuthContext";
+import ConfirmationScreen from "./ConfirmationScreen";
 import ManagerSetup from "./ManagerSetup";
 import TeamSelection from "./TeamSelection";
-import ConfirmationScreen from "./ConfirmationScreen";
-import { AuthContext } from "../contexts/AuthContext";
-import { useNavigate } from 'react-router-dom';
-import api from "../api";
+import { leagueNameMap } from "./utils/leagueMapping";
 
 const Game = () => {
   const { auth, updateTeam } = useContext(AuthContext);
-  const [onboardingStep, setOnboardingStep] = useState(1); 
+  const [onboardingStep, setOnboardingStep] = useState(1);
   const [managerName, setManagerName] = useState("");
   const [selectedTeam, setSelectedTeam] = useState(null);
-  const [selectedLeague, setSelectedLeague] = useState("en.1"); 
+  const [selectedLeague, setSelectedLeague] = useState("en.1");
   const navigate = useNavigate();
 
   const assignTeam = async () => {
     try {
-      const response = await api.post('/teams/assign', {
-        league: selectedLeague, 
+      const standardLeagueName = leagueNameMap[selectedLeague]; // Translate league code
+      const response = await api.post("/teams/assign", {
+        league: standardLeagueName,
         teamName: selectedTeam,
       });
       alert(response.data.message);
-      const teamResponse = await api.get('/teams/my');
+      const teamResponse = await api.get("/teams/my");
       if (teamResponse.data.team) {
         updateTeam(teamResponse.data.team);
         handleNextStep();
@@ -37,18 +39,18 @@ const Game = () => {
 
   useEffect(() => {
     if (!auth.isAuthenticated) {
-      navigate('/login');
+      navigate("/login");
     } else if (auth.team) {
-      navigate('/');
+      navigate("/");
     }
   }, [auth, navigate]);
 
   const handleNextStep = () => {
-    setOnboardingStep(prev => prev + 1);
+    setOnboardingStep((prev) => prev + 1);
   };
 
   const handlePreviousStep = () => {
-    setOnboardingStep(prev => prev - 1);
+    setOnboardingStep((prev) => prev - 1);
   };
 
   const handleManagerNameChange = (name) => {
@@ -60,8 +62,13 @@ const Game = () => {
   };
 
   const handleStartGame = () => {
-    console.log("Starting game with manager:", managerName, "and team:", selectedTeam);
-    navigate('/');
+    console.log(
+      "Starting game with manager:",
+      managerName,
+      "and team:",
+      selectedTeam
+    );
+    navigate("/");
   };
 
   return (
@@ -86,14 +93,14 @@ const Game = () => {
       {onboardingStep === 2 && (
         <TeamSelection
           selectedTeam={selectedTeam}
-          onTeamSelect={handleTeamSelection}
+          onTeamSelect={setSelectedTeam}
           onNext={() => {
             // Assign team to user
             assignTeam();
           }}
           onPrevious={handlePreviousStep}
-          selectedLeague={selectedLeague} 
-          setSelectedLeague={setSelectedLeague} 
+          selectedLeague={selectedLeague}
+          setSelectedLeague={setSelectedLeague}
         />
       )}
       {onboardingStep === 3 && (
@@ -102,7 +109,7 @@ const Game = () => {
           selectedTeam={selectedTeam}
           onConfirm={handleStartGame}
           onPrevious={handlePreviousStep}
-          selectedLeague={selectedLeague} 
+          selectedLeague={selectedLeague}
         />
       )}
     </Box>
