@@ -6,31 +6,51 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Score {
-    private int[] ht; // Half-time score
-    private int[] ft; // Full-time score
+    private Integer htTeam1; // Half-time score for Team1
+    private Integer htTeam2; // Half-time score for Team2
+    private Integer ftTeam1; // Full-time score for Team1
+    private Integer ftTeam2; // Full-time score for Team2
 
-    public Score() {
+    // Constructors
+    public Score() {}
+
+    public Score(Integer htTeam1, Integer htTeam2, Integer ftTeam1, Integer ftTeam2) {
+        this.htTeam1 = htTeam1;
+        this.htTeam2 = htTeam2;
+        this.ftTeam1 = ftTeam1;
+        this.ftTeam2 = ftTeam2;
     }
 
-    public Score(int[] ht, int[] ft) {
-        this.ht = ht;
-        this.ft = ft;
+    // Getters and Setters
+    public Integer getHtTeam1() {
+        return htTeam1;
     }
 
-    public int[] getHt() {
-        return ht;
+    public void setHtTeam1(Integer htTeam1) {
+        this.htTeam1 = htTeam1;
     }
 
-    public void setHt(int[] ht) {
-        this.ht = ht;
+    public Integer getHtTeam2() {
+        return htTeam2;
     }
 
-    public int[] getFt() {
-        return ft;
+    public void setHtTeam2(Integer htTeam2) {
+        this.htTeam2 = htTeam2;
     }
 
-    public void setFt(int[] ft) {
-        this.ft = ft;
+    public Integer getFtTeam1() {
+        return ftTeam1;
     }
 
+    public void setFtTeam1(Integer ftTeam1) {
+        this.ftTeam1 = ftTeam1;
+    }
+
+    public Integer getFtTeam2() {
+        return ftTeam2;
+    }
+
+    public void setFtTeam2(Integer ftTeam2) {
+        this.ftTeam2 = ftTeam2;
+    }
 }

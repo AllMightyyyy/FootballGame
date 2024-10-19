@@ -32,7 +32,7 @@ public class FormationService {
 
     // Add a player to the formation if they can play the position
     public boolean addPlayerToPosition(String position, Player player) {
-        if (formation.containsKey(position) && player.getPositions().contains(position)) {
+        if (formation.containsKey(position) && player.getPositionsList().contains(position)) {
             formation.put(position, player);
             return true;
         }

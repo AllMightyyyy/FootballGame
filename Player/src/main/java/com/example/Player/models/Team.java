@@ -1,33 +1,36 @@
 // src/main/java/com/example/Player/models/Team.java
 package com.example.Player.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "teams")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    // Many-to-One relationship with League
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
 
-    // One-to-one relationship with User
-    @OneToOne(mappedBy = "team")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
+    public Team() {
+    }
+
+    // Constructor with name and league
     public Team(String name, League league) {
         this.name = name;
         this.league = league;

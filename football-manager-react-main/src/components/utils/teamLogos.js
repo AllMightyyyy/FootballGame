@@ -1,6 +1,6 @@
 const teamLogos = {
   "en.1": {
-    leagueName: "English Premier League",
+    leagueName: "English Premier League 2024/25",
     displayName: "Premier League",
     leagueLogo: require("../../assets/img/premierleague/premierLeague.png"),
     logos: {
@@ -27,7 +27,7 @@ const teamLogos = {
     },
   },
   "es.1": {
-    leagueName: "Spain Primera Division",
+    leagueName: "Spain Primera Division 2024/25",
     displayName: "La Liga",
     leagueLogo: require("../../assets/img/laliga/LaLiga.png"),
     logos: {
@@ -54,7 +54,7 @@ const teamLogos = {
     },
   },
   "de.1": {
-    leagueName: "German 1. Bundesliga",
+    leagueName: "German 1. Bundesliga 2024/25",
     displayName: "Bundesliga",
     leagueLogo: require("../../assets/img/bundesliga/Bundesliga.png"),
     logos: {
@@ -79,7 +79,7 @@ const teamLogos = {
     },
   },
   "it.1": {
-    leagueName: "Italian Serie A",
+    leagueName: "Italian Serie A 2024/25",
     displayName: "Serie A",
     leagueLogo: require("../../assets/img/seriea/SerieA.png"),
     logos: {

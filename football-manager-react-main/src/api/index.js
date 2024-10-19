@@ -2,13 +2,14 @@
 
 import axios from "axios";
 import qs from "qs";
-import { leagueNameMap } from "../components/utils/leagueMapping"; // Import the mapping
+import { leagueNameMap, inverseLeagueNameMap } from "../components/utils/leagueMapping"; // Updated mapping
 
 const api = axios.create({
   baseURL: "http://localhost:8081/api", // Base URL for API
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
+// Request Interceptor to add Authorization header
 api.interceptors.request.use(
   (config) => {
     // Retrieve the token from localStorage
@@ -29,15 +30,10 @@ api.interceptors.request.use(
 
 // 1. Search Players Function
 export const searchPlayers = async (filters) => {
-  // Map frontend league codes to backend standard names
-  const mappedLeagues = filters.league.map(
-    (leagueCode) => leagueNameMap[leagueCode] || leagueCode
-  );
-
   const params = {
     name: filters.name || "", // Player name filter
     positions: filters.position, // Array of positions
-    leagues: mappedLeagues, // Array of mapped leagues
+    leagues: filters.league, // Array of league codes (e.g., "en.1")
     clubs: filters.club, // Array of clubs
     nations: filters.nation, // Array of nations
     minOverall: filters.rating[0] || 0, // Minimum rating
@@ -110,6 +106,32 @@ export const getFormation = async () => {
     return response.data;
   } catch (error) {
     console.error(`Error fetching formation:`, error);
+    throw error;
+  }
+};
+
+// 6. Assign Team to User
+export const assignTeam = async (leagueCode, teamName) => {
+  try {
+    const leagueNameWithSeason = leagueNameMap[leagueCode]; // "English Premier League 2024/25"
+    const response = await api.post("/teams/assign", {
+      league: leagueNameWithSeason, // Send full league name with season
+      teamName,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error assigning team:", error);
+    throw error;
+  }
+};
+
+// 7. Get Assigned Team
+export const getAssignedTeam = async () => {
+  try {
+    const response = await api.get("/teams/my");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching assigned team:", error);
     throw error;
   }
 };

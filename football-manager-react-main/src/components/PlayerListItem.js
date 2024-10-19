@@ -2,11 +2,12 @@
 
 import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
+import PropTypes from "prop-types";
 
 const getAttributeColor = (value) => {
   if (value < 50) return "red";
   if (value < 66) return "orange";
-  if (value < 80) return "#9acd32"; 
+  if (value < 80) return "#9acd32";
   if (value < 90) return "limegreen";
   return "darkgreen";
 };
@@ -43,17 +44,17 @@ const PlayerListItem = ({ player, onClick }) => {
           {player.shortName}
         </Typography>
         <Typography variant="body2" sx={{ color: "#aaa" }}>
-          {player.positions} | Overall: {player.overall} | Potential:{" "}
+          {player.positions.join(", ")} | Overall: {player.overall} | Potential:{" "}
           {player.potential}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "8px" }}>
           <img
             src={player.clubLogoUrl}
-            alt={player.club}
+            alt={player.clubName}
             style={{ width: "24px", height: "24px", marginRight: "8px" }}
           />
           <Typography variant="body2" sx={{ color: "#aaa" }}>
-            {player.club}
+            {player.clubName}
           </Typography>
           <img
             src={player.nationFlagUrl}
@@ -113,6 +114,27 @@ const PlayerListItem = ({ player, onClick }) => {
       </Box>
     </Box>
   );
+};
+
+PlayerListItem.propTypes = {
+  player: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    shortName: PropTypes.string.isRequired,
+    positions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    overall: PropTypes.number.isRequired,
+    potential: PropTypes.number.isRequired,
+    playerFaceUrl: PropTypes.string.isRequired,
+    clubName: PropTypes.string.isRequired,
+    clubLogoUrl: PropTypes.string.isRequired,
+    nationFlagUrl: PropTypes.string.isRequired,
+    pace: PropTypes.number.isRequired,
+    shooting: PropTypes.number.isRequired,
+    passing: PropTypes.number.isRequired,
+    dribbling: PropTypes.number.isRequired,
+    defending: PropTypes.number.isRequired,
+    physical: PropTypes.number.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default PlayerListItem;

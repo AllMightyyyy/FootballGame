@@ -25,38 +25,42 @@ public class TeamService {
     @Autowired
     private LeagueService leagueService;
 
-    // Get all teams in a league
-    public List<Team> getTeamsByLeague(String leagueName) {
-        Optional<League> leagueOpt = leagueService.getLeagueByName(leagueName);
-        return leagueOpt.map(league -> teamRepository.findAllByLeague(league)).orElse(List.of());
+    // Get all teams by league
+    public List<Team> getTeamsByLeague(League league) {
+        return teamRepository.findAllByLeague(league);
     }
 
-    // Assign a team to a user
-    @Transactional
-    public boolean assignTeamToUser(String leagueName, String teamName, User user) {
-        Optional<League> leagueOpt = leagueService.getLeagueByName(leagueName);
+    // Assign team to user
+    public boolean assignTeamToUser(String leagueCode, String teamName, User user) {
+        Optional<League> leagueOpt = leagueService.getCurrentLeagueByCode(leagueCode);
         if (leagueOpt.isEmpty()) {
-            return false; // League not found
+            return false;
         }
         League league = leagueOpt.get();
-
         Optional<Team> teamOpt = teamRepository.findByNameAndLeague(teamName, league);
-        if (teamOpt.isPresent()) {
-            Team team = teamOpt.get();
-            if (team.getUser() == null) {
-                team.setUser(user);
-                user.setTeam(team);
-                userRepository.save(user);
-                teamRepository.save(team);
-                return true;
-            }
+        if (teamOpt.isEmpty()) {
+            return false;
         }
-        return false; // Team is already occupied or does not exist
+        Team team = teamOpt.get();
+
+        if (team.getUser() != null) {
+            return false; // Team already occupied
+        }
+
+        // Assign team to user
+        team.setUser(user);
+        teamRepository.save(team);
+
+        // Assign team to user entity
+        user.setTeam(team);
+        userRepository.save(user);
+
+        return true;
     }
 
     // Check if a team is available for assignment
-    public boolean isTeamAvailable(String leagueName, String teamName) {
-        Optional<League> leagueOpt = leagueService.getLeagueByName(leagueName);
+    public boolean isTeamAvailable(String leagueCode, String teamName) {
+        Optional<League> leagueOpt = leagueService.getCurrentLeagueByCode(leagueCode);
         if (leagueOpt.isEmpty()) {
             return false;
         }
@@ -65,39 +69,37 @@ public class TeamService {
         return teamOpt.isPresent() && teamOpt.get().getUser() == null;
     }
 
-    // Retrieve the team managed by a user
+    // Get user's team
     public Optional<Team> getUserTeam(User user) {
-        return Optional.ofNullable(user.getTeam());
+        return teamRepository.findByUser(user);
     }
 
     // Create a new team if it doesn't exist
-    public Team createTeamIfNotExists(String name, League league) {
-        return teamRepository.findByNameAndLeague(name, league)
-                .orElseGet(() -> {
-                    Team newTeam = new Team();
-                    newTeam.setName(name);
-                    newTeam.setLeague(league);
-                    return teamRepository.save(newTeam);
-                });
-    }
-
-
-    // Persist teams from matches
-    public void persistTeams(List<Match> matches, League league) {
-        for (Match match : matches) {
-            String team1Name = match.getTeam1().getName();
-            String team2Name = match.getTeam2().getName();
-
-            createTeamIfNotExists(team1Name, league);
-            createTeamIfNotExists(team2Name, league);
+    public Team createTeamIfNotExists(String teamName, League league) {
+        Optional<Team> teamOpt = teamRepository.findByNameAndLeague(teamName, league);
+        if (teamOpt.isPresent()) {
+            return teamOpt.get();
+        } else {
+            Team team = new Team();
+            team.setName(teamName);
+            team.setLeague(league);
+            return teamRepository.save(team);
         }
     }
 
     // Get Team by name and league
-    public Team getTeamByName(String name, League league) {
-        return teamRepository.findByNameAndLeague(name, league).orElse(null);
+    public Team getTeamByName(String teamName, League league) {
+        return teamRepository.findByNameAndLeague(teamName, league).orElse(null);
     }
 
+    // Fetch team by name and league code
+    public Team getTeamByNameAndLeagueCode(String teamName, String leagueCode) {
+        Optional<League> leagueOpt = leagueService.getCurrentLeagueByCode(leagueCode);
+        if (leagueOpt.isEmpty()) {
+            return null;
+        }
+        return teamRepository.findByNameAndLeague(teamName, leagueOpt.get()).orElse(null);
+    }
 
     // Additional Methods
     public boolean existsByName(String name) {

@@ -1,12 +1,20 @@
+// src/main/java/com/example/Player/utils/MatchDTO.java
+
 package com.example.Player.utils;
+
+import com.example.Player.models.Match;
+import org.mapstruct.Mapping;
+
 
 public class MatchDTO {
     private String round;
     private String date;
     private String time;
-    private String team1;
-    private String team2;
+    private String team1; // Team1 name
+    private String team2; // Team2 name
     private ScoreDTO score;
+    @Mapping(source = "team1.name", target = "team1")
+    @Mapping(source = "team2.name", target = "team2")
 
     // Getters and Setters
 
@@ -22,7 +30,7 @@ public class MatchDTO {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(String date){
         this.date = date;
     }
 
@@ -38,7 +46,7 @@ public class MatchDTO {
         return team1;
     }
 
-    public void setTeam1(String team1) {
+    public void setTeam1(String team1){
         this.team1 = team1;
     }
 
@@ -46,7 +54,7 @@ public class MatchDTO {
         return team2;
     }
 
-    public void setTeam2(String team2) {
+    public void setTeam2(String team2){
         this.team2 = team2;
     }
 
@@ -54,7 +62,7 @@ public class MatchDTO {
         return score;
     }
 
-    public void setScore(ScoreDTO score) {
+    public void setScore(ScoreDTO score){
         this.score = score;
     }
 }

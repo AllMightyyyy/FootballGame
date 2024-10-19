@@ -6,15 +6,25 @@ import com.example.Player.exceptions.ResourceNotFoundException;
 import com.example.Player.models.League;
 import com.example.Player.models.Player;
 import com.example.Player.repository.PlayerRepository;
+import com.example.Player.utils.LeagueConfig;
 import com.example.Player.utils.PlayerSpecifications;
 import com.opencsv.CSVReader;
-import jakarta.annotation.PostConstruct;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvValidationException;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,69 +37,193 @@ public class PlayerService {
     @Autowired
     private LeagueService leagueService;
 
-    private static final String CSV_FILE_PATH = "players_22.csv";
-    private List<Player> players = new ArrayList<>();
+    @Autowired
+    private LeagueConfig leagueConfig;
 
-    @PostConstruct
+    private static final String CSV_FILE_PATH = "players_22.csv";
+
+    private final Logger logger = LoggerFactory.getLogger(PlayerService.class);
+
+    /**
+     * Loads players from the CSV file into the database.
+     * This method can be called on application startup using @PostConstruct if desired.
+     */
+    @Transactional
     public void loadPlayersFromCSV() {
-        try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
+        File csvFile = new File(CSV_FILE_PATH);
+        if (!csvFile.exists()) {
+            logger.error("CSV file not found at path: {}", CSV_FILE_PATH);
+            return;
+        }
+
+        // Use CSVReader to read the file from the specified location
+        try (CSVReader reader = new CSVReaderBuilder(new FileReader(csvFile))
+                .withSkipLines(1) // skip header
+                .build()) {
+
+            String[] headers = getCSVHeaders();
             String[] line;
-            reader.readNext(); // Skip header
+            int lineNumber = 1;
+
             while ((line = reader.readNext()) != null) {
-                Long id = Long.parseLong(line[0]); // sofifa_id
-                if (!playerRepository.existsById(id)) {
+                lineNumber++;
+                try {
+                    Map<String, String> playerData = mapColumns(headers, line);
+
+                    // Validate required fields
+                    if (!isValidPlayerData(playerData)) {
+                        //logger.warn("Line {}: Missing required fields. Skipping.", lineNumber);
+                        continue;
+                    }
+
+                    Long id = Long.parseLong(playerData.get("sofifa_id"));
+
+                    if (playerRepository.existsById(id)) {
+                        //logger.info("Line {}: Player with ID {} already exists. Skipping.", lineNumber, id);
+                        continue;
+                    }
+
                     Player player = new Player();
                     player.setId(id);
-                    player.setShortName(line[2]);
-                    player.setLongName(line[3]);
-                    player.setPositions(line[4]);
-                    player.setOverall(Integer.parseInt(line[5]));
-                    player.setPotential(Integer.parseInt(line[6]));
-                    player.setValueEur(Double.parseDouble(line[7]));
-                    player.setWageEur(Double.parseDouble(line[8]));
-                    player.setPlayerFaceUrl(line[105]);
-                    player.setClubLogoUrl(line[106]);
-                    player.setNationFlagUrl(line[109]);
-                    player.setPace(Integer.parseInt(line[54]));
-                    player.setShooting(Integer.parseInt(line[55]));
-                    player.setPassing(Integer.parseInt(line[56]));
-                    player.setDribbling(Integer.parseInt(line[57]));
-                    player.setDefending(Integer.parseInt(line[58]));
-                    player.setPhysical(Integer.parseInt(line[59]));
-                    player.setHeightCm(Integer.parseInt(line[11]));
-                    player.setWeightKg(Integer.parseInt(line[12]));
-                    String leagueName = line[15].trim();
-                    String clubName = line[14];
-                    String nationalityName = line[23];
+                    player.setShortName(playerData.get("short_name"));
+                    player.setLongName(playerData.get("long_name"));
+                    player.setPositions(playerData.get("player_positions"));
+                    player.setOverall(parseInteger(playerData.get("overall"), lineNumber, "overall"));
+                    player.setPotential(parseInteger(playerData.get("potential"), lineNumber, "potential"));
+                    player.setValueEur(parseDouble(playerData.get("value_eur"), lineNumber, "value_eur"));
+                    player.setWageEur(parseDouble(playerData.get("wage_eur"), lineNumber, "wage_eur"));
 
-                    // Associate Player with League
-                    Optional<League> leagueOpt = leagueService.getLeagueByName(leagueName);
+                    // Handle URLs with defaults
+                    player.setPlayerFaceUrl(Optional.ofNullable(playerData.get("player_face_url")).orElse(""));
+                    player.setClubLogoUrl(Optional.ofNullable(playerData.get("club_logo_url")).orElse(""));
+                    player.setNationFlagUrl(Optional.ofNullable(playerData.get("nation_flag_url")).orElse(""));
+
+
+                    // Handle numeric fields with validation
+                    player.setPace(parseInteger(playerData.get("pace"), lineNumber, "pace"));
+                    player.setShooting(parseInteger(playerData.get("shooting"), lineNumber, "shooting"));
+                    player.setPassing(parseInteger(playerData.get("passing"), lineNumber, "passing"));
+                    player.setDribbling(parseInteger(playerData.get("dribbling"), lineNumber, "dribbling"));
+                    player.setDefending(parseInteger(playerData.get("defending"), lineNumber, "defending"));
+                    player.setPhysical(parseInteger(playerData.get("physic"), lineNumber, "physic"));
+
+                    player.setHeightCm(parseInteger(playerData.get("height_cm"), lineNumber, "height_cm"));
+                    player.setWeightKg(parseInteger(playerData.get("weight_kg"), lineNumber, "weight_kg"));
+
+                    //String csvLeagueCode = playerData.get("league_code").trim(); // Assuming CSV has league_code
+
+                    String csvLeagueName = playerData.get("league_name").trim();
+                    String csvLeagueCode = getLeagueCodeByName(csvLeagueName);
+                    if (csvLeagueCode == null) {
+                        //logger.warn("Line {}: League '{}' not found in configuration for player '{}'. Skipping.", lineNumber, csvLeagueName, player.getLongName());
+                        continue;
+                    }
+                    LeagueConfig.LeagueDetails leagueDetails = leagueConfig.getLeagues().get(csvLeagueCode);
+
+                    String season = leagueDetails.getSeason();
+
+
+                    // Fetch League by code
+                    Optional<League> leagueOpt = leagueService.getLeagueByCode(csvLeagueCode);
                     if (leagueOpt.isPresent()) {
                         player.setLeague(leagueOpt.get());
                     } else {
-                        // Optionally, handle the case where the league doesn't exist
-                        // For example, skip this player or assign a default league
-                        System.err.println("League not found for player: " + player.getLongName() + ", League: " + leagueName);
+                        //logger.warn("Line {}: League with code '{}' not found for player '{}'. Skipping.", lineNumber, csvLeagueCode, player.getLongName());
                         continue; // Skip saving this player
                     }
 
+                    String clubName = playerData.get("club_name");
+                    String nationalityName = playerData.get("nationality_name");
+
                     player.setClubName(clubName);
                     player.setNationalityName(nationalityName);
-                    player.setPositionsList(Arrays.stream(line[4].split(",")).map(String::trim).collect(Collectors.toList()));
+                    player.setPositionsList(Arrays.stream(player.getPositions().split(","))
+                            .map(String::trim)
+                            .filter(s -> !s.isEmpty())
+                            .collect(Collectors.toList()));
 
-                    player.setPace(Integer.parseInt(line[54]));
-                    player.setShooting(Integer.parseInt(line[55]));
-                    player.setPassing(Integer.parseInt(line[56]));
-                    player.setDribbling(Integer.parseInt(line[57]));
-                    player.setDefending(Integer.parseInt(line[58]));
-                    player.setPhysical(Integer.parseInt(line[59]));
-
+                    // Save player to repository
                     playerRepository.save(player);
+                    //logger.info("Line {}: Loaded player '{}'.", lineNumber, player.getLongName());
+
+                } catch (NumberFormatException e) {
+                    //logger.error("Line {}: Number format error - {}", lineNumber, e.getMessage());
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    //logger.error("Line {}: Array index out of bounds - {}", lineNumber, e.getMessage());
+                } catch (Exception e) {
+                    //logger.error("Line {}: Unexpected error - {}", lineNumber, e.getMessage());
                 }
             }
-            System.out.println("Players loaded successfully from CSV.");
+            logger.info("Players loaded successfully from CSV.");
         } catch (Exception e) {
+            logger.error("Failed to load players from CSV: {}", e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Helper method to read CSV headers
+     */
+    private String[] getCSVHeaders() throws Exception {
+        // Open the file again to read the first row (header)
+        try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE_PATH))) {
+            return reader.readNext();
+        }
+    }
+
+    /**
+     * Maps CSV columns to a key-value pair based on headers
+     */
+    private Map<String, String> mapColumns(String[] headers, String[] line) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < headers.length && i < line.length; i++) {
+            map.put(headers[i], line[i].trim());
+        }
+        return map;
+    }
+
+    /**
+     * Validates if the player data contains all required fields
+     */
+    private boolean isValidPlayerData(Map<String, String> playerData) {
+        return playerData.containsKey("sofifa_id") &&
+                playerData.containsKey("short_name") &&
+                playerData.containsKey("long_name") &&
+                playerData.containsKey("player_positions") &&
+                playerData.containsKey("league_name") && // Ensure league_code is present
+                playerData.containsKey("club_name") &&
+                playerData.containsKey("nationality_name");
+    }
+
+    /**
+     * Parses a string to integer with default value handling
+     */
+    private int parseInteger(String value, int lineNumber, String fieldName) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            //logger.warn("Line {}: Invalid integer for field '{}', defaulting to 0.", lineNumber, fieldName);
+            return 0;
+        }
+    }
+
+    private String getLeagueCodeByName(String leagueName) {
+        return leagueConfig.getLeagues().values().stream()
+                .filter(details -> details.getName().equalsIgnoreCase(leagueName))
+                .map(LeagueConfig.LeagueDetails::getCode)
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Parses a string to double with default value handling
+     */
+    private double parseDouble(String value, int lineNumber, String fieldName) {
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            //logger.warn("Line {}: Invalid double for field '{}', defaulting to 0.0.", lineNumber, fieldName);
+            return 0.0;
         }
     }
 
@@ -141,6 +275,8 @@ public class PlayerService {
 
         // Weight filter
         spec = spec.and(PlayerSpecifications.weightBetween(minWeight, maxWeight));
+
+        //spec = spec.and(PlayerSpecifications.distinct());
 
         return playerRepository.findAll(spec, pageRequest);
     }

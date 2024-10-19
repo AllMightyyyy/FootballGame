@@ -2,6 +2,9 @@
 
 package com.example.Player.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,11 +14,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
-@Table(name = "users")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User implements UserDetails {
 
     @Id
@@ -31,8 +32,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password; // Hashed password
 
-    @OneToOne
-    @JoinColumn(name = "team_id")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Team team;
 
     // Implementing UserDetails methods

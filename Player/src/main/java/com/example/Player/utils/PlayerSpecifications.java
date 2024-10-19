@@ -65,7 +65,8 @@ public class PlayerSpecifications {
         };
     }
 
-    // League filter (for inclusions or exclusions)
+    // PlayerSpecifications.java
+
     public static Specification<Player> leagueIn(List<String> leagues, boolean exclude) {
         if (leagues == null || leagues.isEmpty()) {
             return null;
@@ -79,6 +80,13 @@ public class PlayerSpecifications {
             } else {
                 return leagueJoin.get("name").in(leagues);
             }
+        };
+    }
+
+    public static Specification<Player> distinct() {
+        return (root, query, builder) -> {
+            query.distinct(true);
+            return builder.conjunction();
         };
     }
 

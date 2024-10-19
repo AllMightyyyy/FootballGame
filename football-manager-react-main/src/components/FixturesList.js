@@ -81,7 +81,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team1]} // Ensure this path is correct
+                      src={teamLogos[match.team1]} // Correct usage
                       alt={match.team1}
                       sx={{
                         width: 70,
@@ -154,7 +154,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team2]} // Ensure this path is correct
+                      src={teamLogos[match.team2]} // Correct usage
                       alt={match.team2}
                       sx={{
                         width: 70,

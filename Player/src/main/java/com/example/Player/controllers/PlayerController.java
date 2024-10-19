@@ -3,9 +3,13 @@
 package com.example.Player.controllers;
 
 import com.example.Player.exceptions.ResourceNotFoundException;
+import com.example.Player.models.League;
 import com.example.Player.models.Player;
 import com.example.Player.services.FormationService;
 import com.example.Player.services.PlayerService;
+import com.example.Player.utils.PlayerLeagueResponseDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -28,9 +32,11 @@ public class PlayerController {
     @Autowired
     private FormationService formationService;
 
+    private final Logger logger = LoggerFactory.getLogger(PlayerController.class);
+
     // Get players with optional filtering and pagination
     @GetMapping
-    public ResponseEntity<Map<String, Object>> searchPlayers(
+    public ResponseEntity<?> searchPlayers(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) List<String> positions,
             @RequestParam(required = false) List<String> leagues,
@@ -52,49 +58,48 @@ public class PlayerController {
             @RequestParam(defaultValue = "asc") String sortOrder
     ) {
         if (minOverall > maxOverall || minHeight > maxHeight || minWeight > maxWeight) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Minimum values cannot exceed maximum values."));
         }
 
         if (page < 1 || size < 1) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Page and size must be positive integers."));
         }
 
-        // Use PageRequest to handle pagination and sorting
-        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.Direction.fromString(sortOrder), sortBy);
+        try {
+            PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.Direction.fromString(sortOrder), sortBy);
 
-        // Search players using specifications
-        Page<Player> playersPage = playerService.searchPlayers(
-                name, positions, leagues, clubs, nations,
-                minOverall, maxOverall,
-                minHeight, maxHeight,
-                minWeight, maxWeight,
-                excludePositions, excludeLeagues, excludeClubs, excludeNations,
-                pageRequest
-        );
+            Page<Player> playersPage = playerService.searchPlayers(
+                    name, positions, leagues, clubs, nations,
+                    minOverall, maxOverall,
+                    minHeight, maxHeight,
+                    minWeight, maxWeight,
+                    excludePositions, excludeLeagues, excludeClubs, excludeNations,
+                    pageRequest
+            );
 
-        // Create a response with the players and pagination details
-        Map<String, Object> response = new HashMap<>();
-        response.put("players", playersPage.getContent()); // List of players
-        response.put("currentPage", playersPage.getNumber() + 1); // Page number is 0-based
-        response.put("totalItems", playersPage.getTotalElements());
-        response.put("totalPages", playersPage.getTotalPages());
+            Map<String, Object> response = new HashMap<>();
+            response.put("players", playersPage.getContent());
+            response.put("currentPage", playersPage.getNumber() + 1);
+            response.put("totalItems", playersPage.getTotalElements());
+            response.put("totalPages", playersPage.getTotalPages());
 
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/positions")
-    public ResponseEntity<Set<String>> getAllPositions() {
-        Set<String> positions = playerService.getAllPlayers().stream()
-                .flatMap(player -> player.getPositionsList().stream())
-                .collect(Collectors.toSet());
-        return ResponseEntity.ok(positions);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            logger.error("Error searching players: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "An unexpected error occurred while searching players."));
+        }
     }
 
     @GetMapping("/leagues")
-    public ResponseEntity<Set<String>> getAllLeagues() {
-        Set<String> leagues = playerService.getAllPlayers().stream()
-                .map(player -> player.getLeague().getName())
-                .filter(Objects::nonNull)
+    public ResponseEntity<Set<PlayerLeagueResponseDTO>> getAllLeagues() {
+        Set<PlayerLeagueResponseDTO> leagues = playerService.getAllPlayers().stream()
+                .map(player -> {
+                    League league = player.getLeague();
+                    return new PlayerLeagueResponseDTO(league.getCode(), league.getName(), league.getSeason());
+                })
                 .collect(Collectors.toSet());
         return ResponseEntity.ok(leagues);
     }

@@ -3,12 +3,13 @@
 import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
+import { assignTeam, getAssignedTeam } from "../api";
 import { AuthContext } from "../contexts/AuthContext";
 import ConfirmationScreen from "./ConfirmationScreen";
 import ManagerSetup from "./ManagerSetup";
 import TeamSelection from "./TeamSelection";
 import { leagueNameMap } from "./utils/leagueMapping";
+import { LeagueProvider } from "../contexts/LeagueContext";
 
 const Game = () => {
   const { auth, updateTeam } = useContext(AuthContext);
@@ -20,17 +21,17 @@ const Game = () => {
 
   const assignTeam = async () => {
     try {
-      const standardLeagueName = leagueNameMap[selectedLeague]; // Translate league code
-      const response = await api.post("/teams/assign", {
-        league: standardLeagueName,
-        teamName: selectedTeam,
-      });
-      alert(response.data.message);
-      const teamResponse = await api.get("/teams/my");
-      if (teamResponse.data.team) {
-        updateTeam(teamResponse.data.team);
-        handleNextStep();
+      const response = await assignTeam(selectedLeague, selectedTeam);
+      alert(response.message);
+  
+      // Fetch the assigned team
+      const teamResponse = await getAssignedTeam(); // Correct usage
+      if (teamResponse.team) {
+        updateTeam(teamResponse.team);
       }
+  
+      // Finalize onboarding and navigate to the main game interface
+      navigate("/");
     } catch (error) {
       console.error("Error assigning team:", error);
       alert(error.response?.data?.message || "Failed to assign team.");
@@ -91,6 +92,7 @@ const Game = () => {
         />
       )}
       {onboardingStep === 2 && (
+        <LeagueProvider>
         <TeamSelection
           selectedTeam={selectedTeam}
           onTeamSelect={setSelectedTeam}
@@ -102,6 +104,7 @@ const Game = () => {
           selectedLeague={selectedLeague}
           setSelectedLeague={setSelectedLeague}
         />
+        </LeagueProvider>
       )}
       {onboardingStep === 3 && (
         <ConfirmationScreen

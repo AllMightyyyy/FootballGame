@@ -5,9 +5,10 @@ package com.example.Player.controllers;
 import com.example.Player.models.League;
 import com.example.Player.models.Team;
 import com.example.Player.models.User;
+import com.example.Player.services.LeagueService;
 import com.example.Player.services.TeamService;
 import com.example.Player.services.UserService;
-import com.example.Player.repository.LeagueRepository;
+import com.example.Player.utils.TeamLeagueResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teams")
@@ -31,43 +31,59 @@ public class TeamController {
     private UserService userService;
 
     @Autowired
-    private LeagueRepository leagueRepository;
+    private LeagueService leagueService;
 
-    // Get all leagues
-    @GetMapping("/leagues")
-    public ResponseEntity<List<String>> getLeagues() {
-        List<String> leagues = List.of(
-                "English Premier League",
-                "Spain Primera Division",
-                "German 1. Bundesliga",
-                "Italian Serie A",
-                "French Ligue 1"
-                // Remove "Spanish La Liga", "German Bundesliga", etc.
-        );
-        return ResponseEntity.ok(leagues);
+    // Get all leagues (return codes and names)
+    @GetMapping("/all-leagues")
+    public ResponseEntity<List<TeamLeagueResponseDTO>> getLeagues() {
+        List<League> leagues = leagueService.getAllLeagues();
+        List<TeamLeagueResponseDTO> response = leagues.stream()
+                .map(league -> new TeamLeagueResponseDTO(league.getCode(), league.getName(), league.getSeason()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
-    // Get all teams in a specific league
-    @GetMapping("/{league}")
-    public ResponseEntity<List<TeamResponse>> getTeamsByLeague(@PathVariable String league) {
-        List<Team> teams = teamService.getTeamsByLeague(league);
+    // Get teams by league code
+    @GetMapping("/by-league/{leagueCode}")
+    public ResponseEntity<List<TeamResponse>> getTeamsByLeague(@PathVariable String leagueCode) {
+        Optional<League> leagueOpt = leagueService.getCurrentLeagueByCode(leagueCode);
+        if (leagueOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<Team> teams = teamService.getTeamsByLeague(leagueOpt.get());
         if (teams.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         List<TeamResponse> response = teams.stream()
                 .map(team -> new TeamResponse(team.getId(), team.getName(), team.getUser() != null))
-                .toList();
+                .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 
-    // Assign a team to the authenticated user
+    @GetMapping("/{leagueCode}/{season}")
+    public ResponseEntity<List<TeamResponse>> getTeamsByLeagueAndSeason(@PathVariable String leagueCode, @PathVariable String season) {
+        Optional<League> leagueOpt = leagueService.getLeagueByCodeAndSeason(leagueCode, season);
+        if (leagueOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<Team> teams = teamService.getTeamsByLeague(leagueOpt.get());
+        if (teams.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<TeamResponse> response = teams.stream()
+                .map(team -> new TeamResponse(team.getId(), team.getName(), team.getUser() != null))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
+
+    // Assign team to user
     @PostMapping("/assign")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> assignTeamToUser(@RequestBody AssignTeamRequest request, Authentication authentication) {
         String username = authentication.getName();
         Optional<User> userOpt = userService.findByUsername(username);
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(401).body(Map.of("message", "User not found"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "User not found"));
         }
         User user = userOpt.get();
 
@@ -75,7 +91,7 @@ public class TeamController {
             return ResponseEntity.badRequest().body(Map.of("message", "User already has a team assigned"));
         }
 
-        boolean success = teamService.assignTeamToUser(request.getLeague(), request.getTeamName(), user);
+        boolean success = teamService.assignTeamToUser(request.getLeagueCode(), request.getTeamName(), user);
         if (success) {
             return ResponseEntity.ok(Map.of("message", "Team assigned successfully"));
         } else {
@@ -90,7 +106,7 @@ public class TeamController {
         String username = authentication.getName();
         Optional<User> userOpt = userService.findByUsername(username);
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(401).body(Map.of("message", "User not found"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "User not found"));
         }
         User user = userOpt.get();
         Optional<Team> teamOpt = teamService.getUserTeam(user);
@@ -99,7 +115,9 @@ public class TeamController {
             return ResponseEntity.ok(Map.of(
                     "id", team.getId(),
                     "name", team.getName(),
-                    "league", team.getLeague().getName()
+                    "leagueCode", team.getLeague().getCode(),
+                    "leagueName", team.getLeague().getName(),
+                    "season", team.getLeague().getSeason()
             ));
         } else {
             return ResponseEntity.ok(Map.of(
@@ -108,17 +126,18 @@ public class TeamController {
         }
     }
 
-    // DTOs for request and response
+    // DTOs for requests and responses
     static class AssignTeamRequest {
-        private String league;
+        private String leagueCode;
         private String teamName;
 
-        public String getLeague() {
-            return league;
+        // Getters and Setters
+        public String getLeagueCode() {
+            return leagueCode;
         }
 
-        public void setLeague(String league) {
-            this.league = league;
+        public void setLeagueCode(String leagueCode) {
+            this.leagueCode = leagueCode;
         }
 
         public String getTeamName() {
@@ -141,7 +160,7 @@ public class TeamController {
             this.isOccupied = isOccupied;
         }
 
-        // Getters and setters
+        // Getters and Setters
         public Long getId() { return id; }
         public String getName() { return name; }
         public boolean isOccupied() { return isOccupied; }
@@ -149,5 +168,26 @@ public class TeamController {
         public void setId(Long id) { this.id = id; }
         public void setName(String name) { this.name = name; }
         public void setOccupied(boolean occupied) { isOccupied = occupied; }
+    }
+
+    static class LeagueResponse {
+        private String code;
+        private String name;
+        private String season;
+
+        public LeagueResponse(String code, String name, String season) {
+            this.code = code;
+            this.name = name;
+            this.season = season;
+        }
+
+        // Getters and Setters
+        public String getCode() { return code; }
+        public String getName() { return name; }
+        public String getSeason() { return season; }
+
+        public void setCode(String code) { this.code = code; }
+        public void setName(String name) { this.name = name; }
+        public void setSeason(String season) { this.season = season; }
     }
 }

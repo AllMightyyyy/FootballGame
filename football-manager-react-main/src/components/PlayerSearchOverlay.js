@@ -9,6 +9,7 @@ import {
   List,
   TextField,
   Typography,
+  ListItem,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -28,7 +29,7 @@ const PlayerSearchOverlay = ({
   const [searchTerm, setSearchTerm] = useState("");
 
   const mergedFilters = {
-    rating: [0, 100], 
+    rating: [0, 100],
     height: [150, 215],
     weight: [40, 120],
     position: [],
@@ -42,9 +43,8 @@ const PlayerSearchOverlay = ({
       nation: false,
     },
     name: searchTerm,
-    ...filters, 
+    ...filters,
   };
-  
 
   const {
     data: playersData,
@@ -183,7 +183,7 @@ const PlayerSearchOverlay = ({
           >
             {isLoading && <div>Loading players...</div>}
             {isError && <div>Error loading players</div>}
-            {playersData && playersData.players.length > 0 ? (
+            {playersData && playersData.players && playersData.players.length > 0 ? (
               <List>
                 {playersData.players.map((player) => (
                   <PlayerListItem

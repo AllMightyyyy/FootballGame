@@ -1,3 +1,5 @@
+// src/components/PlayerTableTab.js
+
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import PlayerTable from "./PlayerTable";
@@ -5,7 +7,7 @@ import Filters from "./Filters";
 
 const PlayerTableTab = () => {
   const [filterData, setFilterData] = useState({
-    rating: [40, 120],
+    rating: [40, 99],
     position: [],
     league: [],
     club: [],

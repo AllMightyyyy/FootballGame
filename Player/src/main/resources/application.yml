@@ -1,0 +1,16 @@
+leagues:
+  "English Premier League 2024/25":
+    code: "en.1"
+    season: "2024-25"
+  "Italian Serie A 2024/25":
+    code: "it.1"
+    season: "2024-25"
+  "French Ligue 1 2024/25":
+    code: "fr.1"
+    season: "2024-25"
+  "Primera División de España 2024/25":
+    code: "es.1"
+    season: "2024-25"
+  "Deutsche Bundesliga 2024/25":
+    code: "de.1"
+    season: "2024-25"

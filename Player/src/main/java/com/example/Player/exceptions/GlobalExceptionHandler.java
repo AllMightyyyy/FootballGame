@@ -1,40 +1,39 @@
 // src/main/java/com/example/Player/exceptions/GlobalExceptionHandler.java
+
 package com.example.Player.exceptions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureException;
+import java.io.IOException;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<?> handleIOException(IOException e) {
+        logger.error("IO Exception: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Internal server error occurred."));
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleInvalidArgument(IllegalArgumentException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        logger.error("Illegal Argument: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", e.getMessage()));
     }
 
-    // Handle JWT exceptions
-    @ExceptionHandler({ ExpiredJwtException.class, MalformedJwtException.class, SignatureException.class })
-    public ResponseEntity<String> handleJwtException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired JWT token.");
-    }
-
-    // Handle resource not found
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
-    // Handle generic exceptions
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception ex) {
-        // Log the exception (use a logger in real applications)
-        ex.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+    public ResponseEntity<?> handleGenericException(Exception e) {
+        logger.error("Unexpected Exception: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "An unexpected error occurred."));
     }
 }

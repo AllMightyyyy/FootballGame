@@ -1,22 +1,34 @@
-// src/components/PlayerTable.js
+// src/components/PlayerSearchOverlay.js
 
-import React, { useEffect, useState } from "react";
-import { Paper, Box, TablePagination } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  Box,
+  Button,
+  Dialog,
+  IconButton,
+  List,
+  TextField,
+  Typography,
+  ListItem,
+} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { searchPlayers } from "../api";
+import Filters from "./Filters";
 import PlayerListItem from "./PlayerListItem";
 
-const PlayerTable = ({ filters, onPlayerSelect }) => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("overall");
+const PlayerSearchOverlay = ({
+  open,
+  handleClose,
+  filters,
+  onFilterChange,
+  onPlayerSelect,
+}) => {
+  const { register, handleSubmit } = useForm();
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    setPage(0);
-  }, [filters]);
-
-  const normalizedFilters = {
+  const mergedFilters = {
     rating: [0, 100],
     height: [150, 215],
     weight: [40, 120],
@@ -30,69 +42,165 @@ const PlayerTable = ({ filters, onPlayerSelect }) => {
       club: false,
       nation: false,
     },
+    name: searchTerm,
     ...filters,
   };
 
   const {
     data: playersData,
+    refetch,
     isLoading,
     isError,
   } = useQuery(
-    ["players", page, rowsPerPage, orderBy, order, normalizedFilters],
-    () =>
-      searchPlayers({
-        page: page + 1,
-        size: rowsPerPage,
-        sortBy: orderBy,
-        sortOrder: order,
-        ...normalizedFilters,
-      }),
-    {
-      keepPreviousData: true,
-    }
+    ["players", mergedFilters],
+    () => searchPlayers(mergedFilters),
+    { enabled: false }
   );
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const onSubmit = () => {
+    refetch();
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const handlePlayerClick = (player) => {
+    onPlayerSelect(player);
+    handleClose();
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching data</div>;
+  const handleFilterChange = (updatedFilters) => {
+    onFilterChange(updatedFilters);
+    refetch();
+  };
+
+  useEffect(() => {
+    if (open) {
+      refetch();
+    }
+  }, [filters, searchTerm, open, refetch]);
 
   return (
-    <Paper
-      sx={{
-        width: "100%",
-        overflow: "hidden",
-        backgroundColor: "#1b1b1b",
-        color: "#fff",
-        padding: "16px",
-      }}
-    >
-      <Box>
-        {playersData?.players.map((player) => (
-          <PlayerListItem
-            key={player.id}
-            player={player}
-            onClick={onPlayerSelect}
+    <Dialog fullScreen open={open} onClose={handleClose}>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "#1e1e1e",
+          color: "#fff",
+          height: "100%",
+        }}
+      >
+        {/* Filters Section */}
+        <Box
+          sx={{
+            width: "450px",
+            padding: "20px",
+            backgroundColor: "#2e2e2e",
+            borderRight: "1px solid #444",
+          }}
+        >
+          <Filters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onSearch={handleSubmit(onSubmit)}
           />
-        ))}
+        </Box>
+
+        {/* Search and Player List Section */}
+        <Box
+          sx={{
+            flex: 1,
+            padding: "20px",
+            overflowY: "auto",
+            position: "relative",
+          }}
+        >
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{ position: "absolute", top: 10, right: 10, color: "#fff" }}
+          >
+            <CloseIcon />
+          </IconButton>
+
+          <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
+            <Typography variant="h4" color="#fff" gutterBottom>
+              Search Player
+            </Typography>
+            <TextField
+              {...register("name")}
+              label="Enter player name"
+              variant="outlined"
+              fullWidth
+              sx={{
+                backgroundColor: "#333",
+                input: { color: "#fff" },
+                marginBottom: 2,
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#555",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#888",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#fff",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#aaa",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#fff",
+                },
+                "& .MuiOutlinedInput-input": {
+                  color: "#fff",
+                  padding: "10px",
+                },
+              }}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant="contained"
+              color="primary"
+              sx={{
+                backgroundColor: "#487748",
+                color: "#fff",
+                marginBottom: "16px",
+                width: "100%",
+                maxWidth: "200px",
+              }}
+            >
+              Search
+            </Button>
+          </Box>
+
+          <Box
+            sx={{
+              padding: "20px",
+              maxHeight: "60vh",
+              overflowY: "auto",
+              backgroundColor: "#1e1e1e",
+            }}
+          >
+            {isLoading && <div>Loading players...</div>}
+            {isError && <div>Error loading players</div>}
+            {playersData && playersData.players && playersData.players.length > 0 ? (
+              <List>
+                {playersData.players.map((player) => (
+                  <PlayerListItem
+                    key={player.id}
+                    player={player}
+                    onClick={handlePlayerClick}
+                  />
+                ))}
+              </List>
+            ) : (
+              <div>No players found</div>
+            )}
+          </Box>
+        </Box>
       </Box>
-      <TablePagination
-        component="div"
-        count={playersData?.totalItems || 0} 
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    </Dialog>
   );
 };
 
-export default PlayerTable;
+export default PlayerSearchOverlay;

@@ -1,4 +1,5 @@
 // src/components/LiveStandings.js
+
 import {
   Alert,
   Box,
@@ -11,45 +12,45 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import FixturesList from "./FixturesList";
 import StandingsTable from "./StandingsTable";
 import { leagueNameMap } from "./utils/leagueMapping";
 import teamLogos from "./utils/teamLogos";
+import api from "../api";
+import { LeagueContext } from "../contexts/LeagueContext";
 
 const LiveStandings = () => {
   const [standings, setStandings] = useState([]);
   const [matches, setMatches] = useState([]);
-  const [selectedLeague, setSelectedLeague] = useState("en.1");
+  const [selectedLeague, setSelectedLeague] = useState("en.1"); // Default league code
   const [selectedTab, setSelectedTab] = useState(0);
   const [matchdays, setMatchdays] = useState([]);
   const [selectedMatchday, setSelectedMatchday] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const leagues = useContext(LeagueContext);
 
-  const standardLeagueName = leagueNameMap[selectedLeague];
+  const standardLeagueName = leagueNameMap[selectedLeague]; // "English Premier League 2024/25"
 
   useEffect(() => {
-    const getMatches = async () => {
+    const getStandings = async () => {
       setLoading(true);
       setError(null);
       try {
-        const standardLeagueName = leagueNameMap[selectedLeague]; // Translate league code
-        const response = await axios.get(
-          `http://localhost:8081/api/football/standings/${standardLeagueName}`
-        );
+        const response = await api.get(`/football/standings/${selectedLeague}`);
+        const data = response.data;
 
-        const matchesData = response.data; // Assuming response.data is the matches array
-        setMatches(matchesData); // Set matches directly
+        // Destructure matches and standings from the response
+        const { matches: fetchedMatches, standings: fetchedStandings } = data;
 
-        const standingsData = calculateStandings(matchesData);
-        setStandings(standingsData);
+        setMatches(fetchedMatches);
+        setStandings(fetchedStandings);
 
-        console.log("Fetched Matches:", matchesData);
-        console.log("Calculated Standings:", standingsData);
+        console.log("Fetched Matches:", fetchedMatches);
+        console.log("Fetched Standings:", fetchedStandings);
 
-        const matchdaysData = extractMatchdays(matchesData);
+        const matchdaysData = extractMatchdays(fetchedMatches);
         setMatchdays(matchdaysData);
         setSelectedMatchday(matchdaysData[0] || "");
       } catch (err) {
@@ -60,76 +61,8 @@ const LiveStandings = () => {
       }
     };
 
-    getMatches();
+    getStandings();
   }, [selectedLeague]);
-
-  const calculateStandings = (matches) => {
-    const teams = {};
-    matches.forEach((match) => {
-      const { team1, team2, score } = match;
-      if (!score || !score.ft) return;
-      const [team1Goals, team2Goals] = score.ft.map(Number);
-      if (!teams[team1]) {
-        teams[team1] = {
-          name: team1,
-          played: 0,
-          win: 0,
-          draw: 0,
-          lose: 0,
-          goalsFor: 0,
-          goalsAgainst: 0,
-          goalDifference: 0,
-          points: 0,
-        };
-      }
-      if (!teams[team2]) {
-        teams[team2] = {
-          name: team2,
-          played: 0,
-          win: 0,
-          draw: 0,
-          lose: 0,
-          goalsFor: 0,
-          goalsAgainst: 0,
-          goalDifference: 0,
-          points: 0,
-        };
-      }
-      teams[team1].played += 1;
-      teams[team2].played += 1;
-      teams[team1].goalsFor += team1Goals;
-      teams[team2].goalsFor += team2Goals;
-      teams[team1].goalsAgainst += team2Goals;
-      teams[team2].goalsAgainst += team1Goals;
-      teams[team1].goalDifference =
-        teams[team1].goalsFor - teams[team1].goalsAgainst;
-      teams[team2].goalDifference =
-        teams[team2].goalsFor - teams[team2].goalsAgainst;
-      if (team1Goals > team2Goals) {
-        teams[team1].win += 1;
-        teams[team1].points += 3;
-        teams[team2].lose += 1;
-      } else if (team1Goals < team2Goals) {
-        teams[team2].win += 1;
-        teams[team2].points += 3;
-        teams[team1].lose += 1;
-      } else {
-        teams[team1].draw += 1;
-        teams[team2].draw += 1;
-        teams[team1].points += 1;
-        teams[team2].points += 1;
-      }
-    });
-    return Object.values(teams).sort((a, b) => {
-      if (b.points !== a.points) {
-        return b.points - a.points;
-      } else if (b.goalDifference !== a.goalDifference) {
-        return b.goalDifference - a.goalDifference;
-      } else {
-        return b.goalsFor - a.goalsFor;
-      }
-    });
-  };
 
   const extractMatchdays = (matches) => {
     const rounds = matches.map((match) => match.round);
@@ -161,8 +94,8 @@ const LiveStandings = () => {
         <Box display="flex" alignItems="center" gap={1}>
           <Box
             component="img"
-            src={teamLogos[selectedLeague].leagueLogo}
-            alt={`${teamLogos[selectedLeague].leagueName} Logo`}
+            src={teamLogos[selectedLeague]?.leagueLogo}
+            alt={`${teamLogos[selectedLeague]?.leagueName} Logo`}
             sx={{
               width: 140,
               height: 140,
@@ -188,10 +121,11 @@ const LiveStandings = () => {
               },
             }}
           >
-            <MenuItem value="en.1">Premier League</MenuItem>
-            <MenuItem value="es.1">La Liga</MenuItem>
-            <MenuItem value="de.1">Bundesliga</MenuItem>
-            <MenuItem value="it.1">Serie A</MenuItem>
+            {leagues.map((league) => (
+              <MenuItem key={league.code} value={league.code}>
+                {league.name} {league.season}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -228,8 +162,7 @@ const LiveStandings = () => {
           {selectedTab === 0 && (
             <StandingsTable
               standings={standings}
-              teamLogos={teamLogos[selectedLeague].logos}
-              matches={matches}
+              teamLogos={teamLogos[selectedLeague]?.logos}
             />
           )}
           {selectedTab === 1 && (
@@ -267,7 +200,7 @@ const LiveStandings = () => {
               <FixturesList
                 matches={matches}
                 selectedMatchday={selectedMatchday}
-                teamLogos={teamLogos[selectedLeague].logos}
+                teamLogos={teamLogos[selectedLeague]?.logos}
               />
             </>
           )}

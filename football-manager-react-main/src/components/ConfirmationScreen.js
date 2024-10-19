@@ -3,7 +3,7 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
+import { assignTeam, getAssignedTeam } from "../api"; // Use updated API functions
 import { AuthContext } from "../contexts/AuthContext";
 import teamLogos from "./utils/teamLogos";
 
@@ -20,17 +20,14 @@ const ConfirmationScreen = ({
   const handleConfirm = async () => {
     try {
       // Assign team to user
-      const response = await api.post("/teams/assign", {
-        league: selectedLeague,
-        teamName: selectedTeam,
-      });
+      const response = await assignTeam(selectedLeague, selectedTeam); // Use updated API function
 
-      alert(response.data.message);
+      alert(response.message);
 
       // Fetch the assigned team
-      const teamResponse = await api.get("/teams/my");
-      if (teamResponse.data.team) {
-        updateTeam(teamResponse.data.team);
+      const teamResponse = await getAssignedTeam(); // Use updated API function
+      if (teamResponse.team) {
+        updateTeam(teamResponse.team);
       }
 
       // Finalize onboarding and navigate to the main game interface

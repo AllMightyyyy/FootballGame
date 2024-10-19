@@ -1,10 +1,12 @@
+// src/main/java/com/example/Player/utils/ScoreDTO.java
+
 package com.example.Player.utils;
 
 import java.util.List;
 
 public class ScoreDTO {
-    private List<Integer> ht; // Half-time score
-    private List<Integer> ft; // Full-time score
+    private List<Integer> ht; // Half-time scores: [team1, team2]
+    private List<Integer> ft; // Full-time scores: [team1, team2]
 
     // Getters and Setters
 

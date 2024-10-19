@@ -1,40 +1,47 @@
 package com.example.Player.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "leagues")
-@Getter
-@Setter
+@Table(name = "leagues", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "season"})
+})
 public class League {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private String name;
 
-    // One-to-Many relationship with Team
-    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Team> teams;
+    private String code;
 
-    // One-to-Many relationship with Match
-    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Match> matches;
+    private String season;
+
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Team> teams = new ArrayList<>();
+
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Match> matches = new ArrayList<>();
+
+    public League(String name, String code, String season) {
+        this.name = name;
+        this.code = code;
+        this.season = season;
+    }
 
     public League(String name) {
         this.name = name;
-    }
-
-    public League(String name, List<Match> matches) {
-        this.name = name;
-        this.matches = matches;
     }
 
     public League() {
@@ -46,14 +53,6 @@ public class League {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
     }
 
     public Long getId() {
@@ -72,4 +71,27 @@ public class League {
         this.teams = teams;
     }
 
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
 }

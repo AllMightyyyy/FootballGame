@@ -15,10 +15,13 @@ import PlayerTableTab from "./PlayerTableTab";
 import LiveStandingsTab from "./LiveStandingsTab";
 import AuthTab from "./AuthTab"; // Handles Login and Sign-Up
 import { AuthContext } from "../contexts/AuthContext";
+import { LeagueContext } from "../contexts/LeagueContext";
 
 const MainLayout = () => {
   const { auth, logout } = useContext(AuthContext);
   const [selectedTab, setSelectedTab] = useState(0);
+
+  const leagues = useContext(LeagueContext);
 
   // Define tabs with consistent indices
   const tabs = [

@@ -4,6 +4,7 @@ package com.example.Player.repository;
 
 import com.example.Player.models.League;
 import com.example.Player.models.Team;
+import com.example.Player.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,5 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     boolean existsByNameAndLeague(String name, League league);
     List<Team> findAllByLeague(League league);
     boolean existsByName(String name);
-
+    Optional<Team> findByUser(User user);
 }

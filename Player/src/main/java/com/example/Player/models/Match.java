@@ -1,5 +1,8 @@
 package com.example.Player.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,33 +10,36 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "matches")
-@Getter
-@Setter
+@Table(name = "matches", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"league_id", "date", "time", "team1_id", "team2_id"})
+})
 public class Match {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String round;
-    private String date;
-    private String time;
+    private String date; // Consider using LocalDate
+    private String time; // Consider using LocalTime or LocalDateTime
 
-    // Many-to-One relationship with Team for Team 1
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team1_id")
     private Team team1;
 
-    // Many-to-One relationship with Team for Team 2
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team2_id")
     private Team team2;
 
-    // Embedded Score
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "htTeam1", column = @Column(name = "ht_team1")),
+            @AttributeOverride(name = "htTeam2", column = @Column(name = "ht_team2")),
+            @AttributeOverride(name = "ftTeam1", column = @Column(name = "ft_team1")),
+            @AttributeOverride(name = "ftTeam2", column = @Column(name = "ft_team2"))
+    })
     private Score score;
 
-    // Many-to-One relationship with League
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;

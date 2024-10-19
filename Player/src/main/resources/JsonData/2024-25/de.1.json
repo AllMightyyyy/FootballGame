@@ -1,5 +1,7 @@
 {
-  "name": "Deutsche Bundesliga 2024/25",
+  "name": "Deutsche Bundesliga",
+  "code": "de.1",
+  "season": "2024-25",
   "matches": [
     {
       "round": "Matchday 1",

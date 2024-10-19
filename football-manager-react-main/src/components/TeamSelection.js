@@ -12,9 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import api from "../api";
+import api, { assignTeam, getAssignedTeam } from "../api"; // Import updated API functions
 import { AuthContext } from "../contexts/AuthContext";
 import teamLogos from "./utils/teamLogos"; // Ensure this path is correct
+import { LeagueContext } from "../contexts/LeagueContext";
 
 const TeamSelection = ({
   selectedLeague,
@@ -25,43 +26,32 @@ const TeamSelection = ({
   setSelectedTeam,
 }) => {
   const { auth } = useContext(AuthContext);
-  const [leagues, setLeagues] = useState([]);
+  const leagues = useContext(LeagueContext);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Fetch leagues
-    const fetchLeagues = async () => {
-      try {
-        const response = await api.get("/teams/leagues");
-        setLeagues(response.data);
-      } catch (err) {
-        setError("Failed to fetch leagues.");
-        console.error(err);
-      }
-    };
-
-    fetchLeagues();
-  }, []);
 
   useEffect(() => {
     if (selectedLeague) {
       // Fetch teams for the selected league
       const fetchTeams = async () => {
         setLoading(true);
+        setError(null);
         try {
-          const response = await api.get(`/teams/${selectedLeague}`);
+          const response = await api.get(`/teams/${encodeURIComponent(selectedLeague)}`); // Adjust endpoint if necessary
           setTeams(response.data);
         } catch (err) {
           setError("Failed to fetch teams.");
           console.error(err);
+          setTeams([]);
         } finally {
           setLoading(false);
         }
       };
 
       fetchTeams();
+    } else {
+      setTeams([]); // Clear teams if no league is selected
     }
   }, [selectedLeague]);
 
@@ -71,7 +61,9 @@ const TeamSelection = ({
   };
 
   const handleTeamSelect = (teamName) => {
-    setSelectedTeam(teamName);
+    if (!teams.find(team => team.name === teamName && team.isOccupied)) {
+      setSelectedTeam(teamName);
+    }
   };
 
   const handleConfirmSelection = () => {
@@ -115,8 +107,8 @@ const TeamSelection = ({
           }}
         >
           {leagues.map((league) => (
-            <MenuItem key={league} value={league}>
-              {league}
+            <MenuItem key={league.code} value={league.code}>
+              {league.name} {league.season}
             </MenuItem>
           ))}
         </Select>
@@ -127,14 +119,20 @@ const TeamSelection = ({
         <Typography>Loading teams...</Typography>
       ) : error ? (
         <Typography color="error">{error}</Typography>
+      ) : teams.length === 0 && selectedLeague ? (
+        <Typography>No teams available for the selected league.</Typography>
       ) : (
         <Grid container spacing={2}>
           {teams.map((team) => (
             <Grid item xs={6} sm={4} md={3} key={team.id}>
               <Card
-                onClick={() => handleTeamSelect(team.name)}
+                onClick={() => {
+                  if (!team.isOccupied) {
+                    handleTeamSelect(team.name);
+                  }
+                }}
                 sx={{
-                  cursor: "pointer",
+                  cursor: team.isOccupied ? "not-allowed" : "pointer",
                   backgroundColor:
                     selectedTeam === team.name ? "#487748" : "#2e2e2e",
                   padding: "10px",
@@ -142,7 +140,9 @@ const TeamSelection = ({
                   borderRadius: "8px",
                   transition: "background-color 0.3s",
                   "&:hover": {
-                    backgroundColor: "#487748",
+                    backgroundColor: team.isOccupied
+                      ? "#2e2e2e"
+                      : "#487748",
                   },
                 }}
               >

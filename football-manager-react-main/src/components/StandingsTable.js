@@ -1,167 +1,70 @@
 // src/components/StandingsTable.js
+
+import React from "react";
 import {
-  Avatar,
-  Box,
-  Chip,
-  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
+  Paper,
+  Avatar,
   Typography,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import React from "react";
 
-const StandingsTable = ({ standings, teamLogos, matches }) => {
-  // Function to determine the position color
-  const getPositionColor = (position) => {
-    if (position <= 4) return "#37003c"; // Top 4 - Champions League
-    if (position === 5) return "#2d6a4f"; // Europa League
-    if (position >= 18) return "#e63946"; // Relegation zone
-    return "#00000000"; // Transparent for others
-  };
-
-  // Function to get the last 5 results for each team
-  const getForm = (teamName) => {
-    const results = matches
-      .filter(
-        (match) =>
-          (match.team1 === teamName || match.team2 === teamName) &&
-          match.score?.ft // Ensure the match has a full-time score
-      )
-      .slice(-5) // Get the last 5 results
-      .map((match) => {
-        const isHomeTeam = match.team1 === teamName;
-        const [team1Goals, team2Goals] = match.score.ft;
-        if (team1Goals > team2Goals) return isHomeTeam ? "W" : "L";
-        if (team1Goals < team2Goals) return isHomeTeam ? "L" : "W";
-        return "D"; // Draw
-      });
-    return results;
-  };
-
-  // Function to get the next opponent for each team
-  const getNextOpponent = (teamName) => {
-    const nextMatch = matches.find(
-      (match) =>
-        (match.team1 === teamName || match.team2 === teamName) &&
-        !match.score?.ft // Ensure the match has not been played yet
-    );
-    return nextMatch
-      ? nextMatch.team1 === teamName
-        ? nextMatch.team2
-        : nextMatch.team1
-      : "N/A"; // If no upcoming match found
-  };
-
+const StandingsTable = ({ standings, teamLogos }) => {
   return (
-    <Paper sx={{ marginTop: 2, padding: 3, backgroundColor: "#ffffff", borderRadius: 3 }}>
-  <Box sx={{ overflowX: "auto" }}>  {/* Add this Box for responsive table */}
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Position</TableCell>
-          <TableCell>Club</TableCell>
-          <TableCell>Played</TableCell>
-          <TableCell>Won</TableCell>
-          <TableCell>Drawn</TableCell>
-          <TableCell>Lost</TableCell>
-          <TableCell>GF</TableCell>
-          <TableCell>GA</TableCell>
-          <TableCell>GD</TableCell>
-          <TableCell>Points</TableCell>
-          <TableCell>Form</TableCell>
-          <TableCell>Next</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {standings.map((team, idx) => (
-          <TableRow
-            key={team.name}
-            sx={{
-              borderLeft: `4px solid ${getPositionColor(idx + 1)}`,
-              transition: 'background-color 0.3s ease',
-              '&:hover': {
-                backgroundColor: '#f5f5f5',
-              },
-            }}
-          >
-            <TableCell>{idx + 1}</TableCell>
-            <TableCell>
-              <Box display="flex" alignItems="center">
-                <Avatar
-                  src={teamLogos[team.name]} // Ensure teamLogos has correct paths
-                  alt={team.name}
-                  sx={{ width: 24, height: 24, marginRight: 1 }}
-                />
-                <Typography component="span" sx={{ fontWeight: 'bold' }}>
-                  {team.name}
-                </Typography>
-              </Box>
-            </TableCell>
-            <TableCell>{team.played}</TableCell>
-            <TableCell>{team.win}</TableCell>
-            <TableCell>{team.draw}</TableCell>
-            <TableCell>{team.lose}</TableCell>
-            <TableCell>{team.goalsFor}</TableCell>
-            <TableCell>{team.goalsAgainst}</TableCell>
-            <TableCell>{team.goalDifference}</TableCell>
-            <TableCell>{team.points}</TableCell>
-            <TableCell>
-              <Box display="flex">
-                {getForm(team.name).map((result, i) => (
-                  <Chip
-                    key={i}
-                    label={result}
-                    sx={{
-                      backgroundColor:
-                        result === "W"
-                          ? "#4caf50"
-                          : result === "L"
-                          ? "#e53935"
-                          : "#757575",
-                      color: "#fff",
-                      marginRight: 0.5,
-                      fontWeight: 'bold',
-                    }}
-                    size="small"
-                  />
-                ))}
-              </Box>
-            </TableCell>
-            <TableCell>
-              {getNextOpponent(team.name) !== "N/A" ? (
-                <Box display="flex" alignItems="center">
-                  <Avatar
-                    src={teamLogos[getNextOpponent(team.name)]}
-                    alt={getNextOpponent(team.name)}
-                    sx={{ width: 24, height: 24, marginRight: 1 }}
-                  />
-                  <Typography component="span">
-                    {getNextOpponent(team.name)}
-                  </Typography>
-                </Box>
-              ) : (
-                "N/A"
-              )}
-            </TableCell>
+    <TableContainer component={Paper} sx={{ marginTop: 3 }}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Position</TableCell>
+            <TableCell>Team</TableCell>
+            <TableCell>Played</TableCell>
+            <TableCell>Win</TableCell>
+            <TableCell>Draw</TableCell>
+            <TableCell>Lose</TableCell>
+            <TableCell>GF</TableCell>
+            <TableCell>GA</TableCell>
+            <TableCell>GD</TableCell>
+            <TableCell>Points</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </Box>
-</Paper>
-
+        </TableHead>
+        <TableBody>
+          {standings.map((team, index) => (
+            <TableRow key={team.teamName}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>
+                <Avatar
+                  src={teamLogos[team.teamName]}
+                  alt={team.teamName}
+                  sx={{ marginRight: 1, verticalAlign: "middle" }}
+                />
+                <Typography variant="body1" component="span">
+                  {team.teamName}
+                </Typography>
+              </TableCell>
+              <TableCell>{team.played}</TableCell>
+              <TableCell>{team.win}</TableCell>
+              <TableCell>{team.draw}</TableCell>
+              <TableCell>{team.lose}</TableCell>
+              <TableCell>{team.goalsFor}</TableCell>
+              <TableCell>{team.goalsAgainst}</TableCell>
+              <TableCell>{team.goalDifference}</TableCell>
+              <TableCell>{team.points}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
-// PropTypes for the component
 StandingsTable.propTypes = {
   standings: PropTypes.array.isRequired,
   teamLogos: PropTypes.object.isRequired,
-  matches: PropTypes.array.isRequired,
 };
 
 export default StandingsTable;

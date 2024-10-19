@@ -16,6 +16,8 @@ import {
 import { styled } from "@mui/system";
 import React, { useState } from "react";
 import { leagueNameMap } from "./utils/leagueMapping";
+import { useContext } from "react";
+import {LeagueContext} from '../contexts/LeagueContext';
 
 const TextField = styled(MuiTextField)({
   backgroundColor: "#2e2e2e",
@@ -89,6 +91,8 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
     onFilterChange(updatedFilters);
   };
 
+  const leagues = useContext(LeagueContext);
+
   const groupedPositions = {
     Defense: ["GK", "CB", "LB", "RB"],
     Midfield: ["CM", "LCM", "RCM"],
@@ -100,10 +104,10 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
     onFilterChange(updatedFilters);
   };
 
-  const leagueOptions = Object.entries(leagueNameMap).map(([code, name]) => ({
-    code,
-    name,
-  }));
+  const leagueOptions = leagues.map(league => ({
+  code: league.code, // Assuming 'code' is the correct key
+  name: league.name
+}));
 
   return (
     <Box
