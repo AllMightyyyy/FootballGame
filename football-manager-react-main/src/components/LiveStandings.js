@@ -17,7 +17,7 @@ import FixturesList from "./FixturesList";
 import StandingsTable from "./StandingsTable";
 import { leagueNameMap } from "./utils/leagueMapping";
 import teamLogos from "./utils/teamLogos";
-import api from "../api";
+import { api } from '../api/index';
 import { LeagueContext } from "../contexts/LeagueContext";
 
 const LiveStandings = () => {

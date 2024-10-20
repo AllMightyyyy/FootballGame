@@ -25,6 +25,7 @@ public class League {
     private String season;
 
     @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Team> teams = new ArrayList<>();
 
     public void addTeam(Team team) {

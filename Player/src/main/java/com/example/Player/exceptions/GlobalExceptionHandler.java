@@ -36,4 +36,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("error", "An unexpected error occurred."));
     }
+
+    @ExceptionHandler(DuplicatePlayerException.class)
+    public ResponseEntity<?> handleDuplicatePlayerException(DuplicatePlayerException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", ex.getMessage()));
+    }
 }

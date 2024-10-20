@@ -3,7 +3,7 @@
 import React, { useState, useContext } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { AuthContext } from '../contexts/AuthContext';
-import api from "../api";
+import { api } from '../api/index';
 import ConfirmationScreen from "./ConfirmationScreen";
 import { useNavigate } from 'react-router-dom'; 
 

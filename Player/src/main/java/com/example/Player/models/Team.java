@@ -21,6 +21,7 @@ public class Team {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
+    @JsonBackReference
     private League league;
 
     @ManyToOne(fetch = FetchType.LAZY)

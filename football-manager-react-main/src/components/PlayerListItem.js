@@ -13,6 +13,17 @@ const getAttributeColor = (value) => {
 };
 
 const PlayerListItem = ({ player, onClick }) => {
+  // Determine positions to display
+  const positionsToDisplay =
+    Array.isArray(player.positionsList) && player.positionsList.length > 0
+      ? player.positionsList
+      : player.positions
+      ? player.positions.split(",").map((pos) => pos.trim())
+      : [];
+
+  console.log("Player:", player);
+  console.log("Positions to Display:", positionsToDisplay);
+
   return (
     <Box
       onClick={() => onClick(player)}
@@ -44,8 +55,10 @@ const PlayerListItem = ({ player, onClick }) => {
           {player.shortName}
         </Typography>
         <Typography variant="body2" sx={{ color: "#aaa" }}>
-          {player.positions.join(", ")} | Overall: {player.overall} | Potential:{" "}
-          {player.potential}
+          {positionsToDisplay.length > 0
+            ? positionsToDisplay.join(", ")
+            : "N/A"}{" "}
+          | Overall: {player.overall} | Potential: {player.potential}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "8px" }}>
           <img
@@ -66,6 +79,9 @@ const PlayerListItem = ({ player, onClick }) => {
               marginRight: "8px",
             }}
           />
+          <Typography variant="body2" sx={{ color: "#aaa" }}>
+            {player.nationalityName}
+          </Typography>
         </Box>
       </Box>
 
@@ -120,19 +136,23 @@ PlayerListItem.propTypes = {
   player: PropTypes.shape({
     id: PropTypes.number.isRequired,
     shortName: PropTypes.string.isRequired,
-    positions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    // Updated to use positionsList
+    positionsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    // Remove positions if it's not used elsewhere
+    // positions: PropTypes.string, // Optional if positionsList is present
     overall: PropTypes.number.isRequired,
     potential: PropTypes.number.isRequired,
-    playerFaceUrl: PropTypes.string.isRequired,
-    clubName: PropTypes.string.isRequired,
-    clubLogoUrl: PropTypes.string.isRequired,
-    nationFlagUrl: PropTypes.string.isRequired,
     pace: PropTypes.number.isRequired,
     shooting: PropTypes.number.isRequired,
     passing: PropTypes.number.isRequired,
     dribbling: PropTypes.number.isRequired,
     defending: PropTypes.number.isRequired,
     physical: PropTypes.number.isRequired,
+    clubLogoUrl: PropTypes.string.isRequired,
+    clubName: PropTypes.string.isRequired,
+    nationFlagUrl: PropTypes.string.isRequired,
+    nationalityName: PropTypes.string.isRequired,
+    // ... other fields if necessary
   }).isRequired,
   onClick: PropTypes.func.isRequired,
 };

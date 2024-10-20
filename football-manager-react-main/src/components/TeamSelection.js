@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import api, { assignTeam, getAssignedTeam } from "../api"; // Import updated API functions
+import { api } from '../api/index';
 import { AuthContext } from "../contexts/AuthContext";
 import teamLogos from "./utils/teamLogos"; // Ensure this path is correct
 import { LeagueContext } from "../contexts/LeagueContext";
@@ -33,12 +33,12 @@ const TeamSelection = ({
 
   useEffect(() => {
     if (selectedLeague) {
-      // Fetch teams for the selected league
+      // Fetch teams for the selected league using the correct endpoint
       const fetchTeams = async () => {
         setLoading(true);
         setError(null);
         try {
-          const response = await api.get(`/teams/${encodeURIComponent(selectedLeague)}`); // Adjust endpoint if necessary
+          const response = await api.get(`/teams/by-league/${encodeURIComponent(selectedLeague)}`);
           setTeams(response.data);
         } catch (err) {
           setError("Failed to fetch teams.");

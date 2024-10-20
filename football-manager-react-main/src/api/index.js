@@ -4,7 +4,7 @@ import axios from "axios";
 import qs from "qs";
 import { leagueNameMap, inverseLeagueNameMap } from "../components/utils/leagueMapping"; // Updated mapping
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: "http://localhost:8081/api", // Base URL for API
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
@@ -113,9 +113,8 @@ export const getFormation = async () => {
 // 6. Assign Team to User
 export const assignTeam = async (leagueCode, teamName) => {
   try {
-    const leagueNameWithSeason = leagueNameMap[leagueCode]; // "English Premier League 2024/25"
     const response = await api.post("/teams/assign", {
-      league: leagueNameWithSeason, // Send full league name with season
+      leagueCode, // Send league code directly
       teamName,
     });
     return response.data;
@@ -135,6 +134,3 @@ export const getAssignedTeam = async () => {
     throw error;
   }
 };
-
-// Export the Axios instance for potential direct use
-export default api;

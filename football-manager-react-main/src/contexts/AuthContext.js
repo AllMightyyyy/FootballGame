@@ -1,7 +1,7 @@
 // src/contexts/AuthContext.js
 
 import React, { createContext, useState, useEffect } from 'react';
-import api from '../api';
+import { api } from '../api/index';
 
 export const AuthContext = createContext();
 

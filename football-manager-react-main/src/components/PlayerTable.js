@@ -1,34 +1,22 @@
-// src/components/PlayerSearchOverlay.js
+// src/components/PlayerTable.js
 
-import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  Button,
-  Dialog,
-  IconButton,
-  List,
-  TextField,
-  Typography,
-  ListItem,
-} from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { Paper, Box, TablePagination, Typography } from "@mui/material";
 import { useQuery } from "react-query";
 import { searchPlayers } from "../api";
-import Filters from "./Filters";
 import PlayerListItem from "./PlayerListItem";
 
-const PlayerSearchOverlay = ({
-  open,
-  handleClose,
-  filters,
-  onFilterChange,
-  onPlayerSelect,
-}) => {
-  const { register, handleSubmit } = useForm();
-  const [searchTerm, setSearchTerm] = useState("");
+const PlayerTable = ({ filters, onPlayerSelect }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("overall");
 
-  const mergedFilters = {
+  useEffect(() => {
+    setPage(0);
+  }, [filters]);
+
+  const normalizedFilters = {
     rating: [0, 100],
     height: [150, 215],
     weight: [40, 120],
@@ -42,165 +30,84 @@ const PlayerSearchOverlay = ({
       club: false,
       nation: false,
     },
-    name: searchTerm,
     ...filters,
   };
 
   const {
     data: playersData,
-    refetch,
     isLoading,
     isError,
+    error,
   } = useQuery(
-    ["players", mergedFilters],
-    () => searchPlayers(mergedFilters),
-    { enabled: false }
+    ["players", page, rowsPerPage, orderBy, order, normalizedFilters],
+    () =>
+      searchPlayers({
+        page: page + 1,
+        size: rowsPerPage,
+        sortBy: orderBy,
+        sortOrder: order,
+        ...normalizedFilters,
+      }),
+    {
+      keepPreviousData: true,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      retry: 2, // Retry twice on failure
+    }
   );
 
-  const onSubmit = () => {
-    refetch();
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handlePlayerClick = (player) => {
-    onPlayerSelect(player);
-    handleClose();
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  const handleFilterChange = (updatedFilters) => {
-    onFilterChange(updatedFilters);
-    refetch();
-  };
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isError)
+    return (
+      <Typography color="error">
+        Error fetching data: {error.message || "Unknown error"}
+      </Typography>
+    );
 
-  useEffect(() => {
-    if (open) {
-      refetch();
-    }
-  }, [filters, searchTerm, open, refetch]);
+  console.log("playersData:", playersData);
+
+  // **Check if playersData.players is an array**
+  if (!playersData || !Array.isArray(playersData.players)) {
+    return <Typography color="error">Invalid data format received.</Typography>;
+  }
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose}>
-      <Box
-        sx={{
-          display: "flex",
-          backgroundColor: "#1e1e1e",
-          color: "#fff",
-          height: "100%",
-        }}
-      >
-        {/* Filters Section */}
-        <Box
-          sx={{
-            width: "450px",
-            padding: "20px",
-            backgroundColor: "#2e2e2e",
-            borderRight: "1px solid #444",
-          }}
-        >
-          <Filters
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onSearch={handleSubmit(onSubmit)}
+    <Paper
+      sx={{
+        width: "100%",
+        overflow: "hidden",
+        backgroundColor: "#1b1b1b",
+        color: "#fff",
+        padding: "16px",
+      }}
+    >
+      <Box>
+        {playersData.players.map((player) => (
+          <PlayerListItem
+            key={player.id}
+            player={player}
+            onClick={onPlayerSelect}
           />
-        </Box>
-
-        {/* Search and Player List Section */}
-        <Box
-          sx={{
-            flex: 1,
-            padding: "20px",
-            overflowY: "auto",
-            position: "relative",
-          }}
-        >
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{ position: "absolute", top: 10, right: 10, color: "#fff" }}
-          >
-            <CloseIcon />
-          </IconButton>
-
-          <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
-            <Typography variant="h4" color="#fff" gutterBottom>
-              Search Player
-            </Typography>
-            <TextField
-              {...register("name")}
-              label="Enter player name"
-              variant="outlined"
-              fullWidth
-              sx={{
-                backgroundColor: "#333",
-                input: { color: "#fff" },
-                marginBottom: 2,
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#555",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#888",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fff",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#aaa",
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#fff",
-                },
-                "& .MuiOutlinedInput-input": {
-                  color: "#fff",
-                  padding: "10px",
-                },
-              }}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              variant="contained"
-              color="primary"
-              sx={{
-                backgroundColor: "#487748",
-                color: "#fff",
-                marginBottom: "16px",
-                width: "100%",
-                maxWidth: "200px",
-              }}
-            >
-              Search
-            </Button>
-          </Box>
-
-          <Box
-            sx={{
-              padding: "20px",
-              maxHeight: "60vh",
-              overflowY: "auto",
-              backgroundColor: "#1e1e1e",
-            }}
-          >
-            {isLoading && <div>Loading players...</div>}
-            {isError && <div>Error loading players</div>}
-            {playersData && playersData.players && playersData.players.length > 0 ? (
-              <List>
-                {playersData.players.map((player) => (
-                  <PlayerListItem
-                    key={player.id}
-                    player={player}
-                    onClick={handlePlayerClick}
-                  />
-                ))}
-              </List>
-            ) : (
-              <div>No players found</div>
-            )}
-          </Box>
-        </Box>
+        ))}
       </Box>
-    </Dialog>
+      <TablePagination
+        component="div"
+        count={playersData.totalItems || 0}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 };
 
-export default PlayerSearchOverlay;
+export default PlayerTable;

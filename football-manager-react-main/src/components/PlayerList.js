@@ -1,4 +1,5 @@
 // src/components/PlayerList.js
+
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 
@@ -16,7 +17,7 @@ const PlayerList = ({ players, isLoading, isError, onPlayerSelect }) => {
   }
 
   const handlePlayerClick = (player) => {
-    onPlayerSelect(player); 
+    onPlayerSelect(player);
   };
 
   return (
@@ -27,7 +28,10 @@ const PlayerList = ({ players, isLoading, isError, onPlayerSelect }) => {
           key={player.id}
           onClick={() => handlePlayerClick(player)}
         >
-          <ListItemText primary={player.shortName} secondary={player.positions} />
+          <ListItemText
+            primary={player.shortName}
+            secondary={player.positionsList.join(", ")} // Use positionsList
+          />
         </ListItem>
       ))}
     </List>

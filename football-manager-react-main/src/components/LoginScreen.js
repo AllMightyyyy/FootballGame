@@ -1,7 +1,7 @@
 // src/components/LoginScreen.js
 
 import React, { useState, useContext } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, Snackbar, Alert } from '@mui/material';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ const LoginScreen = () => {
     password: '',
   });
   const [error, setError] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleChange = (e) => {
     setCredentials({
@@ -37,7 +38,12 @@ const LoginScreen = () => {
       }
     } else {
       setError(result.message);
+      setOpenSnackbar(true);
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -114,9 +120,11 @@ const LoginScreen = () => {
           }}
         />
         {error && (
-          <Typography variant="body2" color="error" sx={{ marginBottom: "16px" }}>
-            {error}
-          </Typography>
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+            <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+              {error}
+            </Alert>
+          </Snackbar>
         )}
         <Button
           type="submit"

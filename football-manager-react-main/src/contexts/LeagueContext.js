@@ -1,8 +1,7 @@
 // src/contexts/LeagueContext.js
 
 import React, { createContext, useState, useEffect } from "react";
-import api from "../api";
-import { inverseLeagueNameMap } from "../components/utils/leagueMapping";
+import { api } from '../api/index';
 
 export const LeagueContext = createContext();
 
@@ -14,12 +13,12 @@ export const LeagueProvider = ({ children }) => {
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await api.get("/football/standings"); // Adjust endpoint if necessary
-        // Assuming the response is an array of LeagueDTO
+        const response = await api.get("/teams/all-leagues"); // Correct endpoint
+        // Assuming the response is an array of leagues with code, name, and season
         const leaguesData = response.data.map((league) => ({
-          code: inverseLeagueNameMap[league.name], // Map full name back to code
+          code: league.code,
           name: league.name,
-          season: "2024/25", // Or extract from league.name if possible
+          season: league.season,
         }));
         setLeagues(leaguesData);
       } catch (err) {

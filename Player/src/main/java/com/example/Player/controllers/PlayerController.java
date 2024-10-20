@@ -80,8 +80,13 @@ public class PlayerController {
                     pageRequest
             );
 
+            // Convert to DTOs
+            List<PlayerDTO> playerDTOs = playersPage.getContent().stream()
+                    .map(playerService::convertToPlayerDTO)
+                    .collect(Collectors.toList());
+
             Map<String, Object> response = new HashMap<>();
-            response.put("players", playersPage.getContent());
+            response.put("players", playerDTOs);
             response.put("currentPage", playersPage.getNumber() + 1);
             response.put("totalItems", playersPage.getTotalElements());
             response.put("totalPages", playersPage.getTotalPages());

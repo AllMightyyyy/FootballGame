@@ -3,7 +3,7 @@
 import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { assignTeam, getAssignedTeam } from "../api";
+import { assignTeam as apiAssignTeam, getAssignedTeam } from "../api";
 import { AuthContext } from "../contexts/AuthContext";
 import ConfirmationScreen from "./ConfirmationScreen";
 import ManagerSetup from "./ManagerSetup";
@@ -19,17 +19,17 @@ const Game = () => {
   const [selectedLeague, setSelectedLeague] = useState("en.1");
   const navigate = useNavigate();
 
-  const assignTeam = async () => {
+  const handleAssignTeam = async () => {
     try {
-      const response = await assignTeam(selectedLeague, selectedTeam);
+      const response = await apiAssignTeam(selectedLeague, selectedTeam);
       alert(response.message);
-  
+
       // Fetch the assigned team
-      const teamResponse = await getAssignedTeam(); // Correct usage
+      const teamResponse = await getAssignedTeam();
       if (teamResponse.team) {
         updateTeam(teamResponse.team);
       }
-  
+
       // Finalize onboarding and navigate to the main game interface
       navigate("/");
     } catch (error) {
@@ -93,17 +93,14 @@ const Game = () => {
       )}
       {onboardingStep === 2 && (
         <LeagueProvider>
-        <TeamSelection
-          selectedTeam={selectedTeam}
-          onTeamSelect={setSelectedTeam}
-          onNext={() => {
-            // Assign team to user
-            assignTeam();
-          }}
-          onPrevious={handlePreviousStep}
-          selectedLeague={selectedLeague}
-          setSelectedLeague={setSelectedLeague}
-        />
+          <TeamSelection
+            selectedTeam={selectedTeam}
+            onTeamSelect={setSelectedTeam}
+            onNext={handleAssignTeam} // Use the renamed handler
+            onPrevious={handlePreviousStep}
+            selectedLeague={selectedLeague}
+            setSelectedLeague={setSelectedLeague}
+          />
         </LeagueProvider>
       )}
       {onboardingStep === 3 && (

@@ -13,6 +13,13 @@ const PlayerCard = ({ player, size = 'normal' }) => {
 
   const scaleValue = (value) => value * scale;
 
+  const positionsToDisplay =
+    Array.isArray(player.positionsList) && player.positionsList.length > 0
+      ? player.positionsList
+      : player.positions
+      ? player.positions.split(",").map((pos) => pos.trim())
+      : [];
+
   return (
     <Box
       style={{
@@ -77,7 +84,7 @@ const PlayerCard = ({ player, size = 'normal' }) => {
           textShadow: `${scaleValue(1)}px ${scaleValue(1)}px ${scaleValue(2)}px black`,
         }}
       >
-        {player.positions.split(',')[0]}
+        {positionsToDisplay.join(", ")}
       </div>
 
       {/* Nation Flag */}

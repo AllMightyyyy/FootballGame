@@ -16,9 +16,9 @@ root.render(
   <AuthProvider> {/* Single AuthProvider */}
     <QueryClientProvider client={queryClient}> {/* Single QueryClientProvider */}
       <FormationProvider> {/* Single FormationProvider */}
-      <LeagueProvider>
-        <App />
-      </LeagueProvider>
+        <LeagueProvider>
+          <App />
+        </LeagueProvider>
       </FormationProvider>
     </QueryClientProvider>
   </AuthProvider>
