@@ -1,5 +1,6 @@
 {
-    "name": "Primera Divisi\u00c3\u00b3n de Espa\u00c3\u00b1a 2024/25",
+    "name": "Primera División de España 2024/25",
+    "code": "es.1",
     "matches": [
         {
             "round": "Matchday 1",
@@ -23,7 +24,7 @@
             "round": "Matchday 1",
             "date": "2024-08-15",
             "time": "21:30",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Girona FC",
             "score": {
                 "ht": [
@@ -42,7 +43,7 @@
             "date": "2024-08-16",
             "time": "19:00",
             "team1": "RC Celta de Vigo",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {
                 "ht": [
                     0,
@@ -78,7 +79,7 @@
             "date": "2024-08-17",
             "time": "19:00",
             "team1": "CA Osasuna",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {
                 "ht": [
                     0,
@@ -113,7 +114,7 @@
             "round": "Matchday 1",
             "date": "2024-08-18",
             "time": "19:00",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Rayo Vallecano de Madrid",
             "score": {
                 "ht": [
@@ -168,7 +169,7 @@
             "date": "2024-08-19",
             "time": "21:30",
             "team1": "Villarreal CF",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {
                 "ht": [
                     2,
@@ -272,7 +273,7 @@
             "date": "2024-08-24",
             "time": "21:30",
             "team1": "RCD Espanyol de Barcelona",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {
                 "ht": [
                     0,
@@ -307,7 +308,7 @@
             "round": "Matchday 2",
             "date": "2024-08-25",
             "time": "19:00",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "UD Las Palmas",
             "score": {
                 "ht": [
@@ -325,8 +326,8 @@
             "round": "Matchday 2",
             "date": "2024-08-25",
             "time": "19:15",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Deportivo Alavés",
+            "team2": "Real Betis Balompié",
             "score": {
                 "ft": [
                     0,
@@ -339,7 +340,7 @@
             "round": "Matchday 2",
             "date": "2024-08-25",
             "time": "21:30",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Girona FC",
             "score": {
                 "ht": [
@@ -426,7 +427,7 @@
             "date": "2024-08-28",
             "time": "19:00",
             "team1": "Real Valladolid CF",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {
                 "ft": [
                     0,
@@ -439,8 +440,8 @@
             "round": "Matchday 3",
             "date": "2024-08-28",
             "time": "21:30",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Real Sociedad de Fútbol",
+            "team2": "Deportivo Alavés",
             "score": {
                 "ht": [
                     1,
@@ -457,7 +458,7 @@
             "round": "Matchday 3",
             "date": "2024-08-28",
             "time": "21:30",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "RCD Espanyol de Barcelona",
             "score": {
                 "ft": [
@@ -526,7 +527,7 @@
             "date": "2024-08-31",
             "time": "19:00",
             "team1": "Athletic Club",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {
                 "ht": [
                     0,
@@ -561,7 +562,7 @@
             "round": "Matchday 4",
             "date": "2024-08-31",
             "time": "21:30",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "RCD Mallorca",
             "score": {
                 "ht": [
@@ -615,7 +616,7 @@
             "round": "Matchday 4",
             "date": "2024-09-01",
             "time": "17:00",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "UD Las Palmas",
             "score": {
                 "ht": [
@@ -652,7 +653,7 @@
             "date": "2024-09-01",
             "time": "19:15",
             "team1": "Getafe CF",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {
                 "ft": [
                     0,
@@ -666,7 +667,7 @@
             "date": "2024-09-01",
             "time": "21:30",
             "team1": "Real Madrid CF",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {
                 "ht": [
                     0,
@@ -683,8 +684,8 @@
             "round": "Matchday 5",
             "date": "2024-09-13",
             "time": "21:00",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team1": "Real Betis Balompié",
+            "team2": "CD Leganés",
             "score": {
                 "ht": [
                     0,
@@ -720,7 +721,7 @@
             "date": "2024-09-14",
             "time": "16:15",
             "team1": "RCD Espanyol de Barcelona",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {
                 "ht": [
                     1,
@@ -755,7 +756,7 @@
             "round": "Matchday 5",
             "date": "2024-09-14",
             "time": "21:00",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Real Madrid CF",
             "score": {
                 "ht": [
@@ -827,7 +828,7 @@
             "round": "Matchday 5",
             "date": "2024-09-15",
             "time": "21:00",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Valencia CF",
             "score": {
                 "ht": [
@@ -864,7 +865,7 @@
             "date": "2024-09-17",
             "time": "19:00",
             "team1": "RCD Mallorca",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {
                 "ht": [
                     1,
@@ -881,7 +882,7 @@
             "round": "Matchday 3",
             "date": "2024-09-18",
             "time": "19:00",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Getafe CF",
             "score": {
                 "ht": [
@@ -899,7 +900,7 @@
             "round": "Matchday 7",
             "date": "2024-09-19",
             "time": "19:00",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Athletic Club",
             "score": {
                 "ht": [
@@ -917,7 +918,7 @@
             "round": "Matchday 6",
             "date": "2024-09-20",
             "time": "21:00",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Sevilla FC",
             "score": {
                 "ht": [
@@ -936,7 +937,7 @@
             "date": "2024-09-21",
             "time": "14:00",
             "team1": "Real Valladolid CF",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {
                 "ft": [
                     0,
@@ -1004,7 +1005,7 @@
             "date": "2024-09-22",
             "time": "14:00",
             "team1": "Getafe CF",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {
                 "ht": [
                     0,
@@ -1058,7 +1059,7 @@
             "date": "2024-09-22",
             "time": "21:00",
             "team1": "Rayo Vallecano de Madrid",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {
                 "ht": [
                     1,
@@ -1075,7 +1076,7 @@
             "round": "Matchday 6",
             "date": "2024-09-23",
             "time": "21:00",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "RCD Mallorca",
             "score": {
                 "ht": [
@@ -1126,7 +1127,7 @@
             "date": "2024-09-24",
             "time": "21:00",
             "team1": "Real Madrid CF",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {
                 "ht": [
                     2,
@@ -1176,7 +1177,7 @@
             "date": "2024-09-26",
             "time": "19:00",
             "team1": "UD Las Palmas",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {
                 "ht": [
                     1,
@@ -1212,7 +1213,7 @@
             "date": "2024-09-26",
             "time": "21:00",
             "team1": "RC Celta de Vigo",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {
                 "ht": [
                     0,
@@ -1248,7 +1249,7 @@
             "date": "2024-09-28",
             "time": "14:00",
             "team1": "Getafe CF",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {
                 "ht": [
                     1,
@@ -1266,7 +1267,7 @@
             "date": "2024-09-28",
             "time": "16:15",
             "team1": "Rayo Vallecano de Madrid",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {
                 "ht": [
                     1,
@@ -1283,7 +1284,7 @@
             "round": "Matchday 8",
             "date": "2024-09-28",
             "time": "18:30",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Valencia CF",
             "score": {
                 "ht": [
@@ -1355,7 +1356,7 @@
             "round": "Matchday 8",
             "date": "2024-09-29",
             "time": "18:30",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "RCD Espanyol de Barcelona",
             "score": {
                 "ht": [
@@ -1373,7 +1374,7 @@
             "round": "Matchday 8",
             "date": "2024-09-29",
             "time": "21:00",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Real Madrid CF",
             "score": {
                 "ht": [
@@ -1409,7 +1410,7 @@
             "round": "Matchday 9",
             "date": "2024-10-04",
             "time": "21:00",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Valencia CF",
             "score": {
                 "ft": [
@@ -1531,7 +1532,7 @@
             "round": "Matchday 9",
             "date": "2024-10-06",
             "time": "16:15",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "FC Barcelona",
             "score": {
                 "ht": [
@@ -1550,7 +1551,7 @@
             "date": "2024-10-06",
             "time": "18:30",
             "team1": "Sevilla FC",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {
                 "ht": [
                     0,
@@ -1567,8 +1568,8 @@
             "round": "Matchday 9",
             "date": "2024-10-06",
             "time": "21:00",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Real Sociedad de Fútbol",
+            "team2": "Club Atlético de Madrid",
             "score": {
                 "ht": [
                     0,
@@ -1585,7 +1586,7 @@
             "round": "Matchday 10",
             "date": "2024-10-18",
             "time": "21:00",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Real Valladolid CF",
             "score": {},
             "status": "scheduled"
@@ -1604,7 +1605,7 @@
             "date": "2024-10-19",
             "time": "16:15",
             "team1": "CA Osasuna",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -1613,7 +1614,7 @@
             "date": "2024-10-19",
             "time": "18:30",
             "team1": "Girona FC",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -1639,8 +1640,8 @@
             "round": "Matchday 10",
             "date": "2024-10-20",
             "time": "16:15",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team1": "Club Atlético de Madrid",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -1694,7 +1695,7 @@
             "date": "2024-10-26",
             "time": "16:15",
             "team1": "Rayo Vallecano de Madrid",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -1720,7 +1721,7 @@
             "round": "Matchday 11",
             "date": "2024-10-27",
             "time": "14:00",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "RC Celta de Vigo",
             "score": {},
             "status": "scheduled"
@@ -1738,8 +1739,8 @@
             "round": "Matchday 11",
             "date": "2024-10-27",
             "time": "18:30",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Real Betis Balompié",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -1747,7 +1748,7 @@
             "round": "Matchday 11",
             "date": "2024-10-27",
             "time": "21:00",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "CA Osasuna",
             "score": {},
             "status": "scheduled"
@@ -1765,7 +1766,7 @@
             "round": "Matchday 12",
             "date": "2024-11-01",
             "time": "21:00",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "RCD Mallorca",
             "score": {},
             "status": "scheduled"
@@ -1784,7 +1785,7 @@
             "date": "2024-11-02",
             "time": "16:15",
             "team1": "Girona FC",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -1810,7 +1811,7 @@
             "round": "Matchday 12",
             "date": "2024-11-03",
             "time": "14:00",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "UD Las Palmas",
             "score": {},
             "status": "scheduled"
@@ -1829,7 +1830,7 @@
             "date": "2024-11-03",
             "time": "18:30",
             "team1": "Sevilla FC",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -1838,7 +1839,7 @@
             "date": "2024-11-03",
             "time": "21:00",
             "team1": "Athletic Club",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -1874,7 +1875,7 @@
             "date": "2024-11-09",
             "time": "16:15",
             "team1": "Villarreal CF",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -1900,7 +1901,7 @@
             "round": "Matchday 13",
             "date": "2024-11-10",
             "time": "14:00",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "RC Celta de Vigo",
             "score": {},
             "status": "scheduled"
@@ -1910,7 +1911,7 @@
             "date": "2024-11-10",
             "time": "16:15",
             "team1": "RCD Mallorca",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -1918,7 +1919,7 @@
             "round": "Matchday 13",
             "date": "2024-11-10",
             "time": "18:30",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Sevilla FC",
             "score": {},
             "status": "scheduled"
@@ -1936,7 +1937,7 @@
             "round": "Matchday 13",
             "date": "2024-11-10",
             "time": "21:00",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "FC Barcelona",
             "score": {},
             "status": "scheduled"
@@ -1945,15 +1946,15 @@
             "round": "Matchday 14",
             "date": "2024-11-24",
             "team1": "Athletic Club",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 14",
             "date": "2024-11-24",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Club Atlético de Madrid",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -1968,7 +1969,7 @@
         {
             "round": "Matchday 14",
             "date": "2024-11-24",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Real Madrid CF",
             "score": {},
             "status": "scheduled"
@@ -2001,7 +2002,7 @@
             "round": "Matchday 14",
             "date": "2024-11-24",
             "team1": "Valencia CF",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -2024,8 +2025,8 @@
         {
             "round": "Matchday 15",
             "date": "2024-12-01",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -2080,8 +2081,8 @@
         {
             "round": "Matchday 15",
             "date": "2024-12-01",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Sociedad de Fútbol",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -2089,7 +2090,7 @@
             "round": "Matchday 15",
             "date": "2024-12-01",
             "team1": "Real Valladolid CF",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -2112,7 +2113,7 @@
         {
             "round": "Matchday 16",
             "date": "2024-12-08",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Sevilla FC",
             "score": {},
             "status": "scheduled"
@@ -2120,7 +2121,7 @@
         {
             "round": "Matchday 16",
             "date": "2024-12-08",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "FC Barcelona",
             "score": {},
             "status": "scheduled"
@@ -2129,15 +2130,15 @@
             "round": "Matchday 16",
             "date": "2024-12-08",
             "team1": "CA Osasuna",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 16",
             "date": "2024-12-08",
-            "team1": "CD Legan\u00c3\u00a9s",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "CD Leganés",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -2184,7 +2185,7 @@
         {
             "round": "Matchday 17",
             "date": "2024-12-15",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Getafe CF",
             "score": {},
             "status": "scheduled"
@@ -2192,7 +2193,7 @@
         {
             "round": "Matchday 17",
             "date": "2024-12-15",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Athletic Club",
             "score": {},
             "status": "scheduled"
@@ -2201,7 +2202,7 @@
             "round": "Matchday 17",
             "date": "2024-12-15",
             "team1": "FC Barcelona",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -2217,7 +2218,7 @@
             "round": "Matchday 17",
             "date": "2024-12-15",
             "team1": "Villarreal CF",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -2240,7 +2241,7 @@
         {
             "round": "Matchday 17",
             "date": "2024-12-15",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "UD Las Palmas",
             "score": {},
             "status": "scheduled"
@@ -2264,7 +2265,7 @@
         {
             "round": "Matchday 18",
             "date": "2024-12-22",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Rayo Vallecano de Madrid",
             "score": {},
             "status": "scheduled"
@@ -2280,7 +2281,7 @@
         {
             "round": "Matchday 18",
             "date": "2024-12-22",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Villarreal CF",
             "score": {},
             "status": "scheduled"
@@ -2289,7 +2290,7 @@
             "round": "Matchday 18",
             "date": "2024-12-22",
             "team1": "RC Celta de Vigo",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -2297,7 +2298,7 @@
             "round": "Matchday 18",
             "date": "2024-12-22",
             "team1": "FC Barcelona",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -2321,7 +2322,7 @@
             "round": "Matchday 18",
             "date": "2024-12-22",
             "team1": "Valencia CF",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -2345,7 +2346,7 @@
             "round": "Matchday 19",
             "date": "2025-01-11",
             "team1": "RCD Espanyol de Barcelona",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -2360,7 +2361,7 @@
         {
             "round": "Matchday 19",
             "date": "2025-01-12",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "CA Osasuna",
             "score": {},
             "status": "scheduled"
@@ -2368,7 +2369,7 @@
         {
             "round": "Matchday 19",
             "date": "2025-01-12",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Girona FC",
             "score": {},
             "status": "scheduled"
@@ -2400,7 +2401,7 @@
         {
             "round": "Matchday 19",
             "date": "2025-01-12",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Villarreal CF",
             "score": {},
             "status": "scheduled"
@@ -2409,7 +2410,7 @@
             "round": "Matchday 19",
             "date": "2025-01-12",
             "team1": "Real Valladolid CF",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -2424,8 +2425,8 @@
         {
             "round": "Matchday 20",
             "date": "2025-01-19",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Real Betis Balompié",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -2440,8 +2441,8 @@
         {
             "round": "Matchday 20",
             "date": "2025-01-19",
-            "team1": "CD Legan\u00c3\u00a9s",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "CD Leganés",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -2473,7 +2474,7 @@
             "round": "Matchday 20",
             "date": "2025-01-19",
             "team1": "Valencia CF",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -2505,14 +2506,14 @@
             "round": "Matchday 21",
             "date": "2025-01-26",
             "team1": "Athletic Club",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 21",
             "date": "2025-01-26",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Villarreal CF",
             "score": {},
             "status": "scheduled"
@@ -2520,7 +2521,7 @@
         {
             "round": "Matchday 21",
             "date": "2025-01-26",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "RC Celta de Vigo",
             "score": {},
             "status": "scheduled"
@@ -2545,14 +2546,14 @@
             "round": "Matchday 21",
             "date": "2025-01-26",
             "team1": "RCD Mallorca",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 21",
             "date": "2025-01-26",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Getafe CF",
             "score": {},
             "status": "scheduled"
@@ -2584,7 +2585,7 @@
         {
             "round": "Matchday 22",
             "date": "2025-02-02",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "RCD Mallorca",
             "score": {},
             "status": "scheduled"
@@ -2592,7 +2593,7 @@
         {
             "round": "Matchday 22",
             "date": "2025-02-02",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Athletic Club",
             "score": {},
             "status": "scheduled"
@@ -2601,14 +2602,14 @@
             "round": "Matchday 22",
             "date": "2025-02-02",
             "team1": "CA Osasuna",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 22",
             "date": "2025-02-02",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Rayo Vallecano de Madrid",
             "score": {},
             "status": "scheduled"
@@ -2617,7 +2618,7 @@
             "round": "Matchday 22",
             "date": "2025-02-02",
             "team1": "FC Barcelona",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -2673,14 +2674,14 @@
             "round": "Matchday 23",
             "date": "2025-02-09",
             "team1": "RC Celta de Vigo",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 23",
             "date": "2025-02-09",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Getafe CF",
             "score": {},
             "status": "scheduled"
@@ -2697,7 +2698,7 @@
             "round": "Matchday 23",
             "date": "2025-02-09",
             "team1": "Valencia CF",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -2721,7 +2722,7 @@
             "round": "Matchday 23",
             "date": "2025-02-09",
             "team1": "Real Madrid CF",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -2736,7 +2737,7 @@
         {
             "round": "Matchday 23",
             "date": "2025-02-09",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "RCD Espanyol de Barcelona",
             "score": {},
             "status": "scheduled"
@@ -2744,7 +2745,7 @@
         {
             "round": "Matchday 24",
             "date": "2025-02-16",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "RC Celta de Vigo",
             "score": {},
             "status": "scheduled"
@@ -2752,8 +2753,8 @@
         {
             "round": "Matchday 24",
             "date": "2025-02-16",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Betis Balompié",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -2768,8 +2769,8 @@
         {
             "round": "Matchday 24",
             "date": "2025-02-16",
-            "team1": "CD Legan\u00c3\u00a9s",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "CD Leganés",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -2841,7 +2842,7 @@
             "round": "Matchday 25",
             "date": "2025-02-23",
             "team1": "Getafe CF",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -2857,7 +2858,7 @@
             "round": "Matchday 25",
             "date": "2025-02-23",
             "team1": "Valencia CF",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -2880,8 +2881,8 @@
         {
             "round": "Matchday 25",
             "date": "2025-02-23",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team1": "Real Sociedad de Fútbol",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -2896,7 +2897,7 @@
         {
             "round": "Matchday 25",
             "date": "2025-02-23",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "RCD Espanyol de Barcelona",
             "score": {},
             "status": "scheduled"
@@ -2904,7 +2905,7 @@
         {
             "round": "Matchday 26",
             "date": "2025-03-02",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Athletic Club",
             "score": {},
             "status": "scheduled"
@@ -2912,7 +2913,7 @@
         {
             "round": "Matchday 26",
             "date": "2025-03-02",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Real Madrid CF",
             "score": {},
             "status": "scheduled"
@@ -2928,7 +2929,7 @@
         {
             "round": "Matchday 26",
             "date": "2025-03-02",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Getafe CF",
             "score": {},
             "status": "scheduled"
@@ -2937,7 +2938,7 @@
             "round": "Matchday 26",
             "date": "2025-03-02",
             "team1": "FC Barcelona",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -2961,7 +2962,7 @@
             "round": "Matchday 26",
             "date": "2025-03-02",
             "team1": "RCD Mallorca",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -2992,7 +2993,7 @@
         {
             "round": "Matchday 27",
             "date": "2025-03-09",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "UD Las Palmas",
             "score": {},
             "status": "scheduled"
@@ -3001,14 +3002,14 @@
             "round": "Matchday 27",
             "date": "2025-03-09",
             "team1": "RC Celta de Vigo",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 27",
             "date": "2025-03-09",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Villarreal CF",
             "score": {},
             "status": "scheduled"
@@ -3025,7 +3026,7 @@
             "round": "Matchday 27",
             "date": "2025-03-09",
             "team1": "Getafe CF",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -3048,7 +3049,7 @@
         {
             "round": "Matchday 27",
             "date": "2025-03-09",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Sevilla FC",
             "score": {},
             "status": "scheduled"
@@ -3064,7 +3065,7 @@
         {
             "round": "Matchday 28",
             "date": "2025-03-16",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "FC Barcelona",
             "score": {},
             "status": "scheduled"
@@ -3080,8 +3081,8 @@
         {
             "round": "Matchday 28",
             "date": "2025-03-16",
-            "team1": "CD Legan\u00c3\u00a9s",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "CD Leganés",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -3113,7 +3114,7 @@
             "round": "Matchday 28",
             "date": "2025-03-16",
             "team1": "Rayo Vallecano de Madrid",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -3129,7 +3130,7 @@
             "round": "Matchday 28",
             "date": "2025-03-16",
             "team1": "UD Las Palmas",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -3152,7 +3153,7 @@
         {
             "round": "Matchday 29",
             "date": "2025-03-30",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Sevilla FC",
             "score": {},
             "status": "scheduled"
@@ -3168,7 +3169,7 @@
         {
             "round": "Matchday 29",
             "date": "2025-03-30",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Rayo Vallecano de Madrid",
             "score": {},
             "status": "scheduled"
@@ -3201,14 +3202,14 @@
             "round": "Matchday 29",
             "date": "2025-03-30",
             "team1": "Real Madrid CF",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 29",
             "date": "2025-03-30",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Real Valladolid CF",
             "score": {},
             "status": "scheduled"
@@ -3217,14 +3218,14 @@
             "round": "Matchday 29",
             "date": "2025-03-30",
             "team1": "RCD Espanyol de Barcelona",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 30",
             "date": "2025-04-06",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "CA Osasuna",
             "score": {},
             "status": "scheduled"
@@ -3233,7 +3234,7 @@
             "round": "Matchday 30",
             "date": "2025-04-06",
             "team1": "FC Barcelona",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -3241,7 +3242,7 @@
             "round": "Matchday 30",
             "date": "2025-04-06",
             "team1": "Girona FC",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -3249,7 +3250,7 @@
             "round": "Matchday 30",
             "date": "2025-04-06",
             "team1": "Sevilla FC",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -3289,7 +3290,7 @@
             "round": "Matchday 30",
             "date": "2025-04-06",
             "team1": "UD Las Palmas",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -3312,7 +3313,7 @@
         {
             "round": "Matchday 31",
             "date": "2025-04-13",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Real Valladolid CF",
             "score": {},
             "status": "scheduled"
@@ -3320,7 +3321,7 @@
         {
             "round": "Matchday 31",
             "date": "2025-04-13",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Villarreal CF",
             "score": {},
             "status": "scheduled"
@@ -3336,7 +3337,7 @@
         {
             "round": "Matchday 31",
             "date": "2025-04-13",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "FC Barcelona",
             "score": {},
             "status": "scheduled"
@@ -3344,7 +3345,7 @@
         {
             "round": "Matchday 31",
             "date": "2025-04-13",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Real Madrid CF",
             "score": {},
             "status": "scheduled"
@@ -3368,7 +3369,7 @@
         {
             "round": "Matchday 31",
             "date": "2025-04-13",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "RCD Mallorca",
             "score": {},
             "status": "scheduled"
@@ -3393,7 +3394,7 @@
             "round": "Matchday 32",
             "date": "2025-04-20",
             "team1": "Girona FC",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -3401,7 +3402,7 @@
             "round": "Matchday 32",
             "date": "2025-04-20",
             "team1": "Sevilla FC",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -3409,7 +3410,7 @@
             "round": "Matchday 32",
             "date": "2025-04-20",
             "team1": "Villarreal CF",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -3425,7 +3426,7 @@
             "round": "Matchday 32",
             "date": "2025-04-20",
             "team1": "RCD Mallorca",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -3449,7 +3450,7 @@
             "round": "Matchday 32",
             "date": "2025-04-20",
             "team1": "UD Las Palmas",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -3472,7 +3473,7 @@
         {
             "round": "Matchday 33",
             "date": "2025-04-23",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Club Atlético de Madrid",
             "team2": "Rayo Vallecano de Madrid",
             "score": {},
             "status": "scheduled"
@@ -3480,7 +3481,7 @@
         {
             "round": "Matchday 33",
             "date": "2025-04-23",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Real Valladolid CF",
             "score": {},
             "status": "scheduled"
@@ -3496,7 +3497,7 @@
         {
             "round": "Matchday 33",
             "date": "2025-04-23",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Girona FC",
             "score": {},
             "status": "scheduled"
@@ -3512,8 +3513,8 @@
         {
             "round": "Matchday 33",
             "date": "2025-04-23",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Deportivo Alavés",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
@@ -3553,7 +3554,7 @@
             "round": "Matchday 34",
             "date": "2025-05-04",
             "team1": "Sevilla FC",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -3584,7 +3585,7 @@
         {
             "round": "Matchday 34",
             "date": "2025-05-04",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Athletic Club",
             "score": {},
             "status": "scheduled"
@@ -3609,15 +3610,15 @@
             "round": "Matchday 34",
             "date": "2025-05-04",
             "team1": "RCD Espanyol de Barcelona",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 34",
             "date": "2025-05-04",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team1": "Deportivo Alavés",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -3625,22 +3626,22 @@
             "round": "Matchday 35",
             "date": "2025-05-11",
             "team1": "Athletic Club",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 35",
             "date": "2025-05-11",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Club Atlético de Madrid",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 35",
             "date": "2025-05-11",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "CA Osasuna",
             "score": {},
             "status": "scheduled"
@@ -3696,7 +3697,7 @@
         {
             "round": "Matchday 35",
             "date": "2025-05-11",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "RCD Espanyol de Barcelona",
             "score": {},
             "status": "scheduled"
@@ -3705,14 +3706,14 @@
             "round": "Matchday 36",
             "date": "2025-05-14",
             "team1": "CA Osasuna",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
         {
             "round": "Matchday 36",
             "date": "2025-05-14",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "Valencia CF",
             "score": {},
             "status": "scheduled"
@@ -3737,7 +3738,7 @@
             "round": "Matchday 36",
             "date": "2025-05-14",
             "team1": "Villarreal CF",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -3745,7 +3746,7 @@
             "round": "Matchday 36",
             "date": "2025-05-14",
             "team1": "Rayo Vallecano de Madrid",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -3760,7 +3761,7 @@
         {
             "round": "Matchday 36",
             "date": "2025-05-14",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "RC Celta de Vigo",
             "score": {},
             "status": "scheduled"
@@ -3784,8 +3785,8 @@
         {
             "round": "Matchday 37",
             "date": "2025-05-18",
-            "team1": "Club Atl\u00c3\u00a9tico de Madrid",
-            "team2": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Club Atlético de Madrid",
+            "team2": "Real Betis Balompié",
             "score": {},
             "status": "scheduled"
         },
@@ -3832,7 +3833,7 @@
         {
             "round": "Matchday 37",
             "date": "2025-05-18",
-            "team1": "Real Sociedad de F\u00c3\u00batbol",
+            "team1": "Real Sociedad de Fútbol",
             "team2": "Girona FC",
             "score": {},
             "status": "scheduled"
@@ -3841,7 +3842,7 @@
             "round": "Matchday 37",
             "date": "2025-05-18",
             "team1": "Real Valladolid CF",
-            "team2": "Deportivo Alav\u00c3\u00a9s",
+            "team2": "Deportivo Alavés",
             "score": {},
             "status": "scheduled"
         },
@@ -3849,7 +3850,7 @@
             "round": "Matchday 37",
             "date": "2025-05-18",
             "team1": "UD Las Palmas",
-            "team2": "CD Legan\u00c3\u00a9s",
+            "team2": "CD Leganés",
             "score": {},
             "status": "scheduled"
         },
@@ -3872,7 +3873,7 @@
         {
             "round": "Matchday 38",
             "date": "2025-05-25",
-            "team1": "Real Betis Balompi\u00c3\u00a9",
+            "team1": "Real Betis Balompié",
             "team2": "Valencia CF",
             "score": {},
             "status": "scheduled"
@@ -3880,7 +3881,7 @@
         {
             "round": "Matchday 38",
             "date": "2025-05-25",
-            "team1": "CD Legan\u00c3\u00a9s",
+            "team1": "CD Leganés",
             "team2": "Real Valladolid CF",
             "score": {},
             "status": "scheduled"
@@ -3888,7 +3889,7 @@
         {
             "round": "Matchday 38",
             "date": "2025-05-25",
-            "team1": "Deportivo Alav\u00c3\u00a9s",
+            "team1": "Deportivo Alavés",
             "team2": "CA Osasuna",
             "score": {},
             "status": "scheduled"
@@ -3905,7 +3906,7 @@
             "round": "Matchday 38",
             "date": "2025-05-25",
             "team1": "Girona FC",
-            "team2": "Club Atl\u00c3\u00a9tico de Madrid",
+            "team2": "Club Atlético de Madrid",
             "score": {},
             "status": "scheduled"
         },
@@ -3929,7 +3930,7 @@
             "round": "Matchday 38",
             "date": "2025-05-25",
             "team1": "Real Madrid CF",
-            "team2": "Real Sociedad de F\u00c3\u00batbol",
+            "team2": "Real Sociedad de Fútbol",
             "score": {},
             "status": "scheduled"
         },

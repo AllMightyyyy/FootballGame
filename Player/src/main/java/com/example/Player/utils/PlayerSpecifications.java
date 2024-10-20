@@ -75,10 +75,11 @@ public class PlayerSpecifications {
         return (root, query, builder) -> {
             Join<Player, League> leagueJoin = root.join("league");
 
+            // Filter by league code instead of name
             if (exclude) {
-                return builder.not(leagueJoin.get("name").in(leagues));
+                return builder.not(leagueJoin.get("code").in(leagues));
             } else {
-                return leagueJoin.get("name").in(leagues);
+                return leagueJoin.get("code").in(leagues);
             }
         };
     }

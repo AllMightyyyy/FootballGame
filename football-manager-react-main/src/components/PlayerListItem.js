@@ -22,6 +22,7 @@ const PlayerListItem = ({ player, onClick }) => {
       : [];
 
   console.log("Player:", player);
+  console.log("Player Name:", player.shortName);
   console.log("Positions to Display:", positionsToDisplay);
 
   return (

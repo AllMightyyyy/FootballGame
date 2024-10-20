@@ -33,6 +33,13 @@ public class Player {
     private int defending;
     private int physical;
 
+    private int goalkeepingDiving;
+    private int goalkeepingHandling;
+    private int goalkeepingKicking;
+    private int goalkeepingPositioning;
+    private int goalkeepingReflexes;
+    private int goalkeepingSpeed;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
@@ -299,6 +306,54 @@ public class Player {
 
     public void setLeague(League league) {
         this.league = league;
+    }
+
+    public int getGoalkeepingKicking() {
+        return goalkeepingKicking;
+    }
+
+    public void setGoalkeepingKicking(int goalkeepingKicking) {
+        this.goalkeepingKicking = goalkeepingKicking;
+    }
+
+    public int getGoalkeepingDiving() {
+        return goalkeepingDiving;
+    }
+
+    public void setGoalkeepingDiving(int goalkeepingDiving) {
+        this.goalkeepingDiving = goalkeepingDiving;
+    }
+
+    public int getGoalkeepingHandling() {
+        return goalkeepingHandling;
+    }
+
+    public void setGoalkeepingHandling(int goalkeepingHandling) {
+        this.goalkeepingHandling = goalkeepingHandling;
+    }
+
+    public int getGoalkeepingPositioning() {
+        return goalkeepingPositioning;
+    }
+
+    public void setGoalkeepingPositioning(int goalkeepingPositioning) {
+        this.goalkeepingPositioning = goalkeepingPositioning;
+    }
+
+    public int getGoalkeepingReflexes() {
+        return goalkeepingReflexes;
+    }
+
+    public void setGoalkeepingReflexes(int goalkeepingReflexes) {
+        this.goalkeepingReflexes = goalkeepingReflexes;
+    }
+
+    public int getGoalkeepingSpeed() {
+        return goalkeepingSpeed;
+    }
+
+    public void setGoalkeepingSpeed(int goalkeepingSpeed) {
+        this.goalkeepingSpeed = goalkeepingSpeed;
     }
 }
 

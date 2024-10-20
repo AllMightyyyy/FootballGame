@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/openfootball/football.json/issues"
   },
-  "homepage": "https://github.com/openfootball/football.json"
+  "homepage": "https://github.com/openfootball/football.json",
+  "dependencies": {
+    "football.json": "file:"
+  }
 }

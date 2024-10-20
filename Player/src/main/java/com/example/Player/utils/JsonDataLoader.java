@@ -88,8 +88,12 @@ public class JsonDataLoader {
                 throw new IOException("Resource not found: " + resourcePath);
             }
 
+            // Ensure the input stream is read using UTF-8 encoding
             InputStream inputStream = resource.getInputStream();
-            LeagueDTO leagueDTO = objectMapper.readValue(inputStream, LeagueDTO.class);
+            Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8); // Use UTF-8 encoding
+
+            // Use ObjectMapper to read the JSON file with the reader
+            LeagueDTO leagueDTO = objectMapper.readValue(reader, LeagueDTO.class);
 
             String leagueCode = fileName.replace(".json", "");
             LeagueConfig.LeagueDetails leagueDetails = leagueConfig.getLeagues().get(leagueCode);
@@ -149,10 +153,8 @@ public class JsonDataLoader {
                                 List<Integer> htScores = scoreDTO.getHt();
                                 List<Integer> ftScores = scoreDTO.getFt();
 
-                                if (htScores != null && htScores.size() >= 2 &&
-                                        ftScores != null && ftScores.size() >= 2) {
-                                    Score score = new Score(htScores.get(0), htScores.get(1),
-                                            ftScores.get(0), ftScores.get(1));
+                                if (htScores != null && htScores.size() >= 2 && ftScores != null && ftScores.size() >= 2) {
+                                    Score score = new Score(htScores.get(0), htScores.get(1), ftScores.get(0), ftScores.get(1));
                                     match.setScore(score);
                                 } else {
                                     logger.warn("Incomplete score data for match: {} vs {} on {} at {}. Skipping score assignment.",
@@ -201,5 +203,6 @@ public class JsonDataLoader {
         }
         return team;
     }
+
 
 }

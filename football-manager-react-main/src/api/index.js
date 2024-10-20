@@ -31,25 +31,25 @@ api.interceptors.request.use(
 // 1. Search Players Function
 export const searchPlayers = async (filters) => {
   const params = {
-    name: filters.name || "", // Player name filter
-    positions: filters.position, // Array of positions
-    leagues: filters.league, // Array of league codes (e.g., "en.1")
-    clubs: filters.club, // Array of clubs
-    nations: filters.nation, // Array of nations
-    minOverall: filters.rating[0] || 0, // Minimum rating
-    maxOverall: filters.rating[1] || 99, // Maximum rating
-    minHeight: filters.height[0] || 150, // Minimum height
-    maxHeight: filters.height[1] || 215, // Maximum height
-    minWeight: filters.weight[0] || 40, // Minimum weight
-    maxWeight: filters.weight[1] || 120, // Maximum weight
-    excludePositions: filters.excludeSelected.position || false, // Exclude selected positions
-    excludeLeagues: filters.excludeSelected.league || false, // Exclude selected leagues
-    excludeClubs: filters.excludeSelected.club || false, // Exclude selected clubs
-    excludeNations: filters.excludeSelected.nation || false, // Exclude selected nations
-    page: filters.page || 1, // Pagination: current page
-    size: filters.size || 10, // Pagination: page size
-    sortBy: filters.sortBy || "overall", // Sort by field
-    sortOrder: filters.sortOrder || "asc", // Sort order
+    name: filters.name || "",
+    positions: filters.position,
+    leagues: filters.league,
+    clubs: filters.club,
+    nations: filters.nation,
+    minOverall: filters.rating[0] || 0,
+    maxOverall: filters.rating[1] || 99,
+    minHeight: filters.height[0] || 150,
+    maxHeight: filters.height[1] || 215,
+    minWeight: filters.weight[0] || 40,
+    maxWeight: filters.weight[1] || 120,
+    excludePositions: filters.excludeSelected.position || false,
+    excludeLeagues: filters.excludeSelected.league || false,
+    excludeClubs: filters.excludeSelected.club || false,
+    excludeNations: filters.excludeSelected.nation || false,
+    page: filters.page || 1,
+    size: filters.size || 50, // Increased size for better UX
+    sortBy: filters.sortBy || "overall",
+    sortOrder: filters.sortOrder || "asc",
   };
 
   try {

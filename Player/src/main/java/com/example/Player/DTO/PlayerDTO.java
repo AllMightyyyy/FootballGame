@@ -31,6 +31,13 @@ public class PlayerDTO {
     private int defending;
     private int physical;
 
+    private int goalkeepingDiving;
+    private int goalkeepingHandling;
+    private int goalkeepingKicking;
+    private int goalkeepingPositioning;
+    private int goalkeepingReflexes;
+    private int goalkeepingSpeed;
+
     private String leagueName;      // The league name the player is in
     private String leagueCode;      // League code (e.g., "fr.1")
 
@@ -226,5 +233,53 @@ public class PlayerDTO {
 
     public void setLeagueCode(String leagueCode) {
         this.leagueCode = leagueCode;
+    }
+
+    public int getGoalkeepingHandling() {
+        return goalkeepingHandling;
+    }
+
+    public void setGoalkeepingHandling(int goalkeepingHandling) {
+        this.goalkeepingHandling = goalkeepingHandling;
+    }
+
+    public int getGoalkeepingDiving() {
+        return goalkeepingDiving;
+    }
+
+    public void setGoalkeepingDiving(int goalkeepingDiving) {
+        this.goalkeepingDiving = goalkeepingDiving;
+    }
+
+    public int getGoalkeepingKicking() {
+        return goalkeepingKicking;
+    }
+
+    public void setGoalkeepingKicking(int goalkeepingKicking) {
+        this.goalkeepingKicking = goalkeepingKicking;
+    }
+
+    public int getGoalkeepingPositioning() {
+        return goalkeepingPositioning;
+    }
+
+    public void setGoalkeepingPositioning(int goalkeepingPositioning) {
+        this.goalkeepingPositioning = goalkeepingPositioning;
+    }
+
+    public int getGoalkeepingReflexes() {
+        return goalkeepingReflexes;
+    }
+
+    public void setGoalkeepingReflexes(int goalkeepingReflexes) {
+        this.goalkeepingReflexes = goalkeepingReflexes;
+    }
+
+    public int getGoalkeepingSpeed() {
+        return goalkeepingSpeed;
+    }
+
+    public void setGoalkeepingSpeed(int goalkeepingSpeed) {
+        this.goalkeepingSpeed = goalkeepingSpeed;
     }
 }

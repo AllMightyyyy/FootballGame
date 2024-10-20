@@ -12,7 +12,9 @@ import com.example.Player.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +72,10 @@ public class FootballDataController {
 
     @GetMapping("/teams/{leagueCode}")
     public ResponseEntity<?> getTeams(@PathVariable String leagueCode) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Charset", "utf-8");
+
         try {
             Optional<League> leagueOpt = footballDataService.getLeagueByCode(leagueCode);
             if (leagueOpt.isEmpty()) {
@@ -79,7 +85,7 @@ public class FootballDataController {
             List<TeamDTO> teamDTOs = league.getTeams().stream()
                     .map(LeagueMapper.INSTANCE::teamToTeamDTO)
                     .collect(Collectors.toList());
-            return ResponseEntity.ok(teamDTOs);
+            return new ResponseEntity<>(teamDTOs, headers, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Error fetching teams for league {}: {}", leagueCode, e.getMessage());
             return ResponseEntity.status(500).body(Map.of("error", "An unexpected error occurred."));

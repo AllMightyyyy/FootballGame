@@ -122,6 +122,13 @@ public class PlayerService {
                     player.setHeightCm(parseInteger(playerData.get("height_cm"), lineNumber + 1, "height_cm"));
                     player.setWeightKg(parseInteger(playerData.get("weight_kg"), lineNumber + 1, "weight_kg"));
 
+                    player.setGoalkeepingDiving(parseInteger(playerData.get("goalkeeping_diving"), lineNumber + 1, "goalkeeping_diving"));
+                    player.setGoalkeepingHandling(parseInteger(playerData.get("goalkeeping_handling"), lineNumber + 1, "goalkeeping_handling"));
+                    player.setGoalkeepingKicking(parseInteger(playerData.get("goalkeeping_kicking"), lineNumber + 1, "goalkeeping_kicking"));
+                    player.setGoalkeepingPositioning(parseInteger(playerData.get("goalkeeping_positioning"), lineNumber + 1, "goalkeeping_positioning"));
+                    player.setGoalkeepingReflexes(parseInteger(playerData.get("goalkeeping_reflexes"), lineNumber + 1, "goalkeeping_reflexes"));
+                    player.setGoalkeepingSpeed(parseInteger(playerData.get("goalkeeping_speed"), lineNumber + 1, "goalkeeping_speed"));
+
                     // Set URLs, handling nulls
                     player.setPlayerFaceUrl(playerData.getOrDefault("player_face_url", "").trim());
                     player.setClubLogoUrl(playerData.getOrDefault("club_logo_url", "").trim());
@@ -241,8 +248,9 @@ public class PlayerService {
     private static final Map<String, String> LEAGUE_NAME_TO_CODE_MAP = Map.of(
             "English Premier League", "en.1",
             "French Ligue 1", "fr.1",
-            "German Bundesliga", "de.1",
-            "Spain Primera Division", "es.1"
+            "German 1. Bundesliga", "de.1",
+            "Spain Primera Division", "es.1",
+            "Italian Serie A", "it.1"
             // Add other league mappings here
     );
 
@@ -428,6 +436,13 @@ public class PlayerService {
         dto.setDribbling(player.getDribbling());
         dto.setDefending(player.getDefending());
         dto.setPhysical(player.getPhysical());
+        dto.setGoalkeepingDiving(player.getGoalkeepingDiving());
+        dto.setGoalkeepingHandling(player.getGoalkeepingHandling());
+        dto.setGoalkeepingKicking(player.getGoalkeepingKicking());
+        dto.setGoalkeepingPositioning(player.getGoalkeepingPositioning());
+        dto.setGoalkeepingReflexes(player.getGoalkeepingReflexes());
+        dto.setGoalkeepingSpeed(player.getGoalkeepingSpeed());
+
 
         // Map League details
         if (player.getLeague() != null) {

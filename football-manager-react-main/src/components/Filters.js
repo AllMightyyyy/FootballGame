@@ -14,10 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { leagueNameMap } from "./utils/leagueMapping";
-import { useContext } from "react";
-import {LeagueContext} from '../contexts/LeagueContext';
+import { LeagueContext } from '../contexts/LeagueContext';
 
 const TextField = styled(MuiTextField)({
   backgroundColor: "#2e2e2e",
@@ -47,6 +46,8 @@ const TextField = styled(MuiTextField)({
 
 const Filters = ({ filters, onFilterChange, onSearch }) => {
   const [expanded, setExpanded] = useState(false);
+  const leagues = useContext(LeagueContext);
+  const [searchLeagueTerm, setSearchLeagueTerm] = useState("");
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -91,8 +92,6 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
     onFilterChange(updatedFilters);
   };
 
-  const leagues = useContext(LeagueContext);
-
   const groupedPositions = {
     Defense: ["GK", "CB", "LB", "RB"],
     Midfield: ["CM", "LCM", "RCM"],
@@ -104,10 +103,19 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
     onFilterChange(updatedFilters);
   };
 
-  const leagueOptions = leagues.map(league => ({
-  code: league.code, // Assuming 'code' is the correct key
-  name: league.name
-}));
+  const handleLeagueSearchChange = (event) => {
+    setSearchLeagueTerm(event.target.value);
+  };
+
+  const leagueOptions = leagues
+    .filter((league) =>
+      league.name.toLowerCase().includes(searchLeagueTerm.toLowerCase())
+    )
+    .map((league) => ({
+      code: league.code, // Ensure 'code' is used
+      name: league.name,
+      season: league.season,
+    }));
 
   return (
     <Box
@@ -135,6 +143,7 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
         Search Players
       </Button>
 
+      {/* Ratings Filter */}
       <Accordion
         expanded={expanded === "rating"}
         onChange={handleAccordionChange("rating")}
@@ -173,6 +182,7 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
         </AccordionDetails>
       </Accordion>
 
+      {/* Position Filter */}
       <Accordion
         expanded={expanded === "position"}
         onChange={handleAccordionChange("position")}
@@ -234,6 +244,7 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
         </AccordionDetails>
       </Accordion>
 
+      {/* League Filter */}
       <Accordion
         expanded={expanded === "league"}
         onChange={handleAccordionChange("league")}
@@ -253,7 +264,8 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
             size="small"
             fullWidth
             sx={{ marginBottom: "8px" }}
-            onChange={(e) => handleSearchChange("league", e)}
+            value={searchLeagueTerm}
+            onChange={handleLeagueSearchChange}
           />
           <FormControlLabel
             control={
@@ -267,21 +279,22 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
           />
           <Divider sx={{ my: 1 }} />
           {leagueOptions.map((league) => (
-            <FormControlLabel
-              key={league.code}
-              control={
-                <Checkbox
-                  checked={filters.league.includes(league.code)}
-                  onChange={() => handleCheckboxChange("league", league.code)}
-                  sx={{ color: "#487748" }}
-                />
-              }
-              label={league.name}
-            />
-          ))}
+  <FormControlLabel
+    key={league.code}
+    control={
+      <Checkbox
+        checked={filters.league.includes(league.code)}
+        onChange={() => handleCheckboxChange("league", league.code)}
+        sx={{ color: "#487748" }}
+      />
+    }
+    label={league.name}
+  />
+))}
         </AccordionDetails>
       </Accordion>
 
+      {/* Height Filter */}
       <Accordion
         expanded={expanded === "height"}
         onChange={handleAccordionChange("height")}
@@ -320,6 +333,7 @@ const Filters = ({ filters, onFilterChange, onSearch }) => {
         </AccordionDetails>
       </Accordion>
 
+      {/* Weight Filter */}
       <Accordion
         expanded={expanded === "weight"}
         onChange={handleAccordionChange("weight")}

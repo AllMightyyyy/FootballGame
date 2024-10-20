@@ -18,7 +18,7 @@ public class LeagueConfig {
         leagues.put("it.1", new LeagueDetails("Italian Serie A", "it.1", "2024-25"));
         leagues.put("fr.1", new LeagueDetails("French Ligue 1", "fr.1", "2024-25"));
         leagues.put("es.1", new LeagueDetails("Primera División de España", "es.1", "2024-25"));
-        leagues.put("de.1", new LeagueDetails("Deutsche Bundesliga", "de.1", "2024-25"));
+        leagues.put("de.1", new LeagueDetails("German 1. Bundesliga", "de.1", "2024-25"));
         // Add other leagues as needed
     }
 

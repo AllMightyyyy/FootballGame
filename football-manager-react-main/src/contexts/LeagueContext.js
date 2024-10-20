@@ -1,5 +1,4 @@
 // src/contexts/LeagueContext.js
-
 import React, { createContext, useState, useEffect } from "react";
 import { api } from '../api/index';
 
@@ -13,7 +12,7 @@ export const LeagueProvider = ({ children }) => {
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await api.get("/teams/all-leagues"); // Correct endpoint
+        const response = await api.get("/teams/all-leagues"); // Ensure correct endpoint
         // Assuming the response is an array of leagues with code, name, and season
         const leaguesData = response.data.map((league) => ({
           code: league.code,

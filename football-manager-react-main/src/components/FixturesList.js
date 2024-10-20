@@ -3,8 +3,9 @@
 import { Box, Card, Grid, Paper, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
+import StandingsTable from './StandingsTable';
 
-const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
+const FixturesList = ({ matches, selectedMatchday, teamLogos, selectedLeague }) => {
   const filteredMatches = selectedMatchday
     ? matches.filter((match) => match.round === selectedMatchday)
     : [];
@@ -81,7 +82,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team1]?.logos[match.team1]} // Correct usage
+                      src={teamLogos[match.team1] || "/assets/img/defaultTeamLogo.png"} // Fallback to default logo
                       alt={match.team1}
                       sx={{
                         width: 70,
@@ -90,6 +91,10 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                         borderRadius: "10%",
                         objectFit: "contain",
                         border: "2px solid #ddd",
+                      }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/img/defaultTeamLogo.png";
                       }}
                     />
                     <Typography
@@ -154,7 +159,7 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                   >
                     <Box
                       component="img"
-                      src={teamLogos[match.team2]?.logos[match.team2]} // Correct usage
+                      src={teamLogos[match.team2] || "/assets/img/defaultTeamLogo.png"} // Fallback to default logo
                       alt={match.team2}
                       sx={{
                         width: 70,
@@ -163,6 +168,10 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
                         borderRadius: "10%",
                         objectFit: "contain",
                         border: "2px solid #ddd",
+                      }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/img/defaultTeamLogo.png";
                       }}
                     />
                     <Typography
@@ -186,9 +195,8 @@ const FixturesList = ({ matches, selectedMatchday, teamLogos }) => {
   );
 };
 
-FixturesList.propTypes = {
-  matches: PropTypes.array.isRequired,
-  selectedMatchday: PropTypes.string.isRequired,
+StandingsTable.propTypes = {
+  standings: PropTypes.array.isRequired,
   teamLogos: PropTypes.object.isRequired,
 };
 

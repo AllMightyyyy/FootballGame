@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
   ListItem,
+  TablePagination,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,8 @@ const PlayerSearchOverlay = ({
 }) => {
   const { register, handleSubmit } = useForm();
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0); // 0-based index
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const mergedFilters = {
     rating: [0, 100],
@@ -52,12 +55,21 @@ const PlayerSearchOverlay = ({
     isLoading,
     isError,
   } = useQuery(
-    ["players", mergedFilters],
-    () => searchPlayers(mergedFilters),
-    { enabled: false }
+    ["players", mergedFilters, page, rowsPerPage],
+    () =>
+      searchPlayers({
+        ...mergedFilters,
+        page: page + 1, // API is 1-based
+        size: rowsPerPage,
+      }),
+    {
+      enabled: open, // Fetch only when overlay is open
+      keepPreviousData: true,
+    }
   );
 
   const onSubmit = () => {
+    setPage(0); // Reset to first page on new search
     refetch();
   };
 
@@ -68,6 +80,18 @@ const PlayerSearchOverlay = ({
 
   const handleFilterChange = (updatedFilters) => {
     onFilterChange(updatedFilters);
+    setPage(0);
+    refetch();
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+    refetch();
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
     refetch();
   };
 
@@ -197,6 +221,22 @@ const PlayerSearchOverlay = ({
               <div>No players found</div>
             )}
           </Box>
+
+          {/* Pagination Controls */}
+          {playersData && playersData.totalItems > rowsPerPage && (
+            <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+              <TablePagination
+                component="div"
+                count={playersData.totalItems}
+                page={page}
+                onPageChange={handlePageChange}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleRowsPerPageChange}
+                rowsPerPageOptions={[10, 20, 50]}
+                labelRowsPerPage="Players per page"
+              />
+            </Box>
+          )}
         </Box>
       </Box>
     </Dialog>
