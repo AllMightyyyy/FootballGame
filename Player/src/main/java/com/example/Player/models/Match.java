@@ -44,6 +44,8 @@ public class Match {
     @JoinColumn(name = "league_id")
     private League league;
 
+    private String status;
+
     public Match() {
     }
 
@@ -119,5 +121,13 @@ public class Match {
 
     public void setLeague(League league) {
         this.league = league;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

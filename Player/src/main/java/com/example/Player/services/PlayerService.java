@@ -7,24 +7,20 @@ import com.example.Player.models.League;
 import com.example.Player.models.Player;
 import com.example.Player.repository.PlayerRepository;
 import com.example.Player.utils.LeagueConfig;
+import com.example.Player.DTO.PlayerDTO;
 import com.example.Player.utils.PlayerSpecifications;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvValidationException;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -328,4 +324,40 @@ public class PlayerService {
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
+
+    public PlayerDTO convertToPlayerDTO(Player player) {
+        PlayerDTO dto = new PlayerDTO();
+
+        dto.setId(player.getId());
+        dto.setShortName(player.getShortName());
+        dto.setLongName(player.getLongName());
+        dto.setPositions(player.getPositions());
+        dto.setPositionsList(player.getPositionsList());
+        dto.setOverall(player.getOverall());
+        dto.setPotential(player.getPotential());
+        dto.setValueEur(player.getValueEur());
+        dto.setWageEur(player.getWageEur());
+        dto.setPlayerFaceUrl(player.getPlayerFaceUrl());
+        dto.setClubLogoUrl(player.getClubLogoUrl());
+        dto.setNationFlagUrl(player.getNationFlagUrl());
+        dto.setClubName(player.getClubName());
+        dto.setNationalityName(player.getNationalityName());
+        dto.setHeightCm(player.getHeightCm());
+        dto.setWeightKg(player.getWeightKg());
+        dto.setPace(player.getPace());
+        dto.setShooting(player.getShooting());
+        dto.setPassing(player.getPassing());
+        dto.setDribbling(player.getDribbling());
+        dto.setDefending(player.getDefending());
+        dto.setPhysical(player.getPhysical());
+
+        // Map League details
+        if (player.getLeague() != null) {
+            dto.setLeagueName(player.getLeague().getName());
+            dto.setLeagueCode(player.getLeague().getCode());
+        }
+
+        return dto;
+    }
+
 }

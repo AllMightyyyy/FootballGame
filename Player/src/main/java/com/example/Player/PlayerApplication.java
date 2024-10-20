@@ -10,12 +10,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan(basePackages = "com.example.Player.models")
 public class PlayerApplication {
 
-	private static LeagueService leagueService;
-
 	public static void main(String[] args) {
 		SpringApplication.run(PlayerApplication.class, args);
-			League league = new League("Test League", "test", "2024-25");
-			leagueService.saveLeague(league);
 	}
 
 }

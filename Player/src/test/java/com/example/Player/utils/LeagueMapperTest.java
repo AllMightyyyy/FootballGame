@@ -2,6 +2,9 @@
 
 package com.example.Player.utils;
 
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.MatchDTO;
+import com.example.Player.DTO.StandingDTO;
 import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Score;

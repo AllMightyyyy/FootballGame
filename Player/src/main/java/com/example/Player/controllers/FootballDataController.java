@@ -2,6 +2,9 @@
 
 package com.example.Player.controllers;
 
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.MatchDTO;
+import com.example.Player.DTO.TeamDTO;
 import com.example.Player.models.League;
 import com.example.Player.services.FootballDataService;
 import com.example.Player.services.StandingService;
@@ -14,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

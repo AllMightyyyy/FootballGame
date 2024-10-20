@@ -1,6 +1,6 @@
 // src/main/java/com/example/Player/utils/StandingDTO.java
 
-package com.example.Player.utils;
+package com.example.Player.DTO;
 
 public class StandingDTO {
     private String teamName;

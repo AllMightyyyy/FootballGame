@@ -6,7 +6,7 @@ import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Score;
 import com.example.Player.models.Team;
-import com.example.Player.utils.StandingDTO;
+import com.example.Player.DTO.StandingDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

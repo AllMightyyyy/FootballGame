@@ -55,14 +55,7 @@ public class DataLoader implements CommandLineRunner {
 
         for (String leagueName : leagueNames) {
             try {
-                // Check if the league already exists based on name and season
-                boolean leagueExists = footballDataService.leagueExists(leagueName);
-                if (leagueExists) {
-                    logger.info("League '{}' already exists. Skipping data loading.", leagueName);
-                    continue;
-                }
-
-                // Load league data
+                // Load league data even if it already exists, ensuring persistence at startup
                 League league = footballDataService.getLeagueData(leagueName);
                 logger.info("Loaded and persisted data for league: {} Season: {}", league.getName(), league.getSeason());
             } catch (IOException e) {
@@ -80,8 +73,6 @@ public class DataLoader implements CommandLineRunner {
             logger.info("Players loaded successfully from CSV.");
         } catch (Exception e) {
             logger.error("Failed to load players from CSV: {}", e.getMessage());
-            // Depending on requirements, decide whether to rethrow or handle differently
-            throw e;
         }
     }
 }

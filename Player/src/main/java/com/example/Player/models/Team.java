@@ -8,9 +8,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@Table(name = "teams", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"league_id", "name"})
+})
 public class Team {
 
     @Id
@@ -25,6 +25,7 @@ public class Team {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference // Prevent recursion
     private User user;
 
     public Team() {

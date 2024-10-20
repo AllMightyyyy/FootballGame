@@ -1,6 +1,6 @@
 // src/main/java/com/example/Player/utils/LeagueDTO.java
 
-package com.example.Player.utils;
+package com.example.Player.DTO;
 
 import java.util.List;
 

@@ -2,6 +2,7 @@
 
 package com.example.Player.utils;
 
+import com.example.Player.DTO.TeamDTO;
 import com.example.Player.models.Team;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

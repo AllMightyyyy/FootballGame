@@ -1,6 +1,6 @@
 // src/main/java/com/example/Player/utils/TeamLeagueResponseDTO.java
 
-package com.example.Player.utils;
+package com.example.Player.DTO;
 
 public class TeamLeagueResponseDTO {
     private String code;

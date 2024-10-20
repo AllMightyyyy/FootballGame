@@ -8,7 +8,7 @@ import com.example.Player.models.User;
 import com.example.Player.services.LeagueService;
 import com.example.Player.services.TeamService;
 import com.example.Player.services.UserService;
-import com.example.Player.utils.TeamLeagueResponseDTO;
+import com.example.Player.DTO.TeamLeagueResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

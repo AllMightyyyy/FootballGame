@@ -2,6 +2,8 @@
 
 package com.example.Player.services;
 
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.StandingDTO;
 import com.example.Player.models.League;
 import com.example.Player.repository.LeagueRepository;
 import com.example.Player.utils.*;
@@ -57,8 +59,7 @@ public class FootballDataService {
      * Check if a league exists based on its full name.
      */
     public boolean leagueExists(String leagueName) {
-        Optional<League> leagueOpt = leagueRepository.findByName(leagueName);
-        return leagueOpt.isPresent();
+        return leagueRepository.existsByName(leagueName);
     }
 
     public League getLeagueDataByCode(String leagueCode) throws IOException {
@@ -73,23 +74,31 @@ public class FootballDataService {
     }
 
     public League getLeagueData(String leagueName) throws IOException {
-        // Trim and validate the league name
-        leagueName = leagueName.trim();
-
-        logger.info("League Name: {}", leagueName);
-        String fileName = leagueFileMap.get(leagueName);
-
-        if (fileName == null) {
-            throw new IllegalArgumentException("Unknown league: " + leagueName);
+        // First, check if the league already exists in the database
+        Optional<League> existingLeagueOpt = leagueRepository.findByName(leagueName);
+        if (existingLeagueOpt.isPresent()) {
+            return existingLeagueOpt.get();
         }
 
-        logger.info("File Name: {}", fileName);
-        League league = jsonDataLoader.loadLeagueData(fileName);
+        // Load the league from the JSON file if it doesn't exist in the database
+        logger.info("Loading league data from JSON for: {}", leagueName);
+        League league = jsonDataLoader.loadLeagueData(getFileNameForLeague(leagueName));
 
-        Hibernate.initialize(league.getTeams());
-        Hibernate.initialize(league.getMatches());
-
+        // Persist the loaded league into the database
+        leagueService.saveLeague(league);
         return league;
+    }
+
+    private String getFileNameForLeague(String leagueName) {
+        Map<String, String> leagueFileMap = Map.of(
+                "English Premier League 2024/25", "en.1.json",
+                "Italian Serie A 2024/25", "it.1.json",
+                "French Ligue 1 2024/25", "fr.1.json",
+                "Primera División de España 2024/25", "es.1.json",
+                "Deutsche Bundesliga 2024/25", "de.1.json"
+        );
+
+        return leagueFileMap.getOrDefault(leagueName, null);
     }
 
     public Optional<League> getLeagueByCode(String leagueCode) {

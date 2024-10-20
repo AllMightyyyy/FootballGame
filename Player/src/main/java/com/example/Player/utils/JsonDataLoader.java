@@ -2,7 +2,8 @@
 
 package com.example.Player.utils;
 
-import com.example.Player.exceptions.GlobalExceptionHandler;
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.ScoreDTO;
 import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Score;
@@ -11,6 +12,7 @@ import com.example.Player.services.LeagueService;
 import com.example.Player.services.MatchService;
 import com.example.Player.services.TeamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +20,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class JsonDataLoader {
@@ -31,10 +39,10 @@ public class JsonDataLoader {
     private static final Logger logger = LoggerFactory.getLogger(JsonDataLoader.class);
 
     @Autowired
-    private TeamService teamService; // Service to fetch Team entities
+    private TeamService teamService;
 
     @Autowired
-    private ObjectMapper objectMapper; // Jackson ObjectMapper
+    private ObjectMapper objectMapper;
 
     @Autowired
     private LeagueService leagueService;
@@ -45,134 +53,153 @@ public class JsonDataLoader {
     @Autowired
     private LeagueConfig leagueConfig;
 
+    @Autowired
+    private Validator validator;
+
+    @PostConstruct
+    public void init() {
+        // Trigger data loading on application startup
+        loadAllLeagues();
+    }
+
+    @Transactional
+    public void loadAllLeagues() {
+        leagueConfig.getLeagues().forEach((code, details) -> {
+            try {
+                loadLeagueData(code + ".json");
+            } catch (IOException e) {
+                logger.error("Failed to load league data for {}: {}", code, e.getMessage());
+            } catch (IllegalArgumentException e) {
+                logger.error("Invalid league configuration for {}: {}", code, e.getMessage());
+            } catch (Exception e) {
+                logger.error("An unexpected error occurred while processing {}: {}", code, e.getMessage());
+            }
+        });
+    }
+
     @Transactional
     public League loadLeagueData(String fileName) throws IOException {
         try {
-            // Construct the path to the JSON file within resources
             String resourcePath = "JsonData/2024-25/" + fileName;
             logger.info("Attempting to load JSON file: {}", resourcePath);
 
-            // Load the resource from the classpath
             Resource resource = new ClassPathResource(resourcePath);
             if (!resource.exists()) {
-                String errorMsg = "Resource not found: " + resourcePath;
-                logger.error(errorMsg);
-                throw new IOException(errorMsg);
+                throw new IOException("Resource not found: " + resourcePath);
             }
 
-            // Get InputStream to read the file
             InputStream inputStream = resource.getInputStream();
-
-            // Deserialize JSON into LeagueDTO
             LeagueDTO leagueDTO = objectMapper.readValue(inputStream, LeagueDTO.class);
-            logger.info("Parsed LeagueDTO: Name={}, Number of Matches={}", leagueDTO.getName(), leagueDTO.getMatches().size());
 
-            // Extract league code from filename, e.g., "en.1.json" -> "en.1"
             String leagueCode = fileName.replace(".json", "");
-            logger.info("Extracted League Code: {}", leagueCode);
-
-            // Fetch LeagueDetails from LeagueConfig
             LeagueConfig.LeagueDetails leagueDetails = leagueConfig.getLeagues().get(leagueCode);
+
             if (leagueDetails == null) {
-                String errorMsg = "LeagueDetails not found for code: " + leagueCode;
-                logger.error(errorMsg);
-                throw new IllegalArgumentException(errorMsg);
+                throw new IllegalArgumentException("League details not found for code: " + leagueCode);
             }
 
             String name = leagueDetails.getName();
             String season = leagueDetails.getSeason();
 
-            // Create or fetch the League entity with code and season
             Optional<League> existingLeagueOpt = leagueService.getLeagueByCodeAndSeason(leagueCode, season);
-            final League league;
-            if (existingLeagueOpt.isPresent()) {
-                league = existingLeagueOpt.get();
-                logger.info("Fetched existing League: ID={}, Name={}, Code={}, Season={}",
-                        league.getId(), league.getName(), league.getCode(), league.getSeason());
-            } else {
-                league = new League(name, leagueCode, season);
-                leagueService.saveLeague(league);
-                logger.info("Created new League: ID={}, Name={}, Code={}, Season={}",
-                        league.getId(), league.getName(), league.getCode(), league.getSeason());
+            League league = existingLeagueOpt.orElseGet(() -> {
+                League newLeague = new League();
+                newLeague.setName(name);
+                newLeague.setCode(leagueCode);
+                newLeague.setSeason(season);
+                leagueService.saveLeague(newLeague);
+                logger.info("Created new league: {} - {} Season: {}", name, leagueCode, season);
+                return newLeague;
+            });
+
+            // **Step 1: Create All Teams**
+            Set<String> teamNames = leagueDTO.getMatches().stream()
+                    .flatMap(dto -> Stream.of(dto.getTeam1(), dto.getTeam2()))
+                    .collect(Collectors.toSet());
+
+            for (String teamName : teamNames) {
+                getOrCreateTeam(teamName, league);
             }
 
-            // Map MatchDTOs to Match entities with Team associations
-            List<Match> matches = leagueDTO.getMatches().stream().map(dto -> {
-                Match match = new Match();
-                match.setRound(dto.getRound());
-                match.setDate(dto.getDate());
-                match.setTime(dto.getTime());
+            // **Step 2: Create All Matches**
+            List<Match> matches = leagueDTO.getMatches().stream()
+                    .map(dto -> {
+                        Match match = new Match();
+                        match.setRound(dto.getRound());
+                        match.setDate(dto.getDate());
+                        match.setTime(dto.getTime());
 
-                // Fetch or create Team1 and Team2 using helper method
-                final Team team1 = getOrCreateTeam(dto.getTeam1(), league);
-                match.setTeam1(team1);
+                        Team team1 = teamService.getTeamByName(dto.getTeam1(), league);
+                        if (team1 == null) {
+                            throw new IllegalArgumentException("Team not found: " + dto.getTeam1());
+                        }
 
-                final Team team2 = getOrCreateTeam(dto.getTeam2(), league);
-                match.setTeam2(team2);
+                        Team team2 = teamService.getTeamByName(dto.getTeam2(), league);
+                        if (team2 == null) {
+                            throw new IllegalArgumentException("Team not found: " + dto.getTeam2());
+                        }
 
-                // Set the score (Only FT scores are considered)
-                if (dto.getScore() != null && dto.getScore().getFt() != null && dto.getScore().getFt().size() == 2) {
-                    Integer ftTeam1 = dto.getScore().getFt().get(0);
-                    Integer ftTeam2 = dto.getScore().getFt().get(1);
-                    Integer htTeam1 = (dto.getScore().getHt() != null && dto.getScore().getHt().size() == 2) ? dto.getScore().getHt().get(0) : null;
-                    Integer htTeam2 = (dto.getScore().getHt() != null && dto.getScore().getHt().size() == 2) ? dto.getScore().getHt().get(1) : null;
-                    Score score = new Score(htTeam1, htTeam2, ftTeam1, ftTeam2);
-                    match.setScore(score);
-                } else {
-                    logger.warn("Incomplete or missing FT scores for match: {} vs {}. Setting score to null.", dto.getTeam1(), dto.getTeam2());
-                    match.setScore(null);
-                }
+                        match.setTeam1(team1);
+                        match.setTeam2(team2);
+                        match.setStatus(dto.getStatus());
 
-                // Associate Match with League
-                match.setLeague(league);
+                        if ("played".equalsIgnoreCase(dto.getStatus())) {
+                            ScoreDTO scoreDTO = dto.getScore();
+                            if (scoreDTO != null) {
+                                List<Integer> htScores = scoreDTO.getHt();
+                                List<Integer> ftScores = scoreDTO.getFt();
 
-                logger.info("Constructed Match: Round={}, Team1={}, Team2={}, FT Score: {}-{}",
-                        match.getRound(),
-                        team1.getName(),
-                        team2.getName(),
-                        match.getScore() != null ? match.getScore().getFtTeam1() : "N/A",
-                        match.getScore() != null ? match.getScore().getFtTeam2() : "N/A"
-                );
+                                if (htScores != null && htScores.size() >= 2 &&
+                                        ftScores != null && ftScores.size() >= 2) {
+                                    Score score = new Score(htScores.get(0), htScores.get(1),
+                                            ftScores.get(0), ftScores.get(1));
+                                    match.setScore(score);
+                                } else {
+                                    logger.warn("Incomplete score data for match: {} vs {} on {} at {}. Skipping score assignment.",
+                                            dto.getTeam1(), dto.getTeam2(), dto.getDate(), dto.getTime());
+                                }
+                            } else {
+                                logger.warn("Score is null for played match: {} vs {} on {} at {}.",
+                                        dto.getTeam1(), dto.getTeam2(), dto.getDate(), dto.getTime());
+                            }
+                        } else if ("scheduled".equalsIgnoreCase(dto.getStatus())) {
+                            logger.info("Scheduled match: {} vs {} on {} at {}. No scores to assign.",
+                                    dto.getTeam1(), dto.getTeam2(), dto.getDate(), dto.getTime());
+                        } else {
+                            logger.warn("Unknown status '{}' for match: {} vs {} on {} at {}.",
+                                    dto.getStatus(), dto.getTeam1(), dto.getTeam2(), dto.getDate(), dto.getTime());
+                        }
 
-                return match;
-            }).collect(Collectors.toList());
+                        match.setLeague(league);
+                        return match;
+                    })
+                    .collect(Collectors.toList());
 
-            // Persist matches using MatchService to handle duplicates
+            // **Step 3: Persist Matches**
             matchService.persistMatches(matches, league);
             logger.info("Persisted {} matches for League: {}", matches.size(), league.getName());
+
             return league;
         } catch (Exception e) {
-            logger.error("Specific error: {}", e.getMessage());
-            throw e; // Rethrow to let Spring handle transaction rollback
+            logger.error("Failed to load league data: {}", e.getMessage());
+            throw e;
         }
-
-
-    }
-    /**
-     * Helper method to extract season from resource path
-     * Example: "JsonData/2024-25/league.json" -> "2024-25"
-     */
-    private String extractSeasonFromResourcePath(String resourcePath) {
-        String[] parts = resourcePath.split("/");
-        for (String part : parts) {
-            if (part.matches("\\d{4}-\\d{2}")) {
-                return part;
-            }
-        }
-        return "Unknown";
     }
 
-    /**
-     * Helper method to fetch or create a Team by name within a League
-     */
     private Team getOrCreateTeam(String teamName, League league) {
-        Team team = teamService.getTeamByName(teamName, league);
-        if (team == null) {
-            team = teamService.createTeamIfNotExists(teamName, league);
-            logger.info("Created new team: Name={}", teamName);
+        Optional<Team> teamOpt = Optional.ofNullable(teamService.getTeamByName(teamName, league));
+        Team team;
+        if (teamOpt.isPresent()) {
+            team = teamOpt.get();
+            logger.debug("Found existing team: {}", team.getName());
         } else {
-            logger.info("Fetched existing team: Name={}", teamName);
+            team = new Team();
+            team.setName(teamName);
+            team.setLeague(league);
+            teamService.saveTeam(team);
+            logger.info("Created new team: {}", teamName);
         }
         return team;
     }
+
 }

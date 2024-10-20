@@ -1,5 +1,11 @@
+// src/main/java/com/example/Player/utils/LeagueMapper.java
+
 package com.example.Player.utils;
 
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.MatchDTO;
+import com.example.Player.DTO.ScoreDTO;
+import com.example.Player.DTO.TeamDTO;
 import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Score;
@@ -26,13 +32,14 @@ public interface LeagueMapper {
     // Correctly map Match -> MatchDTO and ensure the score is passed to scoreToScoreDTO
     @Mapping(source = "team1.name", target = "team1")
     @Mapping(source = "team2.name", target = "team2")
-    @Mapping(source = "score", target = "score")  // This tells MapStruct to use the "score" field in Match
+    @Mapping(source = "score", target = "score")
+    @Mapping(source = "status", target = "status")
     MatchDTO matchToMatchDTO(Match match);
 
     // Map Score -> ScoreDTO, without referencing "match"
     @Mapping(target = "ht", expression = "java(mapHalfTimeScores(score))")
     @Mapping(target = "ft", expression = "java(mapFullTimeScores(score))")
-    ScoreDTO scoreToScoreDTO(Score score);  // Only the Score object is passed here
+    ScoreDTO scoreToScoreDTO(Score score); // Only the Score object is passed here
 
     // Custom method to map HT scores from the Score object
     default List<Integer> mapHalfTimeScores(Score score) {

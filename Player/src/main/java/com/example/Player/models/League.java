@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "leagues", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "season"})
-})
+@Table(name = "leagues")
 public class League {
 
     @Id
@@ -23,16 +21,24 @@ public class League {
     private Long id;
 
     private String name;
-
     private String code;
-
     private String season;
 
-    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Team> teams = new ArrayList<>();
 
+    public void addTeam(Team team) {
+        teams.add(team);
+        team.setLeague(this);
+    }
+
+    public void removeTeam(Team team) {
+        teams.remove(team);
+        team.setLeague(null);
+    }
+
     @OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Match> matches = new ArrayList<>();
+    private List<Match> matches;
 
     public League(String name, String code, String season) {
         this.name = name;

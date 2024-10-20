@@ -7,7 +7,8 @@ import com.example.Player.models.League;
 import com.example.Player.models.Player;
 import com.example.Player.services.FormationService;
 import com.example.Player.services.PlayerService;
-import com.example.Player.utils.PlayerLeagueResponseDTO;
+import com.example.Player.DTO.PlayerDTO;
+import com.example.Player.DTO.PlayerLeagueResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +101,8 @@ public class PlayerController {
                     League league = player.getLeague();
                     return new PlayerLeagueResponseDTO(league.getCode(), league.getName(), league.getSeason());
                 })
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new)); // Use LinkedHashSet to preserve order and ensure uniqueness
+
         return ResponseEntity.ok(leagues);
     }
 
@@ -125,14 +127,16 @@ public class PlayerController {
     // Get player details by ID
     @GetMapping("/{id}")
     @Cacheable("players")
-    public ResponseEntity<Player> getPlayerById(@PathVariable Long id) {
+    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable Long id) {
         try {
             Player player = playerService.getPlayerById(id);
-            return ResponseEntity.ok(player);
+            PlayerDTO playerDTO = playerService.convertToPlayerDTO(player);
+            return ResponseEntity.ok(playerDTO);
         } catch (ResourceNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
 
     // Add a player to the formation
     @PostMapping("/formation")

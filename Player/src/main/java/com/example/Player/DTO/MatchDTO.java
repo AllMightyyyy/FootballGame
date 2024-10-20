@@ -1,11 +1,13 @@
 // src/main/java/com/example/Player/utils/MatchDTO.java
 
-package com.example.Player.utils;
+package com.example.Player.DTO;
 
-import com.example.Player.models.Match;
-import org.mapstruct.Mapping;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MatchDTO {
     private String round;
     private String date;
@@ -13,8 +15,7 @@ public class MatchDTO {
     private String team1; // Team1 name
     private String team2; // Team2 name
     private ScoreDTO score;
-    @Mapping(source = "team1.name", target = "team1")
-    @Mapping(source = "team2.name", target = "team2")
+    private String status; // New field added
 
     // Getters and Setters
 
@@ -64,5 +65,13 @@ public class MatchDTO {
 
     public void setScore(ScoreDTO score){
         this.score = score;
+    }
+
+    public String getStatus() { // New getter
+        return status;
+    }
+
+    public void setStatus(String status) { // New setter
+        this.status = status;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Player.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -8,11 +9,8 @@ import java.util.List;
 public class Player {
 
     @Id
-    private Long id; // sofifa_id
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "league_id")
-    private League league;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String shortName;
     private String longName;
@@ -24,23 +22,25 @@ public class Player {
     private String playerFaceUrl;
     private String clubLogoUrl;
     private String nationFlagUrl;
-    private int heightCm;
-    private int weightKg;
     private String clubName;
     private String nationalityName;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "player_positions", joinColumns = @JoinColumn(name = "player_id"))
-    @Column(name = "position")
-    private List<String> positionsList;
-
-    // Player attributes
+    private int heightCm;
+    private int weightKg;
     private int pace;
     private int shooting;
     private int passing;
     private int dribbling;
     private int defending;
     private int physical;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "league_id")
+    private League league;
+
+    @ElementCollection
+    @CollectionTable(name = "player_positions", joinColumns = @JoinColumn(name = "player_id"))
+    @Column(name = "position")
+    private List<String> positionsList;
 
     public Player() {
     }
