@@ -4,14 +4,19 @@ import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Team;
 import com.example.Player.models.User;
+import com.example.Player.repository.MatchRepository;
 import com.example.Player.repository.TeamRepository;
 import com.example.Player.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -24,6 +29,11 @@ public class TeamService {
 
     @Autowired
     private LeagueService leagueService;
+
+    @Autowired
+    private MatchRepository matchRepository;
+
+    private TeamService teamService;
 
     // Get all teams by league
     public List<Team> getTeamsByLeague(League league) {
@@ -90,6 +100,10 @@ public class TeamService {
     // Get Team by name and league
     public Team getTeamByName(String teamName, League league) {
         return teamRepository.findByNameAndLeague(teamName, league).orElse(null);
+    }
+
+    public Optional<Team> getTeamByName(String teamName) {
+        return teamRepository.findByName(teamName);
     }
 
     // Fetch team by name and league code

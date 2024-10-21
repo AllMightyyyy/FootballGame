@@ -105,6 +105,31 @@ const teamLogos = {
       "Hellas Verona FC": require("../../assets/img/seriea/Hellas Verona.png"),
     },
   },
+  "fr.1": {
+    leagueName: "French Ligue 1 2024/25",
+    displayName: "Ligue 1",
+    leagueLogo: require("../../assets/img/ligue1/ligue1.png"),
+    logos: {
+      "AJ Auxerre": require("../../assets/img/ligue1/AJ Auxerre.png"),
+      "Angers SCO": require("../../assets/img/ligue1/Angers SCO.png"),
+      "AS Monaco FC": require("../../assets/img/ligue1/AS Monaco.png"),
+      "AS Saint-Étienne": require("../../assets/img/ligue1/AS Saint-Étienne.png"),
+      "FC Nantes": require("../../assets/img/ligue1/FC Nantes.png"),
+      "Le Havre AC": require("../../assets/img/ligue1/Le Havre AC.png"),
+      "Lille OSC": require("../../assets/img/ligue1/LOSC Lille.png"),
+      "Montpellier HSC": require("../../assets/img/ligue1/Montpellier HSC.png"),
+      "OGC Nice": require("../../assets/img/ligue1/OGC Nice.png"),
+      "Olympique de Marseille": require("../../assets/img/ligue1/Olympique Marseille.png"),
+      "Olympique Lyonnais": require("../../assets/img/ligue1/Olympique Lyon.png"),
+      "Paris Saint-Germain FC": require("../../assets/img/ligue1/Paris Saint-Germain.png"),
+      "Racing Club de Lens": require("../../assets/img/ligue1/RC Lens.png"),
+      "RC Strasbourg Alsace": require("../../assets/img/ligue1/RC Strasbourg Alsace.png"),
+      "Stade Brestois 29": require("../../assets/img/ligue1/Stade Brestois 29.png"),
+      "Stade de Reims": require("../../assets/img/ligue1/Stade Reims.png"),
+      "Stade Rennais FC 1901": require("../../assets/img/ligue1/Stade Rennais FC.png"),
+      "Toulouse FC": require("../../assets/img/ligue1/FC Toulouse.png"),
+    },
+  },
 };
 
 export default teamLogos;

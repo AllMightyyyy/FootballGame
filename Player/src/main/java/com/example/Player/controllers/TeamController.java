@@ -3,9 +3,11 @@
 package com.example.Player.controllers;
 
 import com.example.Player.models.League;
+import com.example.Player.models.Match;
 import com.example.Player.models.Team;
 import com.example.Player.models.User;
 import com.example.Player.services.LeagueService;
+import com.example.Player.services.MatchService;
 import com.example.Player.services.TeamService;
 import com.example.Player.services.UserService;
 import com.example.Player.DTO.TeamLeagueResponseDTO;
@@ -32,6 +34,9 @@ public class TeamController {
 
     @Autowired
     private LeagueService leagueService;
+
+    @Autowired
+    private MatchService matchService;
 
     // Get all leagues (return codes and names)
     @GetMapping("/all-leagues")
@@ -123,6 +128,29 @@ public class TeamController {
             return ResponseEntity.ok(Map.of(
                     "message", "No team assigned"
             ));
+        }
+    }
+
+    @GetMapping("/{teamName}/form")
+    public ResponseEntity<?> getTeamForm(@PathVariable String teamName) {
+        try {
+            List<String> form = matchService.getTeamForm(teamName);
+            return ResponseEntity.ok(Map.of("form", form));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{teamName}/next-opponent")
+    public ResponseEntity<?> getNextOpponent(@PathVariable String teamName) {
+        try {
+            Match nextMatch = matchService.getNextMatchForTeam(teamName);
+            String nextOpponent = nextMatch.getTeam1().getName().equals(teamName)
+                    ? nextMatch.getTeam2().getName()
+                    : nextMatch.getTeam1().getName();
+            return ResponseEntity.ok(Map.of("nextOpponent", nextOpponent));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
         }
     }
 

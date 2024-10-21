@@ -12,13 +12,13 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { api } from "../api/index";
+import { LeagueContext } from "../contexts/LeagueContext";
 import FixturesList from "./FixturesList";
 import StandingsTable from "./StandingsTable";
 import { leagueNameMap } from "./utils/leagueMapping";
 import teamLogos from "./utils/teamLogos";
-import { api } from '../api/index';
-import { LeagueContext } from "../contexts/LeagueContext";
 
 const LiveStandings = () => {
   const [standings, setStandings] = useState([]);
@@ -78,6 +78,7 @@ const LiveStandings = () => {
   };
 
   const handleLeagueChange = (event) => {
+    console.log("New selected league:", event.target.value); // Debug log
     setSelectedLeague(event.target.value);
   };
 
@@ -159,12 +160,18 @@ const LiveStandings = () => {
       {/* Content Based on Selected Tab */}
       {!loading && !error && (
         <>
-          {selectedTab === 0 && (
-            <StandingsTable
-              standings={standings}
-              teamLogos={teamLogos[selectedLeague]?.logos}
-            />
-          )}
+          {selectedTab === 0 &&
+            (console.log(
+              "Passing selectedLeague to StandingsTable:",
+              selectedLeague
+            ),
+            (
+              <StandingsTable
+                standings={standings}
+                teamLogos={teamLogos[selectedLeague]?.logos}
+                selectedLeague={selectedLeague}
+              />
+            ))}
           {selectedTab === 1 && (
             <>
               {/* Matchday Selector */}

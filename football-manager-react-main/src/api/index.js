@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import qs from "qs";
-import { leagueNameMap, inverseLeagueNameMap } from "../components/utils/leagueMapping"; // Updated mapping
 
 export const api = axios.create({
   baseURL: "http://localhost:8081/api", // Base URL for API
@@ -131,6 +130,42 @@ export const getAssignedTeam = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching assigned team:", error);
+    throw error;
+  }
+};
+
+// 8. Get Team Form ( Last 5 Matches )
+export const getTeamForm = async (teamName) => {
+  try {
+    const response = await api.get(`/teams/${teamName}/form`);
+    return response.data.form; // Assuming backend returns { form: ["W", "D", "L", "W", "W"] }
+  } catch (error) {
+    console.error(`Error fetching team form for ${teamName}:`, error);
+    throw error;
+  }
+};
+
+// 9. Get Next Opponent
+export const getNextOpponent = async (teamName) => {
+  try {
+    const response = await api.get(`/teams/${teamName}/next-opponent`);
+    return response.data.nextOpponent; // Assuming backend returns { nextOpponent: "Team Name" }
+  } catch (error) {
+    console.error(`Error fetching next opponent for ${teamName}:`, error);
+    throw error;
+  }
+};
+
+// 10. Get League Qualification Positions
+export const getLeagueQualifications = async (leagueCode) => {
+  try {
+    const response = await api.get(`football/league/${leagueCode}/positions`);
+    return response.data; // Assuming backend returns { "Champions League": [...], "Europa League": [...], "Relegation": [...] }
+  } catch (error) {
+    console.error(
+      `Error fetching qualification positions for league ${leagueCode}:`,
+      error
+    );
     throw error;
   }
 };

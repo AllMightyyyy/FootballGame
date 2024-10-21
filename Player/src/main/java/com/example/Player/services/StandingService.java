@@ -2,6 +2,7 @@
 
 package com.example.Player.services;
 
+import com.example.Player.configs.LeagueConfig;
 import com.example.Player.models.League;
 import com.example.Player.models.Match;
 import com.example.Player.models.Score;
@@ -17,6 +18,8 @@ import java.util.*;
 public class StandingService {
 
     private static final Logger logger = LoggerFactory.getLogger(StandingService.class);
+
+    private LeagueConfig leagueConfig;
 
     /**
      * Calculate Standings for a League
@@ -107,4 +110,21 @@ public class StandingService {
         logger.info("Standings calculated successfully for League: {}", league.getName());
         return standings;
     }
+
+    public Map<String, Object> getQualificationPositions(String leagueCode) {
+        LeagueConfig.PromotionRelegationConfig config = leagueConfig.getPositionsForLeague(leagueCode);
+
+        if (config == null) {
+            throw new IllegalArgumentException("No configuration found for this league");
+        }
+
+        Map<String, Object> positions = new HashMap<>();
+        positions.put("championsLeague", Map.of("start", config.getChampionsLeagueStart(), "end", config.getChampionsLeagueEnd()));
+        positions.put("europaLeague", Map.of("start", config.getEuropaLeagueStart(), "end", config.getEuropaLeagueEnd()));
+        positions.put("conferenceLeague", config.getConferenceLeagueStart());
+        positions.put("relegation", config.getRelegationStart());
+
+        return positions;
+    }
+
 }

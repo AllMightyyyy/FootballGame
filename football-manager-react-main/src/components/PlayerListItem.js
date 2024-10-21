@@ -1,8 +1,8 @@
 // src/components/PlayerListItem.js
 
 import { Avatar, Box, Typography } from "@mui/material";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 const getAttributeColor = (value) => {
   if (value < 50) return "red";
@@ -21,9 +21,16 @@ const PlayerListItem = ({ player, onClick }) => {
       ? player.positions.split(",").map((pos) => pos.trim())
       : [];
 
+  // Check if the player is a goalkeeper (goalkeepers typically have "GK" in their positions) -> Case SENSITIVE
+
+  // TODO : make it non case sensitive to check positions, maybe have a better mapping solution for positions using a List
+  console.log(positionsToDisplay);
+  const isGoalkeeper = positionsToDisplay.includes("GK");
+
   console.log("Player:", player);
   console.log("Player Name:", player.shortName);
   console.log("Positions to Display:", positionsToDisplay);
+  console.log("Is Goalkeeper:", isGoalkeeper);
 
   return (
     <Box
@@ -36,7 +43,7 @@ const PlayerListItem = ({ player, onClick }) => {
         borderRadius: "8px",
         marginBottom: "10px",
         backgroundColor: "#2e2e2e",
-        cursor: "pointer", // Indicate clickable
+        cursor: "pointer",
         transition: "background-color 0.3s",
         "&:hover": {
           backgroundColor: "#3e3e3e",
@@ -95,39 +102,73 @@ const PlayerListItem = ({ player, onClick }) => {
           marginLeft: "16px",
         }}
       >
-        {[
-          { label: "Pace", value: player.pace },
-          { label: "Shooting", value: player.shooting },
-          { label: "Passing", value: player.passing },
-          { label: "Dribbling", value: player.dribbling },
-          { label: "Defending", value: player.defending },
-          { label: "Physical", value: player.physical },
-        ].map((attr) => (
-          <Box key={attr.label} sx={{ textAlign: "center" }}>
-            {/* Attribute Label */}
-            <Typography
-              variant="caption"
-              sx={{ color: "#aaa", marginBottom: "4px" }}
-            >
-              {attr.label.toUpperCase()}
-            </Typography>
+        {isGoalkeeper
+          ? [
+              { label: "Diving", value: player.goalkeepingDiving },
+              { label: "Handling", value: player.goalkeepingHandling },
+              { label: "Kicking", value: player.goalkeepingKicking },
+              { label: "Positioning", value: player.goalkeepingPositioning },
+              { label: "Reflexes", value: player.goalkeepingReflexes },
+              { label: "Speed", value: player.goalkeepingSpeed },
+            ].map((attr) => (
+              <Box key={attr.label} sx={{ textAlign: "center" }}>
+                {/* Attribute Label */}
+                <Typography
+                  variant="caption"
+                  sx={{ color: "#aaa", marginBottom: "4px" }}
+                >
+                  {attr.label.toUpperCase()}
+                </Typography>
 
-            {/* Attribute Value Box */}
-            <Box
-              sx={{
-                backgroundColor: getAttributeColor(attr.value),
-                color: "#fff",
-                borderRadius: "4px",
-                padding: "4px 8px",
-                minWidth: "40px",
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {attr.value}
-            </Box>
-          </Box>
-        ))}
+                {/* Attribute Value Box */}
+                <Box
+                  sx={{
+                    backgroundColor: getAttributeColor(attr.value),
+                    color: "#fff",
+                    borderRadius: "4px",
+                    padding: "4px 8px",
+                    minWidth: "40px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {attr.value}
+                </Box>
+              </Box>
+            ))
+          : [
+              { label: "Pace", value: player.pace },
+              { label: "Shooting", value: player.shooting },
+              { label: "Passing", value: player.passing },
+              { label: "Dribbling", value: player.dribbling },
+              { label: "Defending", value: player.defending },
+              { label: "Physical", value: player.physical },
+            ].map((attr) => (
+              <Box key={attr.label} sx={{ textAlign: "center" }}>
+                {/* Attribute Label */}
+                <Typography
+                  variant="caption"
+                  sx={{ color: "#aaa", marginBottom: "4px" }}
+                >
+                  {attr.label.toUpperCase()}
+                </Typography>
+
+                {/* Attribute Value Box */}
+                <Box
+                  sx={{
+                    backgroundColor: getAttributeColor(attr.value),
+                    color: "#fff",
+                    borderRadius: "4px",
+                    padding: "4px 8px",
+                    minWidth: "40px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {attr.value}
+                </Box>
+              </Box>
+            ))}
       </Box>
     </Box>
   );
@@ -137,10 +178,7 @@ PlayerListItem.propTypes = {
   player: PropTypes.shape({
     id: PropTypes.number.isRequired,
     shortName: PropTypes.string.isRequired,
-    // Updated to use positionsList
     positionsList: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // Remove positions if it's not used elsewhere
-    // positions: PropTypes.string, // Optional if positionsList is present
     overall: PropTypes.number.isRequired,
     potential: PropTypes.number.isRequired,
     pace: PropTypes.number.isRequired,
@@ -149,11 +187,16 @@ PlayerListItem.propTypes = {
     dribbling: PropTypes.number.isRequired,
     defending: PropTypes.number.isRequired,
     physical: PropTypes.number.isRequired,
+    goalkeepingDiving: PropTypes.number.isRequired,
+    goalkeepingHandling: PropTypes.number.isRequired,
+    goalkeepingKicking: PropTypes.number.isRequired,
+    goalkeepingPositioning: PropTypes.number.isRequired,
+    goalkeepingReflexes: PropTypes.number.isRequired,
+    goalkeepingSpeed: PropTypes.number.isRequired,
     clubLogoUrl: PropTypes.string.isRequired,
     clubName: PropTypes.string.isRequired,
     nationFlagUrl: PropTypes.string.isRequired,
     nationalityName: PropTypes.string.isRequired,
-    // ... other fields if necessary
   }).isRequired,
   onClick: PropTypes.func.isRequired,
 };

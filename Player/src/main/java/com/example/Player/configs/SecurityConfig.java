@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection (for stateless APIs)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/football/**", "/api/teams/leagues", "/api/teams/{league}").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/football/**", "/api/teams/leagues", "/api/teams/{league}", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().permitAll() // Allow other requests
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter

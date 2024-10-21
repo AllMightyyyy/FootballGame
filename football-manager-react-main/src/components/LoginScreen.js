@@ -1,20 +1,26 @@
-// src/components/LoginScreen.js
-
-import React, { useState, useContext } from 'react';
-import { Box, Button, TextField, Typography, Snackbar, Alert } from '@mui/material';
-import { AuthContext } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import {
+  Alert,
+  Box,
+  Button,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const LoginScreen = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Added isLoading state
 
   const handleChange = (e) => {
     setCredentials({
@@ -25,18 +31,26 @@ const LoginScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
+    setIsLoading(true); // Set loading true before making the API call
+
+    console.log("Attempting to login with credentials:", credentials);
 
     const result = await login(credentials);
+    setIsLoading(false); // Set loading false after the API call completes
+
+    console.log("Login result:", result);
+
     if (result.success) {
       if (result.hasTeam) {
-        console.log('Login successful, navigating to the home page.');
-        navigate('/'); // Navigate to the home page
+        console.log("Login successful, navigating to the home page.");
+        navigate("/"); // Navigate to the home page
       } else {
-        console.log('Login successful, navigating to onboarding.');
-        navigate('/onboarding'); // Navigate to the onboarding flow
+        console.log("Login successful, navigating to onboarding.");
+        navigate("/onboarding"); // Navigate to the onboarding flow
       }
     } else {
+      console.error("Login failed with message:", result.message);
       setError(result.message);
       setOpenSnackbar(true);
     }
@@ -119,27 +133,36 @@ const LoginScreen = () => {
             },
           }}
         />
-        {error && (
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-            <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
-              {error}
-            </Alert>
-          </Snackbar>
-        )}
         <Button
           type="submit"
           variant="contained"
           sx={{
-            backgroundColor: "#487748",
+            backgroundColor: isLoading ? "#888" : "#487748",
             color: "#121212",
             width: "100%",
             padding: "10px",
             fontWeight: "bold",
           }}
+          disabled={isLoading} // Disable button during loading
         >
-          Log In
+          {isLoading ? "Logging in..." : "Log In"}
         </Button>
       </form>
+
+      {/* Snackbar for error messages */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {error}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

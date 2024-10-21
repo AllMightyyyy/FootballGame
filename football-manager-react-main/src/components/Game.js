@@ -5,11 +5,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { assignTeam as apiAssignTeam, getAssignedTeam } from "../api";
 import { AuthContext } from "../contexts/AuthContext";
+import { LeagueProvider } from "../contexts/LeagueContext";
 import ConfirmationScreen from "./ConfirmationScreen";
 import ManagerSetup from "./ManagerSetup";
 import TeamSelection from "./TeamSelection";
-import { leagueNameMap } from "./utils/leagueMapping";
-import { LeagueProvider } from "../contexts/LeagueContext";
 
 const Game = () => {
   const { auth, updateTeam } = useContext(AuthContext);
@@ -72,6 +71,9 @@ const Game = () => {
     navigate("/");
   };
 
+  console.log("selectedTeam:", selectedTeam);
+  console.log("setSelectedTeam function:", setSelectedTeam);
+
   return (
     <Box
       sx={{
@@ -96,10 +98,11 @@ const Game = () => {
           <TeamSelection
             selectedTeam={selectedTeam}
             onTeamSelect={setSelectedTeam}
-            onNext={handleAssignTeam} // Use the renamed handler
+            onNext={handleAssignTeam}
             onPrevious={handlePreviousStep}
             selectedLeague={selectedLeague}
-            setSelectedLeague={setSelectedLeague}
+            setSelectedLeague={setSelectedLeague} // Correct this to use setSelectedLeague
+            setSelectedTeam={setSelectedTeam}
           />
         </LeagueProvider>
       )}

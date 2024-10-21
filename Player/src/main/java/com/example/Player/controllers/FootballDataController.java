@@ -107,4 +107,64 @@ public class FootballDataController {
                     .body(Map.of("error", "An unexpected error occurred."));
         }
     }
+
+    @GetMapping("/league/{leagueCode}/positions")
+    public ResponseEntity<?> getLeaguePositions(@PathVariable String leagueCode) {
+        try {
+            Map<String, Object> positions = getQualificationPositionsByLeagueCode(leagueCode);
+            return ResponseEntity.ok(positions);
+        } catch (IllegalArgumentException e) {
+            logger.error("Error fetching positions for league {}: {}", leagueCode, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Unexpected error fetching positions for league {}: {}", leagueCode, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "An unexpected error occurred."));
+        }
+    }
+
+    // TODO -> This is hardcoded for now, in future, we will implement a JSON or XML file to get the requirements easily
+    private Map<String, Object> getQualificationPositionsByLeagueCode(String leagueCode) {
+        switch (leagueCode) {
+            case "en.1":  // Premier League (England)
+                return Map.of(
+                        "Champions League", List.of("1st", "2nd", "3rd", "4th"),
+                        "Europa League", List.of("5th", "FA Cup winner"),
+                        "Conference League", List.of("Carabao Cup winner"),
+                        "Relegation", List.of("18th", "19th", "20th")
+                );
+            case "es.1":  // La Liga (Spain)
+                return Map.of(
+                        "Champions League", List.of("1st", "2nd", "3rd", "4th"),
+                        "Europa League", List.of("5th", "Copa del Rey winner"),
+                        "Conference League", List.of("6th (or 7th if Copa del Rey winner qualifies for Europe)"),
+                        "Relegation", List.of("18th", "19th", "20th")
+                );
+            case "de.1":  // Bundesliga (Germany)
+                return Map.of(
+                        "Champions League", List.of("1st", "2nd", "3rd", "4th"),
+                        "Europa League", List.of("5th", "DFB-Pokal winner"),
+                        "Conference League", List.of("6th (or 7th if DFB-Pokal winner qualifies for CL/EL)"),
+                        "Relegation", List.of("16th (playoff)", "17th", "18th")
+                );
+            case "it.1":  // Serie A (Italy)
+                return Map.of(
+                        "Champions League", List.of("1st", "2nd", "3rd", "4th"),
+                        "Europa League", List.of("5th", "Coppa Italia winner"),
+                        "Conference League", List.of("6th (or 7th if Coppa Italia winner qualifies for Europe)"),
+                        "Relegation", List.of("18th", "19th", "20th")
+                );
+            case "fr.1":  // Ligue 1 (France)
+                return Map.of(
+                        "Champions League", List.of("1st", "2nd (group stage)", "3rd (playoff)"),
+                        "Europa League", List.of("4th", "Coupe de France winner"),
+                        "Conference League", List.of("5th (or 6th if Coupe de France winner qualifies for Europe)"),
+                        "Relegation", List.of("17th", "18th")
+                );
+            default:
+                throw new IllegalArgumentException("Unsupported league code: " + leagueCode);
+        }
+    }
+
 }

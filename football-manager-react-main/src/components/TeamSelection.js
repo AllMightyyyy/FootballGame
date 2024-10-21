@@ -12,10 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import { api } from '../api/index';
+import { api } from "../api/index";
 import { AuthContext } from "../contexts/AuthContext";
-import teamLogos from "./utils/teamLogos"; // Ensure this path is correct
 import { LeagueContext } from "../contexts/LeagueContext";
+import teamLogos from "./utils/teamLogos"; // Ensure this path is correct
 
 const TeamSelection = ({
   selectedLeague,
@@ -33,12 +33,16 @@ const TeamSelection = ({
 
   useEffect(() => {
     if (selectedLeague) {
+      console.log("Fetching teams for league:", selectedLeague); // Add debug statement
+
       // Fetch teams for the selected league using the correct endpoint
       const fetchTeams = async () => {
         setLoading(true);
         setError(null);
         try {
-          const response = await api.get(`/teams/by-league/${encodeURIComponent(selectedLeague)}`);
+          const response = await api.get(
+            `/teams/by-league/${encodeURIComponent(selectedLeague)}`
+          );
           setTeams(response.data);
         } catch (err) {
           setError("Failed to fetch teams.");
@@ -56,12 +60,18 @@ const TeamSelection = ({
   }, [selectedLeague]);
 
   const handleLeagueChange = (event) => {
-    setSelectedLeague(event.target.value);
-    setSelectedTeam(null); // Reset selected team when league changes
+    console.log("Selected League:", event.target.value);
+    setSelectedLeague(event.target.value); // Update league correctly
+
+    if (typeof setSelectedTeam === "function") {
+      setSelectedTeam(null); // Reset the selected team when league changes
+    } else {
+      console.error("setSelectedTeam is not defined or not a function.");
+    }
   };
 
   const handleTeamSelect = (teamName) => {
-    if (!teams.find(team => team.name === teamName && team.isOccupied)) {
+    if (!teams.find((team) => team.name === teamName && team.isOccupied)) {
       setSelectedTeam(teamName);
     }
   };
@@ -140,9 +150,7 @@ const TeamSelection = ({
                   borderRadius: "8px",
                   transition: "background-color 0.3s",
                   "&:hover": {
-                    backgroundColor: team.isOccupied
-                      ? "#2e2e2e"
-                      : "#487748",
+                    backgroundColor: team.isOccupied ? "#2e2e2e" : "#487748",
                   },
                 }}
               >
