@@ -453,4 +453,11 @@ public class PlayerService {
         return dto;
     }
 
+    public List<Player> getPlayersByLeague(League league) {
+        // Fetch players by the league, assuming players have a reference to the league
+        return playerRepository.findAll().stream()
+                .filter(player -> league.equals(player.getLeague()))
+                .collect(Collectors.toList());
+    }
+
 }
