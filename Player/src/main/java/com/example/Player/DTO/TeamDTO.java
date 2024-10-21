@@ -5,13 +5,15 @@ package com.example.Player.DTO;
 public class TeamDTO {
     private Long id;
     private String name;
+    private String leagueCode;
 
     // Constructors
     public TeamDTO() {}
 
-    public TeamDTO(Long id, String name) {
+    public TeamDTO(Long id, String name, String leagueCode) {
         this.id = id;
         this.name = name;
+        this.leagueCode = leagueCode;
     }
 
     // Getters and Setters

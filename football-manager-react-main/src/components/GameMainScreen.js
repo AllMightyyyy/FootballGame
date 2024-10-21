@@ -3,9 +3,8 @@
 import React, { useState, useContext } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { AuthContext } from '../contexts/AuthContext';
-import { api } from '../api/index';
-import ConfirmationScreen from "./ConfirmationScreen";
 import { useNavigate } from 'react-router-dom'; 
+import { api } from "../api";
 
 const GameMainScreen = () => {
   const { register } = useContext(AuthContext);
@@ -28,16 +27,24 @@ const GameMainScreen = () => {
       const response = await api.get("/auth/check-username", {
         params: { username: managerName },
       });
-      const { available, suggestedUsername } = response.data;
+      // Backend now returns { available: boolean, suggestedUsername: string (optional) }
+      const { available, suggestedUsername: suggested } = response.data;
       setUsernameAvailable(available);
-      if (!available) {
-        setSuggestedUsername(suggestedUsername);
+      if (!available && suggested) {
+        setSuggestedUsername(suggested);
       } else {
         setSuggestedUsername("");
       }
       setError("");
     } catch (err) {
       console.error("Error checking username:", err);
+      if (err.response && err.response.data) {
+        const { available, suggestedUsername } = err.response.data;
+        setUsernameAvailable(available);
+        if (!available && suggestedUsername) {
+          setSuggestedUsername(suggestedUsername);
+        }
+      }
       setError("Error checking username.");
     }
   };
@@ -71,8 +78,13 @@ const GameMainScreen = () => {
     setIsSubmitting(false);
 
     if (result.success) {
-      console.log('Registration successful, navigating to onboarding.');
-      navigate('/onboarding');
+      if (result.hasTeam) {
+        console.log('Registration successful, navigating to home.');
+        navigate('/'); // Navigate to home if user already has a team
+      } else {
+        console.log('Registration successful, navigating to onboarding.');
+        navigate('/onboarding'); // Navigate to onboarding for team assignment
+      }
     } else {
       setError(result.message);
     }
@@ -230,18 +242,6 @@ const GameMainScreen = () => {
             </Button>
           </form>
         </Box>
-      )}
-
-      {step === 3 && (
-        <ConfirmationScreen
-          managerName={managerName}
-          selectedTeam={null} // Will be set after team selection
-          onConfirm={() => {
-            // Handle confirmation, e.g., navigate to Squad Builder
-            navigate('/');
-          }}
-          onPrevious={() => setStep(2)}
-        />
       )}
     </Box>
   );

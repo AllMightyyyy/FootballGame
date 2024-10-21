@@ -14,6 +14,7 @@ import SearchPlayersTab from "./SearchPlayersTab";
 import PlayerTableTab from "./PlayerTableTab";
 import LiveStandingsTab from "./LiveStandingsTab";
 import AuthTab from "./AuthTab"; // Handles Login and Sign-Up
+import ManageTab from "./ManageTab"; // New Import
 import { AuthContext } from "../contexts/AuthContext";
 import { LeagueContext } from "../contexts/LeagueContext";
 
@@ -27,10 +28,10 @@ const MainLayout = () => {
   const tabs = [
     { label: "Player Table", content: <PlayerTableTab />, protected: false },
     { label: "Live Standings", content: <LiveStandingsTab />, protected: false },
-    { label: "Squad Builder", content: <SearchPlayersTab />, protected: true },
+    { label: "Squad Builder", content: <SearchPlayersTab />, protected: false }, // Squad Builder is public
     {
       label: auth.isAuthenticated ? "Manage" : "Login/Sign-Up",
-      content: <AuthTab />,
+      content: auth.isAuthenticated ? <ManageTab /> : <AuthTab />,
       protected: false,
     },
   ];

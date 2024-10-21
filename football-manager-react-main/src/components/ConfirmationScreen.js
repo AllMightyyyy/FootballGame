@@ -13,25 +13,31 @@ const ConfirmationScreen = ({
   onConfirm,
   onPrevious,
   selectedLeague,
+  allowSkip, // New prop to allow skipping team assignment
 }) => {
   const { auth, updateTeam } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleConfirm = async () => {
     try {
-      // Assign team to user
-      const response = await assignTeam(selectedLeague, selectedTeam); // Use updated API function
+      if (selectedTeam) {
+        // Assign team to user
+        const response = await assignTeam(selectedLeague, selectedTeam); // Use updated API function
 
-      alert(response.message);
+        alert(response.message);
 
-      // Fetch the assigned team
-      const teamResponse = await getAssignedTeam(); // Use updated API function
-      if (teamResponse.team) {
-        updateTeam(teamResponse.team);
+        // Fetch the assigned team
+        const teamResponse = await getAssignedTeam(); // Use updated API function
+        if (teamResponse.team) {
+          updateTeam(teamResponse.team);
+        }
+
+        // Finalize onboarding and navigate to the main game interface
+        navigate("/");
+      } else {
+        // If no team is selected, proceed without assigning a team
+        navigate("/");
       }
-
-      // Finalize onboarding and navigate to the main game interface
-      navigate("/");
     } catch (error) {
       console.error("Error assigning team:", error);
       alert(error.response?.data?.message || "Failed to assign team.");
@@ -72,9 +78,11 @@ const ConfirmationScreen = ({
       <Typography variant="body1" sx={{ color: "#aaa", marginBottom: "10px" }}>
         <strong>Manager Name:</strong> {managerName || auth.user.username}
       </Typography>
-      <Typography variant="body1" sx={{ color: "#aaa", marginBottom: "30px" }}>
-        <strong>Team:</strong> {auth.team ? auth.team.name : selectedTeam}
-      </Typography>
+      {selectedTeam && (
+        <Typography variant="body1" sx={{ color: "#aaa", marginBottom: "30px" }}>
+          <strong>Team:</strong> {auth.team ? auth.team.name : selectedTeam}
+        </Typography>
+      )}
       <Typography variant="body1" sx={{ color: "#aaa", marginBottom: "10px" }}>
         <strong>League:</strong>{" "}
         {teamLogos[selectedLeague]?.leagueName || "N/A"}
@@ -93,9 +101,17 @@ const ConfirmationScreen = ({
           onClick={handleConfirm}
           sx={{ backgroundColor: "#487748", color: "#fff" }}
         >
-          Confirm and Start Game
+          {selectedTeam ? "Confirm and Start Game" : "Skip Team Assignment"}
         </Button>
       </Box>
+
+      {allowSkip && (
+        <Box sx={{ marginTop: 2 }}>
+          <Typography variant="body2" color="textSecondary">
+            You can assign a team later from the Manage tab.
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };

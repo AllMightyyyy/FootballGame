@@ -1,5 +1,8 @@
 package com.example.Player.controllers;
 
+import com.example.Player.DTO.RegisterResponseDTO;
+import com.example.Player.DTO.TeamDTO;
+import com.example.Player.DTO.UserDTO;
 import com.example.Player.models.User;
 import com.example.Player.services.UserService;
 import com.example.Player.utils.JwtUtil;
@@ -43,32 +46,7 @@ public class AuthController {
                     return ResponseEntity.status(401).body(errorResponse);
                 });
     }
-
     // Registration endpoint
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> registerRequest) {
-        String username = registerRequest.get("username");
-        String email = registerRequest.get("email");
-        String password = registerRequest.get("password");
-
-        try {
-            User newUser = userService.registerUser(username, email, password);
-            return ResponseEntity.ok(newUser);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @GetMapping("/check-username")
-    public ResponseEntity<?> checkUsername(@RequestParam String username) {
-        boolean isAvailable = userService.isUsernameAvailable(username);
-        if (isAvailable) {
-            return ResponseEntity.ok("Username is available");
-        } else {
-            return ResponseEntity.badRequest().body("Username is already taken");
-        }
-    }
-
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -93,15 +71,63 @@ public class AuthController {
         String username = jwtUtil.getUsernameFromToken(token);
         return userService.findByUsername(username)
                 .map(user -> {
-                    // Returning the user directly
-                    return ResponseEntity.ok(user);
+                    // Convert User to UserDTO
+                    UserDTO userDTO = convertToUserDTO(user);
+                    return ResponseEntity.ok(userDTO);
                 })
                 .orElseGet(() -> {
                     Map<String, String> errorResponse = new HashMap<>();
                     errorResponse.put("error", "User not found");
-                    return ResponseEntity.status(404).body((User) errorResponse);
+                    return ResponseEntity.status(404).body((UserDTO) errorResponse);
                 });
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Map<String, String> registerRequest) {
+        String username = registerRequest.get("username");
+        String email = registerRequest.get("email");
+        String password = registerRequest.get("password");
 
+        try {
+            User newUser = userService.registerUser(username, email, password);
+
+            // Generate JWT token for the new user
+            String token = jwtUtil.generateToken(newUser.getUsername());
+
+            // Convert User to UserDTO
+            UserDTO userDTO = convertToUserDTO(newUser);
+
+            // Create RegisterResponseDTO
+            RegisterResponseDTO responseDTO = new RegisterResponseDTO(token, userDTO);
+
+            return ResponseEntity.ok(responseDTO);
+        } catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    @GetMapping("/check-username")
+    public ResponseEntity<?> checkUsername(@RequestParam String username) {
+        boolean isAvailable = userService.isUsernameAvailable(username);
+        Map<String, Object> response = new HashMap<>();
+        response.put("available", isAvailable);
+        if (!isAvailable) {
+            String suggestedUsername = userService.suggestUsername(username);
+            response.put("suggestedUsername", suggestedUsername);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    // Utility method to convert User to UserDTO
+    private UserDTO convertToUserDTO(User user) {
+        if (user.getTeam() != null) {
+            // Retrieve league code via League relationship
+            String leagueCode = user.getTeam().getLeague().getCode();
+            TeamDTO teamDTO = new TeamDTO(user.getTeam().getId(), user.getTeam().getName(), leagueCode);
+            return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), teamDTO);
+        }
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), null);
+    }
 }

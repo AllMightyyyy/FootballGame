@@ -20,17 +20,22 @@ const Game = () => {
 
   const handleAssignTeam = async () => {
     try {
-      const response = await apiAssignTeam(selectedLeague, selectedTeam);
-      alert(response.message);
+      if (selectedTeam) {
+        const response = await apiAssignTeam(selectedLeague, selectedTeam);
+        alert(response.message);
 
-      // Fetch the assigned team
-      const teamResponse = await getAssignedTeam();
-      if (teamResponse.team) {
-        updateTeam(teamResponse.team);
+        // Fetch the assigned team
+        const teamResponse = await getAssignedTeam();
+        if (teamResponse.team) {
+          updateTeam(teamResponse.team);
+        }
+
+        // Finalize onboarding and navigate to the main game interface
+        navigate("/");
+      } else {
+        // If no team is selected, allow skipping
+        navigate("/");
       }
-
-      // Finalize onboarding and navigate to the main game interface
-      navigate("/");
     } catch (error) {
       console.error("Error assigning team:", error);
       alert(error.response?.data?.message || "Failed to assign team.");
@@ -101,7 +106,7 @@ const Game = () => {
             onNext={handleAssignTeam}
             onPrevious={handlePreviousStep}
             selectedLeague={selectedLeague}
-            setSelectedLeague={setSelectedLeague} // Correct this to use setSelectedLeague
+            setSelectedLeague={setSelectedLeague}
             setSelectedTeam={setSelectedTeam}
           />
         </LeagueProvider>
@@ -113,6 +118,7 @@ const Game = () => {
           onConfirm={handleStartGame}
           onPrevious={handlePreviousStep}
           selectedLeague={selectedLeague}
+          allowSkip={true} // Allow skipping team assignment
         />
       )}
     </Box>
