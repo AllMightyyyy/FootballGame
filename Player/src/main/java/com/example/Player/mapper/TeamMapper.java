@@ -1,6 +1,6 @@
 // src/main/java/com/example/Player/utils/TeamMapper.java
 
-package com.example.Player.utils;
+package com.example.Player.mapper;
 
 import com.example.Player.DTO.TeamDTO;
 import com.example.Player.models.Team;

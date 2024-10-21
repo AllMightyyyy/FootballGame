@@ -2,10 +2,16 @@ package com.example.Player.controllers;
 
 import com.example.Player.models.FantasyTeam;
 import com.example.Player.models.SpyReport;
+import com.example.Player.models.User;
+import com.example.Player.services.FantasyTeamService;
+import com.example.Player.services.SpyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 

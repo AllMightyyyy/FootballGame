@@ -1,9 +1,13 @@
+// FantasyTeam.java
 package com.example.Player.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "fantasy_teams")
@@ -13,97 +17,72 @@ public class FantasyTeam {
     private Long id;
 
     private String teamName;
-
-    private double balance; // Controlled by the team's stature, sponsors, etc.
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fantasy_league_id", nullable = false)
-    private FantasyLeague fantasyLeague;
+    private double balance;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
-    private User owner; // One-to-one relationship with User
-
-    @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FantasyPlayer> players = new ArrayList<>();
-
-    @Embedded
-    private Lineup lineup; // Composition of formation, specialists, starting 11, substitutes
+    private User owner;
 
     @ManyToOne
-    @JoinColumn(name = "stadium_id")
-    private Stadium stadium;
+    @JoinColumn(name = "fantasy_league_id")
+    private FantasyLeague fantasyLeague;
+
+    @ManyToMany
+    @JoinTable(
+            name = "team_achievements",
+            joinColumns = @JoinColumn(name = "fantasy_team_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id")
+    )
+    private Set<Achievement> achievements = new HashSet<>();
+
+    @Embedded
+    private Lineup lineup;
 
     @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sponsor> sponsors = new ArrayList<>();
 
-    private String objective; // e.g., "Win the League", "Qualify for Champions League"
+    @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Objective> objectives = new ArrayList<>();
 
-    // Additional fields for objectives, income sources, etc.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stadium_id")
+    private Stadium stadium;
 
+    @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FantasyPlayer> players = new ArrayList<>();
 
+    // Constructors
     public FantasyTeam() {
     }
 
-    public FantasyTeam(String teamName, Long id, double balance, FantasyLeague fantasyLeague, User owner, List<FantasyPlayer> players, Lineup lineup, Stadium stadium, List<Sponsor> sponsors, String objective) {
-        this.teamName = teamName;
-        this.id = id;
-        this.balance = balance;
-        this.fantasyLeague = fantasyLeague;
-        this.owner = owner;
-        this.players = players;
-        this.lineup = lineup;
-        this.stadium = stadium;
-        this.sponsors = sponsors;
-        this.objective = objective;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
+    // Getters and Setters
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTeamName() {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public User getOwner() {
+        return owner;
     }
 
     public FantasyLeague getFantasyLeague() {
         return fantasyLeague;
     }
 
-    public void setFantasyLeague(FantasyLeague fantasyLeague) {
-        this.fantasyLeague = fantasyLeague;
+    public Set<Achievement> getAchievements() {
+        return achievements;
     }
 
-    public List<FantasyPlayer> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<FantasyPlayer> players) {
-        this.players = players;
+    public void setAchievements(Set<Achievement> achievements) {
+        this.achievements = achievements;
     }
 
     public Lineup getLineup() {
@@ -114,14 +93,6 @@ public class FantasyTeam {
         this.lineup = lineup;
     }
 
-    public Stadium getStadium() {
-        return stadium;
-    }
-
-    public void setStadium(Stadium stadium) {
-        this.stadium = stadium;
-    }
-
     public List<Sponsor> getSponsors() {
         return sponsors;
     }
@@ -130,11 +101,45 @@ public class FantasyTeam {
         this.sponsors = sponsors;
     }
 
-    public String getObjective() {
-        return objective;
+    public List<Objective> getObjectives() {
+        return objectives;
     }
 
-    public void setObjective(String objective) {
-        this.objective = objective;
+    public void setObjectives(List<Objective> objectives) {
+        this.objectives = objectives;
     }
+
+    public Stadium getStadium() {
+        return stadium;
+    }
+
+    public void setStadium(Stadium stadium) {
+        this.stadium = stadium;
+    }
+
+    public List<FantasyPlayer> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<FantasyPlayer> players) {
+        this.players = players;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public void setFantasyLeague(FantasyLeague fantasyLeague) {
+        this.fantasyLeague = fantasyLeague;
+    }
+
+    // Additional methods as needed
 }

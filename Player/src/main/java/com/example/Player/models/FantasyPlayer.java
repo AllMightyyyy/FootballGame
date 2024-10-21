@@ -1,6 +1,8 @@
+// FantasyPlayer.java
 package com.example.Player.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "fantasy_players")
@@ -13,50 +15,35 @@ public class FantasyPlayer {
     @JoinColumn(name = "real_player_id", nullable = false)
     private Player realPlayer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fantasy_league_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "fantasy_league_id")
     private FantasyLeague fantasyLeague;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fantasy_team_id")
-    private FantasyTeam fantasyTeam; // Null if free agent
+    private FantasyTeam fantasyTeam;
 
-    private double price; // Market price for transfers
+    private double price;
 
-    private boolean isInjured = false;
+    private double stamina;
 
-    private double stamina; // Value between 0 and 100
+    private boolean injured;
 
-    // Additional fields like position-specific stats
+    private boolean assigned;
 
+    // Specialist Fields
+    private boolean penaltyTaker;
+    private boolean cornerTaker;
+    private boolean freeKickTaker;
 
+    // Constructors
     public FantasyPlayer() {
     }
 
-    public FantasyPlayer(double stamina, boolean isInjured, double price, FantasyTeam fantasyTeam, FantasyLeague fantasyLeague, Player realPlayer, Long id) {
-        this.stamina = stamina;
-        this.isInjured = isInjured;
-        this.price = price;
-        this.fantasyTeam = fantasyTeam;
-        this.fantasyLeague = fantasyLeague;
-        this.realPlayer = realPlayer;
-        this.id = id;
-    }
+    // Getters and Setters
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean isInjured() {
-        return isInjured;
-    }
-
-    public void setInjured(boolean injured) {
-        isInjured = injured;
     }
 
     public Player getRealPlayer() {
@@ -98,4 +85,46 @@ public class FantasyPlayer {
     public void setStamina(double stamina) {
         this.stamina = stamina;
     }
+
+    public boolean isInjured() {
+        return injured;
+    }
+
+    public void setInjured(boolean injured) {
+        this.injured = injured;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+    }
+
+    public boolean isPenaltyTaker() {
+        return penaltyTaker;
+    }
+
+    public void setPenaltyTaker(boolean penaltyTaker) {
+        this.penaltyTaker = penaltyTaker;
+    }
+
+    public boolean isCornerTaker() {
+        return cornerTaker;
+    }
+
+    public void setCornerTaker(boolean cornerTaker) {
+        this.cornerTaker = cornerTaker;
+    }
+
+    public boolean isFreeKickTaker() {
+        return freeKickTaker;
+    }
+
+    public void setFreeKickTaker(boolean freeKickTaker) {
+        this.freeKickTaker = freeKickTaker;
+    }
+
+    // Additional methods as needed
 }

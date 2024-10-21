@@ -355,5 +355,9 @@ public class Player {
     public void setGoalkeepingSpeed(int goalkeepingSpeed) {
         this.goalkeepingSpeed = goalkeepingSpeed;
     }
+
+    public String getName() {
+        return longName;
+    }
 }
 

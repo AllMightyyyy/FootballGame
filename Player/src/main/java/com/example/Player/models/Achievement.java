@@ -1,9 +1,11 @@
+// Achievement.java
 package com.example.Player.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "achievements")
@@ -12,53 +14,48 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
     private String description;
 
     @ManyToMany(mappedBy = "achievements")
-    private List<FantasyTeam> fantasyTeams = new ArrayList<>();
+    private Set<FantasyTeam> fantasyTeams = new HashSet<>();
 
+    private boolean achieved;
+
+    // Constructors
     public Achievement() {
     }
 
-    public Achievement(Long id, String name, String description, List<FantasyTeam> fantasyTeams) {
-        this.id = id;
-        this.name = name;
+    public Achievement(String description) {
         this.description = description;
-        this.fantasyTeams = fantasyTeams;
+        this.achieved = false;
     }
 
     // Getters and Setters
-
-    public List<FantasyTeam> getFantasyTeams() {
-        return fantasyTeams;
-    }
-
-    public void setFantasyTeams(List<FantasyTeam> fantasyTeams) {
-        this.fantasyTeams = fantasyTeams;
+    public Long getId() {
+        return id;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public Set<FantasyTeam> getFantasyTeams() {
+        return fantasyTeams;
+    }
+
+    public void setFantasyTeams(Set<FantasyTeam> fantasyTeams) {
+        this.fantasyTeams = fantasyTeams;
+    }
+
+    public boolean isAchieved() {
+        return achieved;
+    }
+
+    public void setAchieved(boolean achieved) {
+        this.achieved = achieved;
+    }
+
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

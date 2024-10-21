@@ -1,6 +1,6 @@
 // src/main/java/com/example/Player/utils/LeagueMapper.java
 
-package com.example.Player.utils;
+package com.example.Player.mapper;
 
 import com.example.Player.DTO.LeagueDTO;
 import com.example.Player.DTO.MatchDTO;

@@ -4,7 +4,6 @@ import com.example.Player.models.FantasyPlayer;
 import com.example.Player.models.FantasyTeam;
 import com.example.Player.models.TransferList;
 import com.example.Player.models.TransferStatus;
-import com.example.Player.repository.TransferListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,6 @@ public class TransferService {
 
     @Autowired
     private FantasyTeamService fantasyTeamService;
-
-    @Autowired
-    private TransactionService transactionService;
 
     public void listPlayerForSale(FantasyTeam fantasyTeam, Long fantasyPlayerId, double price) throws Exception {
         FantasyPlayer fantasyPlayer = fantasyPlayerService.getFantasyPlayer(fantasyPlayerId)

@@ -2,6 +2,7 @@ package com.example.Player.scheduler;
 
 import com.example.Player.services.FantasyPlayerService;
 import com.example.Player.services.MatchSimulationService;
+import com.example.Player.services.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

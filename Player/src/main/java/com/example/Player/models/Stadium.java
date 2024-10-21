@@ -18,6 +18,10 @@ public class Stadium {
     @JoinColumn(name = "fantasy_team_id", nullable = false)
     private FantasyTeam fantasyTeam;
 
+    private int capacityLevel;
+    private int pitchLevel;
+    private int trainingLevel;
+
     public Stadium() {
     }
 
@@ -78,5 +82,29 @@ public class Stadium {
 
     public void setFantasyTeam(FantasyTeam fantasyTeam) {
         this.fantasyTeam = fantasyTeam;
+    }
+
+    public int getTrainingLevel() {
+        return trainingLevel;
+    }
+
+    public void setTrainingLevel(int trainingLevel) {
+        this.trainingLevel = trainingLevel;
+    }
+
+    public int getPitchLevel() {
+        return pitchLevel;
+    }
+
+    public void setPitchLevel(int pitchLevel) {
+        this.pitchLevel = pitchLevel;
+    }
+
+    public int getCapacityLevel() {
+        return capacityLevel;
+    }
+
+    public void setCapacityLevel(int capacityLevel) {
+        this.capacityLevel = capacityLevel;
     }
 }

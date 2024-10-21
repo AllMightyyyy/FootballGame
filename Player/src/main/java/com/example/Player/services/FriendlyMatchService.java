@@ -1,6 +1,8 @@
+// FriendlyMatchService.java
 package com.example.Player.services;
 
 import com.example.Player.DTO.FantasyMatchSimulationRequest;
+import com.example.Player.models.FantasyMatch;
 import com.example.Player.models.FantasyTeam;
 import com.example.Player.models.FriendlyMatch;
 import com.example.Player.repository.FriendlyMatchRepository;
@@ -13,6 +15,9 @@ import java.time.LocalDateTime;
 public class FriendlyMatchService {
 
     @Autowired
+    private MatchSimulationService matchSimulationService;
+
+    @Autowired
     private FriendlyMatchRepository friendlyMatchRepository;
 
     @Autowired
@@ -21,7 +26,17 @@ public class FriendlyMatchService {
     @Autowired
     private FantasyTeamService fantasyTeamService;
 
-    public FriendlyMatch requestFriendlyMatch(FantasyTeam requester, FantasyTeam target) {
+    @Autowired
+    private RefereeService refereeService;
+
+    /**
+     * Requests a friendly match between two fantasy teams.
+     */
+    public FriendlyMatch requestFriendlyMatch(FantasyTeam requester, FantasyTeam target) throws Exception {
+        if (requester.equals(target)) {
+            throw new Exception("Cannot request a friendly match against yourself.");
+        }
+
         FriendlyMatch friendlyMatch = new FriendlyMatch();
         friendlyMatch.setTeam1(requester);
         friendlyMatch.setTeam2(target);
@@ -31,6 +46,9 @@ public class FriendlyMatchService {
         return friendlyMatch;
     }
 
+    /**
+     * Accepts a friendly match request.
+     */
     public void acceptFriendlyMatch(Long matchId) throws Exception {
         FriendlyMatch friendlyMatch = friendlyMatchRepository.findById(matchId)
                 .orElseThrow(() -> new Exception("Friendly Match not found."));
@@ -44,6 +62,9 @@ public class FriendlyMatchService {
         friendlyMatchRepository.save(friendlyMatch);
     }
 
+    /**
+     * Simulates the friendly match.
+     */
     public void simulateFriendlyMatch(Long matchId) throws Exception {
         FriendlyMatch friendlyMatch = friendlyMatchRepository.findById(matchId)
                 .orElseThrow(() -> new Exception("Friendly Match not found."));
@@ -56,8 +77,8 @@ public class FriendlyMatchService {
         request.setRealLeague(friendlyMatch.getTeam1().getFantasyLeague().getRealLeague());
         request.setUser1(friendlyMatch.getTeam1().getOwner());
         request.setUser2(friendlyMatch.getTeam2().getOwner());
-        request.setTactics1(friendlyMatch.getTeam1().getCurrentTactics());
-        request.setTactics2(friendlyMatch.getTeam2().getCurrentTactics());
+        request.setTactics1(friendlyMatch.getTeam1().getLineup().getTactics());
+        request.setTactics2(friendlyMatch.getTeam2().getLineup().getTactics());
         request.setReferee(refereeService.assignRefereeToMatch());
 
         matchSimulationService.simulateMatch(request);
@@ -66,5 +87,5 @@ public class FriendlyMatchService {
         friendlyMatchRepository.save(friendlyMatch);
     }
 
-    // Additional methods like declineFriendlyMatch, viewFriendlyMatches, etc.
+    // Additional methods like declineFriendlyMatch, viewFriendlyMatches, etc., can be added here
 }

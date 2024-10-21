@@ -1,9 +1,7 @@
 package com.example.Player.services;
 
-import com.example.Player.models.CoachType;
-import com.example.Player.models.FantasyPlayer;
-import com.example.Player.models.FantasyTeam;
-import com.example.Player.models.TrainingSession;
+import com.example.Player.models.*;
+import com.example.Player.repository.TrainingSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,24 @@ public class TrainingService {
 
     @Autowired
     private FantasyTeamService fantasyTeamService;
+
+    public void startTrainingSession(FantasyTeam fantasyTeam, FantasyPlayer player, CoachType coachType) throws Exception {
+        // Check if the player is already in training
+        boolean isTraining = trainingSessionRepository.existsByFantasyPlayerAndEndTimeAfter(player, LocalDateTime.now());
+        if (isTraining) {
+            throw new Exception("Player is already in a training session.");
+        }
+
+        // Create new training session
+        TrainingSession session = new TrainingSession();
+        session.setFantasyTeam(fantasyTeam);
+        session.setFantasyPlayer(player);
+        session.setCoachType(coachType);
+        session.setStartTime(LocalDateTime.now());
+        session.setEndTime(LocalDateTime.now().plusHours(8));
+
+        trainingSessionRepository.save(session);
+    }
 
     public void startTraining(FantasyTeam fantasyTeam, Long fantasyPlayerId, CoachType coachType) throws Exception {
         FantasyPlayer fantasyPlayer = fantasyPlayerService.getFantasyPlayer(fantasyPlayerId)
@@ -49,6 +65,39 @@ public class TrainingService {
         trainingSession.setEndTime(LocalDateTime.now().plusHours(8)); // 8-hour training
 
         trainingSessionRepository.save(trainingSession);
+    }
+
+    public void processTrainingSessions() {
+        List<TrainingSession> completedSessions = trainingSessionRepository.findByEndTimeBefore(LocalDateTime.now());
+        for (TrainingSession session : completedSessions) {
+            FantasyPlayer player = session.getFantasyPlayer();
+            applyTrainingEffects(player, session.getCoachType());
+            player.setStamina(player.getStamina() - 5); // Reduce stamina
+            fantasyPlayerService.saveFantasyPlayer(player);
+            trainingSessionRepository.delete(session);
+        }
+    }
+
+    private void applyTrainingEffects(FantasyPlayer player, CoachType coachType) {
+        Player realPlayer = player.getRealPlayer();
+        switch (coachType) {
+            case DEFENDING:
+                realPlayer.setDefending(realPlayer.getDefending() + 1);
+                break;
+                /*
+            case GOALKEEPING:
+                realPlayer.setGoalkeeping(realPlayer.getGoalkeeping() + 1);
+                break;
+                TODO -> Implement setGoalKeeping
+                 */
+            case ATTACKING:
+                realPlayer.setShooting(realPlayer.getShooting() + 1);
+                break;
+            case MIDFIELD:
+                realPlayer.setPassing(realPlayer.getPassing() + 1);
+                break;
+        }
+        // Save the updated real player if necessary
     }
 
     public void processCompletedTraining() {
@@ -82,9 +131,12 @@ public class TrainingService {
             case DEFENDING:
                 realPlayer.setDefending(realPlayer.getDefending() + 1);
                 break;
-            case GOALKEEPING:
+            /*
+                case GOALKEEPING:
                 realPlayer.setGoalkeeping(realPlayer.getGoalkeeping() + 1);
                 break;
+                TODO -> add goalkeeping set methods
+             */
             case ATTACKING:
                 realPlayer.setShooting(realPlayer.getShooting() + 1);
                 break;

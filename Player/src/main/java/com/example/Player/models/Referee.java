@@ -1,8 +1,10 @@
+// Referee.java
 package com.example.Player.models;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "referees")
 public class Referee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +15,8 @@ public class Referee {
     @Enumerated(EnumType.STRING)
     private RefereeLeniency leniency;
 
+    // Constructors, Getters, and Setters
+
     public Referee() {
     }
 
@@ -22,29 +26,19 @@ public class Referee {
         this.leniency = leniency;
     }
 
-    // Getters and Setters
+    // Getters and Setters...
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public RefereeLeniency getType() {
-        return leniency;
-    }
-
-    public void setType(RefereeLeniency type) {
-        this.leniency = type;
+    /**
+     * Converts leniency to a numerical factor for simulation impact.
+     */
+    public double getLeniencyFactor() {
+        switch (leniency) {
+            case LENIENT:
+                return 0.8;
+            case STRICT:
+                return 1.2;
+            default:
+                return 1.0;
+        }
     }
 }
