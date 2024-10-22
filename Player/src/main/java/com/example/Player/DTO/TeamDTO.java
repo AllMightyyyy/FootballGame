@@ -16,8 +16,6 @@ public class TeamDTO {
         this.leagueCode = leagueCode;
     }
 
-
-
     // Getters and Setters
 
     public Long getId() { return id; }
@@ -25,4 +23,12 @@ public class TeamDTO {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public String getLeagueCode() {
+        return leagueCode;
+    }
+
+    public void setLeagueCode(String leagueCode) {
+        this.leagueCode = leagueCode;
+    }
 }

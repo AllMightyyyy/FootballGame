@@ -14,7 +14,7 @@ public class Stadium {
     private double pitchQuality;
     private double trainingFacilities;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "fantasy_team_id", nullable = false)
     private FantasyTeam fantasyTeam;
 

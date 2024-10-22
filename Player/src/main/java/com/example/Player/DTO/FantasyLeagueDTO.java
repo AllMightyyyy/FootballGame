@@ -8,7 +8,7 @@ public class FantasyLeagueDTO {
     private LeagueDTO realLeague;
     private List<TeamDTO> fantasyTeams;
     // Assuming you have FantasyPlayerDTO, otherwise omit or define it accordingly
-    // private List<FantasyPlayerDTO> availablePlayers;
+    private List<FantasyPlayerDTO> availablePlayers;
 
     // Constructors
     public FantasyLeagueDTO() {}

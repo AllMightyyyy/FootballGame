@@ -1,6 +1,7 @@
 package com.example.Player.controllers;
 
 import com.example.Player.DTO.FantasyTeamChoiceRequest;
+import com.example.Player.DTO.FantasyTeamDTO;
 import com.example.Player.models.FantasyLeague;
 import com.example.Player.models.FantasyTeam;
 import com.example.Player.models.User;
@@ -34,11 +35,13 @@ public class FantasyTeamController {
     public ResponseEntity<?> chooseFantasyTeam(@AuthenticationPrincipal User user,
                                                @RequestBody FantasyTeamChoiceRequest request) {
         try {
-            FantasyLeague fantasyLeague = fantasyLeagueService.getFantasyLeagueByRealLeague(request.getRealLeague())
-                    .orElseThrow(() -> new Exception("Fantasy League not found for the given Real League."));
+            String realLeagueCode = request.getRealLeagueCode();
+            FantasyLeague fantasyLeague = fantasyLeagueService.getFantasyLeagueByRealLeagueCode(realLeagueCode)
+                    .orElseThrow(() -> new Exception("Fantasy League not found for the given Real League code: " + realLeagueCode));
 
-            FantasyTeam fantasyTeam = fantasyTeamService.chooseFantasyTeam(user, request.getTeamName(), fantasyLeague);
-            return ResponseEntity.ok(fantasyTeam);
+            // Return DTO instead of entity
+            FantasyTeamDTO fantasyTeamDTO = fantasyTeamService.chooseFantasyTeam(user, request.getTeamName(), fantasyLeague);
+            return ResponseEntity.ok(fantasyTeamDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }

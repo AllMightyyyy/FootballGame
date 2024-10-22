@@ -1,6 +1,10 @@
 // FantasyTeamService.java
 package com.example.Player.services;
 
+import com.example.Player.DTO.FantasyLeagueDTO;
+import com.example.Player.DTO.FantasyTeamDTO;
+import com.example.Player.DTO.TeamDTO;
+import com.example.Player.DTO.UserDTO;
 import com.example.Player.models.*;
 import com.example.Player.repository.FantasyLeagueRepository;
 import com.example.Player.repository.FantasyTeamRepository;
@@ -34,30 +38,39 @@ public class FantasyTeamService {
     @Autowired
     private AchievementService achievementService;
 
-    /**
-     * Assigns a fantasy team to a user.
-     */
-    public FantasyTeam chooseFantasyTeam(User user, String teamName, FantasyLeague fantasyLeague) throws Exception {
+    @Autowired
+    private TeamService teamService;
+
+    public FantasyTeamDTO chooseFantasyTeam(User user, String teamName, FantasyLeague fantasyLeague) throws Exception {
+        // Check if user already has a fantasy team
         if (fantasyTeamRepository.findByOwner(user).isPresent()) {
             throw new Exception("User already has a Fantasy Team.");
         }
 
+        // Check if the team name is already taken in this Fantasy League
         if (fantasyTeamRepository.existsByFantasyLeagueAndTeamName(fantasyLeague, teamName)) {
             throw new Exception("Team name already taken in this Fantasy League.");
         }
 
+        // Fetch the actual team by its name (assuming teamService provides this functionality)
+        Team team = teamService.getTeamByName(teamName)
+                .orElseThrow(() -> new Exception("Team not found: " + teamName));
+
+        // Create the FantasyTeam and related entities
         FantasyTeam fantasyTeam = new FantasyTeam();
         fantasyTeam.setTeamName(teamName);
+        fantasyTeam.setTeam(team);  // Set the team here
         fantasyTeam.setFantasyLeague(fantasyLeague);
         fantasyTeam.setOwner(user);
         fantasyTeam.setBalance(determineInitialBalance(teamName, fantasyLeague));
 
-        // Initialize stadium, sponsors, objectives, lineup, etc., as needed
+        // Initialize stadium, sponsors, objectives, lineup, etc.
         initializeFantasyTeamComponents(fantasyTeam);
 
+        // Save the FantasyTeam, cascading will save related entities
         fantasyTeamRepository.save(fantasyTeam);
 
-        return fantasyTeam;
+        return mapToDTO(fantasyTeam);
     }
 
     /**
@@ -78,21 +91,30 @@ public class FantasyTeamService {
         stadium.setCapacity(50000); // Default capacity
         stadium.setPitchQuality(1.0);
         stadium.setTrainingFacilities(1.0);
-        stadium.setFantasyTeam(fantasyTeam);
-        stadiumRepository.save(stadium);
-        fantasyTeam.setStadium(stadium);
+        stadium.setFantasyTeam(fantasyTeam); // Set the team for the stadium
+        fantasyTeam.setStadium(stadium); // Set the stadium in the team
 
-        // Initialize sponsors (optional)
-        // Example: Assign default sponsors or leave empty
+        // Initialize objectives
+        Objective objective = new Objective();
+        objective.setDescription("Win the League");
+        objective.setFantasyTeam(fantasyTeam); // Link the objective to the team
+        fantasyTeam.getObjectives().add(objective);
 
-        // Assign objectives based on team stature
-        // For demonstration, assign a generic objective
-        objectiveService.assignObjective(fantasyTeam, "Win the League");
-
-        // Initialize lineup with default formation
+        // Initialize lineup
         Lineup lineup = new Lineup();
         lineup.setFormation("4-3-3");
         fantasyTeam.setLineup(lineup);
+    }
+
+    /**
+     * Converts a FantasyTeam entity to FantasyTeamDTO.
+     */
+    public FantasyTeamDTO mapToDTO(FantasyTeam fantasyTeam) {
+        TeamDTO teamDTO = new TeamDTO(fantasyTeam.getTeam().getId(), fantasyTeam.getTeam().getName(), fantasyTeam.getTeam().getLeague().getCode());
+        UserDTO ownerDTO = new UserDTO(fantasyTeam.getOwner().getId(), fantasyTeam.getOwner().getUsername(), fantasyTeam.getOwner().getEmail(), null);
+        FantasyLeagueDTO leagueDTO = new FantasyLeagueDTO(fantasyTeam.getFantasyLeague().getId(), fantasyTeam.getFantasyLeague().getName(), null, null);
+
+        return new FantasyTeamDTO(fantasyTeam.getId(), fantasyTeam.getTeamName(), fantasyTeam.getBalance(), teamDTO, ownerDTO, leagueDTO);
     }
 
     /**

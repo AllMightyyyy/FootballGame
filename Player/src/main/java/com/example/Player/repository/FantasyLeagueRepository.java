@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface FantasyLeagueRepository extends JpaRepository<FantasyLeague, Long> {
     Optional<FantasyLeague> findByRealLeague(League realLeague);
+    Optional<FantasyLeague> findByRealLeague_Code(String code);
 }

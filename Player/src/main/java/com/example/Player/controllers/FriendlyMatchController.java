@@ -1,5 +1,7 @@
 package com.example.Player.controllers;
 
+import com.example.Player.DTO.FriendlyMatchDTO;
+import com.example.Player.mapper.FriendlyMatchMapper;
 import com.example.Player.models.FantasyTeam;
 import com.example.Player.models.FriendlyMatch;
 import com.example.Player.models.User;
@@ -36,7 +38,10 @@ public class FriendlyMatchController {
                     .orElseThrow(() -> new Exception("Target Fantasy Team not found."));
 
             FriendlyMatch friendlyMatch = friendlyMatchService.requestFriendlyMatch(requesterTeam, targetTeam);
-            return ResponseEntity.ok(friendlyMatch);
+
+            // Use the mapper to convert the entity to DTO
+            FriendlyMatchDTO friendlyMatchDTO = FriendlyMatchMapper.INSTANCE.toDTO(friendlyMatch);
+            return ResponseEntity.ok(friendlyMatchDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }

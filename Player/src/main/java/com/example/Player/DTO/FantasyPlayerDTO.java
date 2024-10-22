@@ -3,8 +3,7 @@ package com.example.Player.DTO;
 public class FantasyPlayerDTO {
     private Long id;
     private String name;
-    private String position;
-    // Add other relevant fields
+    private String position; // This will be a comma-separated list of positions
 
     // Constructors
     public FantasyPlayerDTO() {}
@@ -17,27 +16,27 @@ public class FantasyPlayerDTO {
 
     // Getters and Setters
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public String getName(){
-        return name;
-    }
-
-    public String getPosition(){
-        return position;
-    }
-
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name){
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setPosition(String position){
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
         this.position = position;
     }
 }

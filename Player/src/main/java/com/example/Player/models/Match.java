@@ -44,6 +44,11 @@ public class Match {
     @JoinColumn(name = "league_id")
     private League league;
 
+    // **Add the fantasyLeague field**
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fantasy_league_id")
+    private FantasyLeague fantasyLeague;
+
     private String status;
 
     public Match() {
@@ -129,5 +134,13 @@ public class Match {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public FantasyLeague getFantasyLeague() {
+        return fantasyLeague;
+    }
+
+    public void setFantasyLeague(FantasyLeague fantasyLeague) {
+        this.fantasyLeague = fantasyLeague;
     }
 }

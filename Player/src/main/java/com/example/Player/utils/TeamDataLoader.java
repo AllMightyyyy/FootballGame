@@ -1,7 +1,9 @@
-package com.example.Player.services;
+package com.example.Player.utils;
 
 import com.example.Player.models.League;
 import com.example.Player.models.Team;
+import com.example.Player.services.LeagueService;
+import com.example.Player.services.TeamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;

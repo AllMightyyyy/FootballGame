@@ -1,7 +1,6 @@
 package com.example.Player.models;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +25,23 @@ public class FantasyLeague {
     @OneToMany(mappedBy = "fantasyLeague", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FantasyPlayer> availablePlayers = new ArrayList<>();
 
-    // Additional fields like season, rules, budget caps can be added here
-
+    // **Add the matches field**
+    @OneToMany(mappedBy = "fantasyLeague", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Match> matches = new ArrayList<>();
 
     public FantasyLeague() {
     }
 
-    public FantasyLeague(List<FantasyPlayer> availablePlayers, List<FantasyTeam> fantasyTeams, League realLeague, String name, Long id) {
+    public FantasyLeague(List<FantasyPlayer> availablePlayers, List<FantasyTeam> fantasyTeams, League realLeague, String name, Long id, List<Match> matches) {
         this.availablePlayers = availablePlayers;
         this.fantasyTeams = fantasyTeams;
         this.realLeague = realLeague;
         this.name = name;
         this.id = id;
+        this.matches = matches;
     }
+
+    // Getters and setters
 
     public String getName() {
         return name;
@@ -78,5 +81,13 @@ public class FantasyLeague {
 
     public void setAvailablePlayers(List<FantasyPlayer> availablePlayers) {
         this.availablePlayers = availablePlayers;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 }

@@ -18,6 +18,11 @@ public class FantasyTeam {
     private Long id;
 
     private String teamName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team team;
+
     private double balance;
 
     @OneToOne
@@ -45,8 +50,7 @@ public class FantasyTeam {
     @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Objective> objectives = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stadium_id")
+    @OneToOne(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
     private Stadium stadium;
 
     @OneToMany(mappedBy = "fantasyTeam", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,6 +58,13 @@ public class FantasyTeam {
 
     // Constructors
     public FantasyTeam() {
+    }
+
+    public FantasyTeam(String teamName, Team team, FantasyLeague fantasyLeague, User owner) {
+        this.teamName = teamName;
+        this.team = team;
+        this.fantasyLeague = fantasyLeague;
+        this.owner = owner;
     }
 
     // Getters and Setters
@@ -145,5 +156,13 @@ public class FantasyTeam {
 
     public void setFantasyLeague(FantasyLeague fantasyLeague) {
         this.fantasyLeague = fantasyLeague;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

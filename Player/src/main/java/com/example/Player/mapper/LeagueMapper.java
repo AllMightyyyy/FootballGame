@@ -1,5 +1,3 @@
-// src/main/java/com/example/Player/utils/LeagueMapper.java
-
 package com.example.Player.mapper;
 
 import com.example.Player.DTO.LeagueDTO;
@@ -17,16 +15,18 @@ import org.mapstruct.factory.Mappers;
 import java.util.Arrays;
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")  // <-- Add this
 public interface LeagueMapper {
 
     LeagueMapper INSTANCE = Mappers.getMapper(LeagueMapper.class);
 
-    // Ignore the "standings" field in the mapping process
+    // Map 'league.code' to 'code' in LeagueDTO, ignoring the 'standings' field
+    @Mapping(source = "code", target = "code")
     @Mapping(target = "standings", ignore = true)
     LeagueDTO leagueToLeagueDTO(League league);
 
-    // Mapping for Team -> TeamDTO
+    // Mapping for Team -> TeamDTO with 'league.code' to 'leagueCode' in TeamDTO
+    @Mapping(source = "league.code", target = "leagueCode")
     TeamDTO teamToTeamDTO(Team team);
 
     // Correctly map Match -> MatchDTO and ensure the score is passed to scoreToScoreDTO
@@ -39,7 +39,7 @@ public interface LeagueMapper {
     // Map Score -> ScoreDTO, without referencing "match"
     @Mapping(target = "ht", expression = "java(mapHalfTimeScores(score))")
     @Mapping(target = "ft", expression = "java(mapFullTimeScores(score))")
-    ScoreDTO scoreToScoreDTO(Score score); // Only the Score object is passed here
+    ScoreDTO scoreToScoreDTO(Score score);
 
     // Custom method to map HT scores from the Score object
     default List<Integer> mapHalfTimeScores(Score score) {

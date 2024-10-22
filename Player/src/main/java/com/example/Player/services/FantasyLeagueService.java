@@ -1,55 +1,82 @@
 package com.example.Player.services;
 
-import com.example.Player.DTO.*;
+import com.example.Player.DTO.FantasyLeagueDTO;
+import com.example.Player.DTO.FantasyPlayerDTO;
+import com.example.Player.DTO.LeagueDTO;
+import com.example.Player.DTO.MatchDTO;
+import com.example.Player.DTO.TeamDTO;
+import com.example.Player.mapper.LeagueMapper;
 import com.example.Player.models.*;
 import com.example.Player.repository.FantasyLeagueRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
 public class FantasyLeagueService {
 
     @Autowired
-    private FantasyLeagueRepository fantasyLeagueRepository;
-
-    @Autowired
     private LeagueService leagueService;
 
     @Autowired
-    private PlayerService playerService;
+    private FantasyLeagueRepository fantasyLeagueRepository;
 
     @Autowired
-    private FantasyPlayerService fantasyPlayerService;
+    private TeamService teamService;
 
+    @Autowired
+    private LeagueMapper leagueMapper;
+
+    /**
+     * Create a Fantasy League based on a Real League.
+     */
+    @Transactional
     public FantasyLeagueDTO createFantasyLeague(String realLeagueCode, String fantasyLeagueName) throws Exception {
-        // Business logic to create a FantasyLeague
-        // 1. Fetch the real league by code
+        // Fetch the real league by code
         League realLeague = leagueService.getLeagueByCode(realLeagueCode)
                 .orElseThrow(() -> new Exception("Real League not found with code: " + realLeagueCode));
 
-        // 2. Check if a FantasyLeague already exists for this real league
+        // Check if Fantasy League already exists
         if (fantasyLeagueRepository.findByRealLeague(realLeague).isPresent()) {
             throw new Exception("Fantasy League already exists for this Real League.");
         }
 
-        // 3. Create and save the FantasyLeague entity
+        // Create the Fantasy League
         FantasyLeague fantasyLeague = new FantasyLeague();
         fantasyLeague.setName(fantasyLeagueName);
         fantasyLeague.setRealLeague(realLeague);
-        // Initialize other fields as necessary
 
+        // Copy and adjust matches
+        FantasyLeague finalFantasyLeague = fantasyLeague;
+        List<Match> fantasyMatches = realLeague.getMatches().stream()
+                .map(realMatch -> createFantasyMatchFromRealMatch(realMatch, finalFantasyLeague))
+                .collect(Collectors.toList());
+
+        fantasyLeague.setMatches(fantasyMatches);
         fantasyLeague = fantasyLeagueRepository.save(fantasyLeague);
 
-        // 4. Map FantasyLeague entity to FantasyLeagueDTO
-        FantasyLeagueDTO fantasyLeagueDTO = mapToDTO(fantasyLeague);
-
-        return fantasyLeagueDTO;
+        // Map to DTO and return using the custom method
+        return mapToDTO(fantasyLeague);
     }
 
+    // New method to get FantasyLeague by real league code
+    public Optional<FantasyLeague> getFantasyLeagueByRealLeagueCode(String realLeagueCode) {
+        return fantasyLeagueRepository.findByRealLeague_Code(realLeagueCode);
+    }
+
+    public Optional<FantasyLeague> getFantasyLeagueByRealLeague(League realLeague) {
+        // Use league code as it is unique to identify the FantasyLeague
+        return fantasyLeagueRepository.findByRealLeague_Code(realLeague.getCode());
+    }
+
+    /**
+     * Map FantasyLeague to FantasyLeagueDTO.
+     */
     private FantasyLeagueDTO mapToDTO(FantasyLeague fantasyLeague) {
         FantasyLeagueDTO dto = new FantasyLeagueDTO();
         dto.setId(fantasyLeague.getId());
@@ -61,19 +88,22 @@ public class FantasyLeagueService {
 
         // Map fantasyTeams
         List<TeamDTO> teamDTOs = fantasyLeague.getFantasyTeams().stream()
-                .map(this::mapTeamToDTO)
+                .map(this::mapFantasyTeamToDTO)
                 .collect(Collectors.toList());
         dto.setFantasyTeams(teamDTOs);
 
-        // Map availablePlayers if applicable
-        // List<FantasyPlayerDTO> playerDTOs = fantasyLeague.getAvailablePlayers().stream()
-        //         .map(this::mapFantasyPlayerToDTO)
-        //         .collect(Collectors.toList());
-        // dto.setAvailablePlayers(playerDTOs);
+        // Map availablePlayers
+        List<FantasyPlayerDTO> playerDTOs = fantasyLeague.getAvailablePlayers().stream()
+                .map(this::mapFantasyPlayerToDTO)
+                .collect(Collectors.toList());
+        dto.setAvailablePlayers(playerDTOs);
 
         return dto;
     }
 
+    /**
+     * Map League to LeagueDTO.
+     */
     private LeagueDTO mapLeagueToDTO(League league) {
         LeagueDTO dto = new LeagueDTO();
         dto.setName(league.getName());
@@ -86,15 +116,12 @@ public class FantasyLeagueService {
                 .collect(Collectors.toList());
         dto.setMatches(matchDTOs);
 
-        // Map standings if applicable
-        List<StandingDTO> standingDTOs = league.getStandings().stream()
-                .map(this::mapStandingToDTO)
-                .collect(Collectors.toList());
-        dto.setStandings(standingDTOs);
-
         return dto;
     }
 
+    /**
+     * Map Match to MatchDTO excluding score.
+     */
     private MatchDTO mapMatchToDTOExcludingScore(Match match) {
         MatchDTO dto = new MatchDTO();
         dto.setRound(match.getRound());
@@ -102,72 +129,82 @@ public class FantasyLeagueService {
         dto.setTime(match.getTime().toString());
         dto.setTeam1(match.getTeam1().getName());
         dto.setTeam2(match.getTeam2().getName());
-        dto.setStatus(match.getStatus()); // Assuming Match has a status field
+        dto.setStatus(match.getStatus());
         // Exclude score by not setting it
         return dto;
     }
 
-    private TeamDTO mapTeamToDTO(Team team) {
+    private TeamDTO mapFantasyTeamToDTO(FantasyTeam fantasyTeam) {
         TeamDTO dto = new TeamDTO();
+        // Assuming FantasyTeam has a getTeam() method to access the Team entity
+        Team team = fantasyTeam.getTeam(); // Adjust this line based on your actual entity structure
         dto.setId(team.getId());
         dto.setName(team.getName());
         dto.setLeagueCode(team.getLeague().getCode());
         return dto;
     }
 
-    private StandingDTO mapStandingToDTO(Standing standing) {
-        StandingDTO dto = new StandingDTO();
-        dto.setTeamName(standing.getTeamName());
-        dto.setPlayed(standing.getPlayed());
-        dto.setWin(standing.getWin());
-        dto.setDraw(standing.getDraw());
-        dto.setLoss(standing.getLoss());
-        dto.setGoalsFor(standing.getGoalsFor());
-        dto.setGoalsAgainst(standing.getGoalsAgainst());
-        dto.setGoalDifference(standing.getGoalDifference());
-        dto.setPoints(standing.getPoints());
-        return dto;
-    }
-
-    // If you have FantasyPlayerDTO
-    /*
     private FantasyPlayerDTO mapFantasyPlayerToDTO(FantasyPlayer fantasyPlayer) {
         FantasyPlayerDTO dto = new FantasyPlayerDTO();
         dto.setId(fantasyPlayer.getId());
-        dto.setName(fantasyPlayer.getName());
-        dto.setPosition(fantasyPlayer.getPosition());
-        // Map other fields as necessary
-        return dto;
-    }
-    */
 
-    private void clonePlayers(League realLeague, FantasyLeague fantasyLeague) {
-        List<Player> realPlayers = playerService.getPlayersByLeague(realLeague);
-        for (Player realPlayer : realPlayers) {
-            FantasyPlayer fantasyPlayer = new FantasyPlayer();
-            fantasyPlayer.setRealPlayer(realPlayer);
-            fantasyPlayer.setFantasyLeague(fantasyLeague);
-            fantasyPlayer.setPrice(calculatePlayerPrice(realPlayer));
-            fantasyPlayer.setStamina(100.0);
-            fantasyPlayerService.saveFantasyPlayer(fantasyPlayer);
+        // Access name and positions through the associated realPlayer
+        if (fantasyPlayer.getRealPlayer() != null) {
+            dto.setName(fantasyPlayer.getRealPlayer().getLongName());
+            // Join the list of positions into a comma-separated string
+            dto.setPosition(String.join(", ", fantasyPlayer.getRealPlayer().getPositionsList()));
+        } else {
+            dto.setName("Unknown Player");
+            dto.setPosition("Unknown Position");
         }
-    }
 
-    private double calculatePlayerPrice(Player player) {
-        // Example pricing logic based on player stats
-        return (player.getOverall() + player.getPotential()) * 1000;
-    }
+        // Map other necessary fields from FantasyPlayer if required
+        // For example:
+        // dto.setPrice(fantasyPlayer.getPrice());
+        // dto.setStamina(fantasyPlayer.getStamina());
+        // dto.setInjured(fantasyPlayer.isInjured());
+        // dto.setAssigned(fantasyPlayer.isAssigned());
+        // dto.setPenaltyTaker(fantasyPlayer.isPenaltyTaker());
+        // dto.setCornerTaker(fantasyPlayer.isCornerTaker());
+        // dto.setFreeKickTaker(fantasyPlayer.isFreeKickTaker());
 
-    public Optional<FantasyLeague> getFantasyLeagueByRealLeague(League realLeague) {
-        return fantasyLeagueRepository.findByRealLeague(realLeague);
+        return dto;
     }
 
     /**
-     * Added method to get all fantasy leagues.
+     * Create a Fantasy Match based on a Real Match.
      */
-    public List<FantasyLeague> getAllLeagues() {
-        return fantasyLeagueRepository.findAll();
+    private Match createFantasyMatchFromRealMatch(Match realMatch, FantasyLeague fantasyLeague) {
+        Match fantasyMatch = new Match();
+        fantasyMatch.setRound(realMatch.getRound());
+        fantasyMatch.setDate(realMatch.getDate());
+        fantasyMatch.setTeam1(realMatch.getTeam1());
+        fantasyMatch.setTeam2(realMatch.getTeam2());
+
+        // Assign default or random time if the real match has no time
+        if (realMatch.getTime() == null || realMatch.getTime().isEmpty()) {
+            fantasyMatch.setTime(generateRandomTime()); // Generate random time
+        } else {
+            fantasyMatch.setTime(realMatch.getTime());
+        }
+
+        // Copy score and other fields as necessary
+        fantasyMatch.setScore(realMatch.getScore());
+        fantasyMatch.setStatus(realMatch.getStatus());
+
+        // Associate with Fantasy League
+        fantasyMatch.setFantasyLeague(fantasyLeague);
+
+        return fantasyMatch;
     }
 
-    // Additional methods as needed
+    /**
+     * Generate a random time in the format "HH:mm".
+     */
+    private String generateRandomTime() {
+        Random rand = new Random();
+        int hour = rand.nextInt(10) + 10; // Generates hour between 10 and 19
+        int minute = rand.nextBoolean() ? 0 : 30; // Either 00 or 30 minutes
+        return String.format("%02d:%02d", hour, minute); // e.g., "14:30"
+    }
 }
