@@ -127,6 +127,12 @@
 			<version>8.0.33</version>
 		</dependency>
 
+        <!-- JSON Processing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
 
 		<!-- JWT Authentication -->
 		<dependency>
@@ -152,6 +158,13 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>6.3.3</version>
 		</dependency>
+
+        <!-- Spring Security Test (If using Spring Security) -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
 
 		<!-- Spring Security Starter -->

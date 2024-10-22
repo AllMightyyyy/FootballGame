@@ -32,15 +32,19 @@ public class Lineup {
     )
     private List<FantasyPlayer> substitutes = new ArrayList<>();
 
+    @Embedded
+    private Tactics tactics; // Newly added
+
     // Constructors
     public Lineup() {
     }
 
-    public Lineup(String formation, List<String> specialists, List<FantasyPlayer> starting11, List<FantasyPlayer> substitutes) {
+    public Lineup(String formation, List<String> specialists, List<FantasyPlayer> starting11, List<FantasyPlayer> substitutes, Tactics tactics) {
         this.formation = formation;
         this.specialists = specialists;
         this.starting11 = starting11;
         this.substitutes = substitutes;
+        this.tactics = tactics;
     }
 
     // Getters and Setters
@@ -75,6 +79,14 @@ public class Lineup {
 
     public void setSubstitutes(List<FantasyPlayer> substitutes) {
         this.substitutes = substitutes;
+    }
+
+    public Tactics getTactics() {
+        return tactics;
+    }
+
+    public void setTactics(Tactics tactics) {
+        this.tactics = tactics;
     }
 
     /**

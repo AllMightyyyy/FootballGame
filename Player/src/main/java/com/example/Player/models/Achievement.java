@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "achievements")
 public class Achievement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,24 +20,30 @@ public class Achievement {
     @ManyToMany(mappedBy = "achievements")
     private Set<FantasyTeam> fantasyTeams = new HashSet<>();
 
-    private boolean achieved;
-
     // Constructors
     public Achievement() {
     }
 
     public Achievement(String description) {
         this.description = description;
-        this.achieved = false;
     }
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<FantasyTeam> getFantasyTeams() {
@@ -45,17 +52,5 @@ public class Achievement {
 
     public void setFantasyTeams(Set<FantasyTeam> fantasyTeams) {
         this.fantasyTeams = fantasyTeams;
-    }
-
-    public boolean isAchieved() {
-        return achieved;
-    }
-
-    public void setAchieved(boolean achieved) {
-        this.achieved = achieved;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

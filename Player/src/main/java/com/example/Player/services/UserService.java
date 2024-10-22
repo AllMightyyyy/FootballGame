@@ -1,5 +1,4 @@
-// src/main/java/com/example/Player/services/UserService.java
-
+// UserService.java
 package com.example.Player.services;
 
 import java.util.Optional;
@@ -67,6 +66,13 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    /**
+     * Newly added method to find a user by ID.
+     */
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     // Implementing UserDetailsService method

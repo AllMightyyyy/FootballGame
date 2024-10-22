@@ -1,4 +1,5 @@
-// FantasyTeam.java
+// src/main/java/com/example/Player/models/FantasyTeam.java
+
 package com.example.Player.models;
 
 import jakarta.persistence.*;
@@ -59,6 +60,11 @@ public class FantasyTeam {
 
     public Long getId() {
         return id;
+    }
+
+    // Added setter for id
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTeamName() {
@@ -140,6 +146,4 @@ public class FantasyTeam {
     public void setFantasyLeague(FantasyLeague fantasyLeague) {
         this.fantasyLeague = fantasyLeague;
     }
-
-    // Additional methods as needed
 }

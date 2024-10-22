@@ -204,5 +204,12 @@ public class FantasyTeamService {
         fantasyTeamRepository.save(fantasyTeam);
     }
 
+    /**
+        Assigns an achievement to a fantasy team.
+     */
+    public void assignAchievement(FantasyTeam fantasyTeam, Achievement achievement) {
+        achievementService.assignAchievement(fantasyTeam, achievement);
+    }
+
     // Additional Methods for managing lineups, formations, specialists, etc., can be added here
 }

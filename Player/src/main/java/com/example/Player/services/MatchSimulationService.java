@@ -43,7 +43,7 @@ public class MatchSimulationService {
     /**
      * Simulates a match based on the provided request.
      */
-    public void simulateMatch(FantasyMatchSimulationRequest request) throws Exception {
+    public MatchOutcome  simulateMatch(FantasyMatchSimulationRequest request) throws Exception {
         FantasyLeague fantasyLeague = fantasyLeagueService.getFantasyLeagueByRealLeague(request.getRealLeague())
                 .orElseThrow(() -> new Exception("Fantasy League not found."));
 
@@ -56,8 +56,8 @@ public class MatchSimulationService {
         // Fetch lineups and tactics
         Lineup lineup1 = team1.getLineup();
         Lineup lineup2 = team2.getLineup();
-        Tactics tactics1 = request.getTactics1();
-        Tactics tactics2 = request.getTactics2();
+        Tactics tactics1 = lineup1.getTactics(); // Corrected
+        Tactics tactics2 = lineup2.getTactics(); // Corrected
 
         // Assign a referee
         Referee referee = request.getReferee();
@@ -79,6 +79,8 @@ public class MatchSimulationService {
         match.setStatus("completed");
         match.setEvents(String.join(", ", outcome.getEvents()));
         fantasyMatchService.saveFantasyMatch(match);
+
+        return outcome;
     }
 
     /**
@@ -102,8 +104,8 @@ public class MatchSimulationService {
             }
         }
 
-        // Adjust based on formation
-        strength *= formationMultiplier(tactics.getFormation());
+        // Adjust based on formation from Lineup
+        strength *= formationMultiplier(lineup.getFormation()); // Changed from tactics.getFormation()
 
         // Factor in pressing intensity
         strength += tactics.getPressing() * 0.05; // Example impact
@@ -328,6 +330,32 @@ public class MatchSimulationService {
             // Possibly trigger achievements or rewards
             Achievement achievement = new Achievement("Objective Achieved: " + objectiveDescription);
             fantasyTeamService.assignAchievement(team, achievement);
+        }
+    }
+
+    public void simulateScheduledMatches() throws Exception {
+        // Fetch all matches scheduled for today
+        List<FantasyMatch> scheduledMatches = fantasyMatchService.getScheduledMatchesForToday();
+
+        for (FantasyMatch match : scheduledMatches) {
+            // Prepare the simulation request
+            FantasyMatchSimulationRequest request = new FantasyMatchSimulationRequest();
+            request.setRealLeague(match.getTeam1().getFantasyLeague().getRealLeague());
+            request.setUser1(match.getTeam1().getOwner());
+            request.setUser2(match.getTeam2().getOwner());
+            request.setTactics1(match.getTeam1().getLineup().getTactics());
+            request.setTactics2(match.getTeam2().getLineup().getTactics());
+            request.setReferee(refereeService.assignRefereeToMatch());
+
+            // Simulate the match and get the outcome
+            MatchOutcome outcome = simulateMatch(request);
+
+            // Update match status and details
+            match.setStatus("completed");
+            match.setTeam1Score(outcome.getTeam1Score());
+            match.setTeam2Score(outcome.getTeam2Score());
+            match.setEvents(String.join(", ", outcome.getEvents()));
+            fantasyMatchService.saveFantasyMatch(match);
         }
     }
 }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+// src/main/java/com/example/Player/models/FriendlyMatch.java
+
 @Entity
 @Table(name = "friendly_matches")
 public class FriendlyMatch {
@@ -21,7 +23,7 @@ public class FriendlyMatch {
     @JoinColumn(name = "team2_id")
     private FantasyTeam team2;
 
-    private String status; // e.g., "REQUESTED", "ACCEPTED", "COMPLETED"
+    private String status;
 
     private LocalDateTime requestedAt;
     private LocalDateTime scheduledAt;
@@ -31,9 +33,13 @@ public class FriendlyMatch {
     }
 
     // Getters and Setters
-
     public Long getId() {
         return id;
+    }
+
+    // Add this setter for testing purposes only
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public FantasyTeam getTeam1() {

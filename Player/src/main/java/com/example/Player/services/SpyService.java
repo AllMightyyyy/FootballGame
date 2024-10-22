@@ -1,3 +1,4 @@
+// SpyService.java
 package com.example.Player.services;
 
 import com.example.Player.models.FantasyPlayer;
@@ -25,6 +26,9 @@ public class SpyService {
     @Autowired
     private FantasyPlayerService fantasyPlayerService;
 
+    /**
+     * Spies on a target team and generates a report.
+     */
     public SpyReport spyOnTeam(FantasyTeam reportingTeam, FantasyTeam targetTeam) {
         // Fetch tactics and player statuses
         Tactics targetTactics = fetchTeamTactics(targetTeam);
@@ -41,11 +45,17 @@ public class SpyService {
         return report;
     }
 
+    /**
+     * Retrieves the tactics of the target team via its lineup.
+     */
     private Tactics fetchTeamTactics(FantasyTeam team) {
-        // Implement logic to retrieve team's current tactics
-        return team.getCurrentTactics();
+        // Implement logic to retrieve team's current tactics via Lineup
+        return team.getLineup().getTactics(); // Updated to access via Lineup
     }
 
+    /**
+     * Serializes player stats and stamina.
+     */
     private String fetchPlayerStatuses(FantasyTeam team) {
         // Implement logic to serialize player stats and stamina
         StringBuilder status = new StringBuilder();

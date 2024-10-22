@@ -12,6 +12,5 @@ import com.example.Player.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = {"team", "team.league"})
     Optional<User> findByUsername(String username);
-
     boolean existsByUsername(String username);
 }

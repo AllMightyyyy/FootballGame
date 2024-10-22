@@ -2,6 +2,7 @@
 package com.example.Player.models;
 
 import jakarta.persistence.Embeddable;
+import lombok.*;
 
 @Embeddable
 public class Tactics {
@@ -12,21 +13,68 @@ public class Tactics {
     private MarkingType markingType; // ZONAL, MAN_TO_MAN
     private boolean offsideTrap;
 
-    // Constructors, Getters, and Setters
-
+    // Constructors
     public Tactics() {
     }
 
-    public Tactics(String gamePlan, String style, TacklingIntensity tacklingIntensity, int pressing, MarkingType markingType, boolean offsideTrap) {
+    public Tactics(String gamePlan, TacklingIntensity tacklingIntensity, int pressing, String style, MarkingType markingType, boolean offsideTrap) {
         this.gamePlan = gamePlan;
-        this.style = style;
         this.tacklingIntensity = tacklingIntensity;
         this.pressing = pressing;
+        this.style = style;
         this.markingType = markingType;
         this.offsideTrap = offsideTrap;
     }
 
-    // Getters and Setters...
+    // Getters and Setters
+
+    public String getGamePlan() {
+        return gamePlan;
+    }
+
+    public void setGamePlan(String gamePlan) {
+        this.gamePlan = gamePlan;
+    }
+
+    public TacklingIntensity getTacklingIntensity() {
+        return tacklingIntensity;
+    }
+
+    public void setTacklingIntensity(TacklingIntensity tacklingIntensity) {
+        this.tacklingIntensity = tacklingIntensity;
+    }
+
+    public int getPressing() {
+        return pressing;
+    }
+
+    public void setPressing(int pressing) {
+        this.pressing = pressing;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public MarkingType getMarkingType() {
+        return markingType;
+    }
+
+    public void setMarkingType(MarkingType markingType) {
+        this.markingType = markingType;
+    }
+
+    public boolean isOffsideTrap() {
+        return offsideTrap;
+    }
+
+    public void setOffsideTrap(boolean offsideTrap) {
+        this.offsideTrap = offsideTrap;
+    }
 
     /**
      * Converts gamePlan to a numerical value for simulation impact.

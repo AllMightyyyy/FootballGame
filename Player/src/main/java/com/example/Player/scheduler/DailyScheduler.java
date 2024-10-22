@@ -20,7 +20,7 @@ public class DailyScheduler {
     private TrainingService trainingService;
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
-    public void performDailyOperations() {
+    public void performDailyOperations() throws Exception {
         // Update player stamina and handle injuries
         fantasyPlayerService.updateStaminaAndInjuries();
 

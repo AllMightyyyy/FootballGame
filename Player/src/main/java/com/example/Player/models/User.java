@@ -3,7 +3,6 @@
 package com.example.Player.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +33,10 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Team team;
+
+    // New field for enabled status
+    @Column(nullable = false)
+    private boolean enabled;
 
     // Implementing UserDetails methods
 
@@ -71,8 +74,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true; // Modify as per your requirements
+        return this.enabled;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -104,5 +109,9 @@ public class User implements UserDetails {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
